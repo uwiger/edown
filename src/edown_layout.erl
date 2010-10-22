@@ -168,7 +168,7 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
     Functions = [{function_name(Ex), Ex} || Ex <- get_content(functions, Es)],
     Types = [{type_name(Ex), Ex} || Ex <- get_content(typedecls, Es)],
     SortedFs = lists:sort(Functions),
-    Body = (navigation("top")
+    Body = ([]   % navigation("top")
             ++ [{h1, Title}]
 	    ++ doc_index(FullDesc, Functions, Types)
 	    ++ ShortDesc
@@ -191,7 +191,7 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
 	    ++ if Opts#opts.sort_functions -> functions(SortedFs);
 		  true -> functions(Functions)
 	       end
-	    ++ navigation("bottom")
+	    %% ++ navigation("bottom")
 	    ++ timestamp()),
     %% if Name == "edown_doclet" ->
     %% 	    io:fwrite("edown_doclet:~n"
@@ -233,24 +233,25 @@ stylesheet(Opts) ->
 		     {title, "EDoc"}], []}]
     end.
 
-navigation(Where) ->
-    [{'div', [{class, "navbar"}],
-      [{a, [{name, "#navbar_" ++ Where}], []},
-       {table, [{width, "100%"}, {border,0},
-		{cellspacing, 0}, {cellpadding, 2},
-		{summary, "navigation bar"}],
-	[{tr,
-	  [{td, [{a, [{href, ?OVERVIEW_SUMMARY}, {target,"overviewFrame"}],
-		  ["Overview"]}]},
-	   {td, [{a, [{href, "http://www.erlang.org/"}],
-		  [{img, [{src, "erlang.png"}, {align, "right"},
-			  {border, 0}, {alt, "erlang logo"}],
-		    []}]}
-		]}
-	  ]}
-	]}
-      ]}
-    ].
+%% navigation(Where) ->
+%%     [{p, []},
+%%      {'div', [{class, "navbar"}],
+%%       [{a, [{name, "#navbar_" ++ Where}], []},
+%%        {table, [{width, "100%"}, {border,0},
+%% 		{cellspacing, 0}, {cellpadding, 2},
+%% 		{summary, "navigation bar"}],
+%% 	[{tr,
+%% 	  [{td, [{a, [{href, ?OVERVIEW_SUMMARY}, {target,"overviewFrame"}],
+%% 		  ["Overview"]}]},
+%% 	   {td, [{a, [{href, "http://www.erlang.org/"}],
+%% 		  [{img, [{src, "erlang.png"}, {align, "right"},
+%% 			  {border, 0}, {alt, "erlang logo"}],
+%% 		    []}]}
+%% 		]}
+%% 	  ]}
+%% 	]}
+%%       ]}
+%%     ].
 
 doc_index(FullDesc, Functions, Types) ->
     case doc_index_rows(FullDesc, Functions, Types) of
@@ -846,11 +847,11 @@ overview(E=#xmlElement{name = overview, content = Es}, Options) ->
     Opts = init_opts(E, Options),
     Title = [get_text(title, Es)],
     Desc = get_content(description, Es),
-%    ShortDesc = get_content(briefDescription, Desc),
+    ShortDesc = get_content(briefDescription, Desc),
     FullDesc = get_content(fullDescription, Desc),
-    Body = ([]  % navigation("top")
-	    ++ [{h1, [Title]}]
-%	    ++ ShortDesc
+    Body = ([]
+	    %% ++ [{h1, [Title]}]
+	    ++ ShortDesc
 	    ++ copyright(Es)
 	    ++ version(Es)
 	    ++ since(Es)

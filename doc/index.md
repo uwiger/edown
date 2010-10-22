@@ -1,9 +1,12 @@
+
+<table><tr><td><a href="erlang.png" alt="Erlang logo"></a></td><td><h1>The edown application</h1></td></tr></table>
+
 The edown application
 =====================
 
-
-#The edown application#
-
+Status:
+------
+More-or-less readable Markdown can be generated.
 Copyright © 2010 Erlang Solutions Ltd
 
 __Authors:__ [`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erlang-solutions.com).
@@ -58,5 +61,4 @@ with any other layout module than edown_layout, and vice versa.
 <tr><td><a href="edown_doclet.md" class="module">edown_doclet</a></td></tr>
 <tr><td><a href="edown_layout.md" class="module">edown_layout</a></td></tr>
 <tr><td><a href="edown_lib.md" class="module">edown_lib</a></td></tr>
-<tr><td><a href="edown_test.md" class="module">edown_test</a></td></tr>
 <tr><td><a href="edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>

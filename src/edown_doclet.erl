@@ -131,9 +131,16 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     packages(Packages, Dir, FileMap, Env, Options),
     Overview = overview(Dir, Title, Env, Options),
     Data = 
-	Overview
-	++ lists:concat([packages_frame(Packages) || Packages =/= []])
-	++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
+	[{table, [], 
+	   [{tr, [
+		  {td, [logo()]},
+		  {td, [{h1, [Title]}]}
+		 ]}
+	   ]},
+	 {p,[]}]
+	 ++ Overview
+	 ++ lists:concat([packages_frame(Packages) || Packages =/= []])
+	 ++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
 
     Text = xmerl:export_simple_content(Data, edown_xmerl),
     edoc_lib:write_file(Text, Dir, ?INDEX_FILE),
@@ -146,6 +153,8 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
 	false -> ok
     end.
 
+logo() ->
+    {a, [{href, "erlang.png"},{alt,["Erlang logo"]}],[]}.
 
 %% NEW-OPTIONS: title
 %% DEFER-OPTIONS: run/2

@@ -127,20 +127,13 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
 	       | Options0],
     Title = title(App, Options),
     %% CSS = stylesheet(Options),
-    io:fwrite("sources...~n", []),
     {Modules1, Error} = sources(Sources, Dir, Modules, Env, Options),
-    io:fwrite("packages...~n", []),
     packages(Packages, Dir, FileMap, Env, Options),
-    io:fwrite("overview...~n", []),
     Overview = overview(Dir, Title, Env, Options),
     Data = 
-	[{title, [Title]},
-	 hr]
-	++ Overview
+	Overview
 	++ lists:concat([packages_frame(Packages) || Packages =/= []])
 	++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
-
-    io:fwrite("*************~nData = ~p~n*************~n", [Data]),
 
     Text = xmerl:export_simple_content(Data, edown_xmerl),
     edoc_lib:write_file(Text, Dir, ?INDEX_FILE),
@@ -192,17 +185,14 @@ sources(Sources, Dir, Modules, Env, Options) ->
 
 source({M, P, Name, Path}, Dir, Suffix, Env, Set, Private, Hidden,
        Error, Options) ->
-    io:fwrite("source: ~p...~n", [Name]),
     File = filename:join(Path, Name),
     case catch {ok, edoc:get_doc(File, Env, Options)} of
 	{ok, {Module, Doc}} ->
-	    io:fwrite("get_doc() ok~n", []),
 	    check_name(Module, M, P, File),
 	    case ((not is_private(Doc)) orelse Private)
 		andalso ((not is_hidden(Doc)) orelse Hidden) of
 		true ->
 		    Text = edoc:layout(Doc, Options),
-		    io:fwrite("edoc:layout() ok~n", []),
 		    Name1 = packages:last(M) ++ Suffix,
 		    edoc_lib:write_file(Text, Dir, Name1, P),
 		    {sets:add_element(Module, Set), Error};
@@ -323,7 +313,7 @@ overview(Dir, Title, Env, Opts) ->
     F = fun (M) ->
 		M:overview(Data, Opts)
 	end,
-    Markdown = edoc_lib:run_layout(F, Opts).
+    _Markdown = edoc_lib:run_layout(F, Opts).
     %% edoc_lib:write_file(Text, Dir, ?OVERVIEW_SUMMARY).
 
 

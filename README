@@ -13,9 +13,7 @@ which do not point to the .md files.
 
 To generate markdown edoc, run:
 
-<pre>
-edoc:application(App, [{doclet, edown_doclet} | OtherOpts]).
-</pre>
+`edoc:application(App, [{doclet, edown_doclet} | OtherOpts]).`
 
 The `edown_xmerl` module is used as an xmerl export module.
 It converts xmerl's "simple xml" to Markdown syntax. Note that

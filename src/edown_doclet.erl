@@ -137,8 +137,8 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
 	[{title, [Title]},
 	 hr]
 	++ Overview
-	++ [packages_frame(Packages) || Packages =/= []]
-	++ [modules_frame(Modules1) || Modules1 =/= []],
+	++ lists:concat([packages_frame(Packages) || Packages =/= []])
+	++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
 
     io:fwrite("*************~nData = ~p~n*************~n", [Data]),
 

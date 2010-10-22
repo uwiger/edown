@@ -848,7 +848,7 @@ overview(E=#xmlElement{name = overview, content = Es}, Options) ->
     Desc = get_content(description, Es),
 %    ShortDesc = get_content(briefDescription, Desc),
     FullDesc = get_content(fullDescription, Desc),
-    Body = (navigation("top")
+    Body = ([]  % navigation("top")
 	    ++ [{h1, [Title]}]
 %	    ++ ShortDesc
 	    ++ copyright(Es)
@@ -858,10 +858,10 @@ overview(E=#xmlElement{name = overview, content = Es}, Options) ->
 	    ++ references(Es)
 	    ++ sees(Es)
 	    ++ todos(Es)
-	    ++ FullDesc
-	    ++ [hr]
-	    ++ navigation("bottom")
-	    ++ timestamp()),
+	    ++ FullDesc),
+	    %% ++ [hr]
+	    %% ++ navigation("bottom")
+	    %% ++ timestamp()),
     %% XML = xhtml(Title, stylesheet(Opts), Body),
     XML = markdown(Title, stylesheet(Opts), Body).
     %% xmerl:export_simple_content(XML, ?HTML_EXPORT).

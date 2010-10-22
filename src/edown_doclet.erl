@@ -20,10 +20,6 @@
 
 %% @doc EDoc Doclet module for producing Github-flavored Markdown.
 
-%% TODO: copy "doc-files" subdirectories, recursively.
-%% TODO: generate summary page of TODO-notes
-%% TODO: generate summary page of deprecated things
-%% TODO: generate decent indexes over modules, methods, records, etc.
 
 -module(edown_doclet).
 
@@ -31,7 +27,6 @@
 
 -import(edoc_report, [report/2, warning/2]).
 
-%% @headerfile "edoc_doclet.hrl"
 -include_lib("edoc/include/edoc_doclet.hrl").
 
 -define(EDOC_APP, edoc).

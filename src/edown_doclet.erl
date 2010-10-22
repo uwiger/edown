@@ -131,13 +131,7 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     packages(Packages, Dir, FileMap, Env, Options),
     Overview = overview(Dir, Title, Env, Options),
     Data = 
-	[{table, [], 
-	   [{tr, [
-		  {td, [logo()]},
-		  {td, [{h1, [Title]}]}
-		 ]}
-	   ]},
-	 {p,[]}]
+	[{h1, [Title]}]
 	 ++ Overview
 	 ++ lists:concat([packages_frame(Packages) || Packages =/= []])
 	 ++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
@@ -153,8 +147,11 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
 	false -> ok
     end.
 
-logo() ->
-    {img, [{src, "erlang.png"},{alt,["Erlang logo"]}],[]}.
+%% Tried to display logo in a table on top of page, but not working.
+%% Presumably, this hits some limitation of GFM
+%%
+%% logo() ->
+%%     {img, [{src, "erlang.png"},{alt,["Erlang logo"]}],[]}.
 
 %% NEW-OPTIONS: title
 %% DEFER-OPTIONS: run/2

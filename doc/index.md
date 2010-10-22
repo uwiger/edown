@@ -1,6 +1,6 @@
 
-<table><tr><td><img src="erlang.png" alt="Erlang logo"></td><td><h1>The edown application</h1></td></tr></table>
 
+#The edown application#
 The edown application
 =====================
 

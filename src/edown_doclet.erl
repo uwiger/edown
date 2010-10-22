@@ -154,7 +154,7 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     end.
 
 logo() ->
-    {a, [{href, "erlang.png"},{alt,["Erlang logo"]}],[]}.
+    {img, [{src, "erlang.png"},{alt,["Erlang logo"]}],[]}.
 
 %% NEW-OPTIONS: title
 %% DEFER-OPTIONS: run/2

@@ -1,5 +1,5 @@
 
-<table><tr><td><a href="erlang.png" alt="Erlang logo"></a></td><td><h1>The edown application</h1></td></tr></table>
+<table><tr><td><img src="erlang.png" alt="Erlang logo"></td><td><h1>The edown application</h1></td></tr></table>
 
 The edown application
 =====================

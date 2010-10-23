@@ -31,7 +31,7 @@
 
 -define(EDOC_APP, edoc).
 -define(DEFAULT_FILE_SUFFIX, ".md").
--define(INDEX_FILE, "index.md").
+-define(INDEX_FILE, "README.md").
 -define(OVERVIEW_FILE, "overview.edoc").
 -define(PACKAGE_SUMMARY, "package-summary.md").
 -define(OVERVIEW_SUMMARY, "overview-summary.md").

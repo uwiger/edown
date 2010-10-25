@@ -42,11 +42,20 @@
 
 '#text#'(Text) ->
     %% export_text(Text).
-    try binary_to_list(list_to_binary(Text))
+    try normalize(binary_to_list(list_to_binary(Text)))
     catch
 	error:_ ->
 	    lists:flatten(io_lib:fwrite("~p", [Text]))
     end.
+
+normalize("\n" ++ [H|T]) when H==$\s;
+			      H==$\t ->
+    normalize("\n" ++ T);
+normalize([H|T]) ->
+    [H|normalize(T)];
+normalize([]) ->
+    [].
+
 
 
 
@@ -67,12 +76,26 @@
 %% for an example. (By default, we always generate the end tag, to make
 %% sure that the scope of a markup is not extended by mistake.)
 
+'#element#'('div', Data, _, _Parents, _E) ->
+    %% special case - we use 'div' to enforce html encoding
+    Data;
 '#element#'(Tag, Data, Attrs, Parents, E) ->
-    case within_html(Parents) of
+    case needs_html(Tag) orelse within_html(Parents) of
 	true ->
-	    xmerl_html:'#element#'(Tag, Data, Attrs, Parents, E);
+	    html_elem(Tag, Data, Attrs, Parents, E);
 	false ->
 	    elem(Tag, Data, Attrs, Parents, E)
+    end.
+
+html_elem(Tag, Data, Attrs, Parents, E) ->
+    HTML = fun() ->
+		   xmerl_html:'#element#'(Tag, Data, Attrs, Parents, E)
+	   end,
+    case within_html(Parents) of
+	true ->
+	    HTML();
+	false ->
+	    ["\n\n", HTML(), "\n\n"]
     end.
 
 elem(a, Data, Attrs, _Parents, _E) ->
@@ -104,19 +127,20 @@ elem(Tag, Data, Attrs, Parents, E) ->
 	    %% io:fwrite("TITLE = |~s|~n", [Data]),
 	    Str = lists:flatten(Data),
 	    Str ++ "\n" ++ [$= || _ <- Str] ++ "\n";
-	html -> Data;
-	body -> Data;
-	ul   -> Data;
-	ol   -> Data;
-	p    -> "\n" ++ Data;
-	b    -> "__" ++ no_nl(Data) ++ "__";
-	em   -> "_" ++ no_nl(Data) ++ "_";
-	i    -> "_" ++ no_nl(Data) ++ "_";
-	tt   -> "`" ++ no_nl(Data) ++ "`";
-	code -> "`" ++ no_nl(Data) ++ "`";
-	dl   -> Data;
-	dt   -> elem(h3, Data, Attrs, Parents, E);
-	dd   -> elem(p, Data, Attrs, Parents, E);
+	html  -> Data;
+	body  -> Data;
+	'div' -> Data;
+	ul    -> Data;
+	ol    -> Data;
+	p     -> "\n\n" ++ Data;
+	b     -> "__" ++ no_nl(Data) ++ "__";
+	em    -> "_" ++ no_nl(Data) ++ "_";
+	i     -> "_" ++ no_nl(Data) ++ "_";
+	tt    -> "`" ++ no_nl(Data) ++ "`";
+	code  -> "`" ++ no_nl(Data) ++ "`";
+	dl    -> Data;
+	dt    -> html_elem(h3, Data, Attrs, Parents, E);
+	dd    -> html_elem(p, Data, Attrs, Parents, E);
 	h1 -> "\n\n#" ++ no_nl(Data) ++ "#\n";
 	h2 -> "\n\n##" ++ no_nl(Data) ++ "##\n";
 	h3 -> "\n\n###" ++ no_nl(Data) ++ "##\n";
@@ -132,10 +156,10 @@ elem(Tag, Data, Attrs, Parents, E) ->
     end.
 
 within_html(Tags) ->
-    lists:any(fun needs_html/1, Tags).
+    lists:any(fun({T,_}) -> needs_html(T) end, Tags).
 
-needs_html({T,_}) ->
-    lists:member(T, [table]).
+needs_html(T) ->
+    lists:member(T, [table,'div',h1,h2,h3,h4,dd,dt]).
 
 no_nl(S) ->
     string:strip([C || C <- lists:flatten(S),

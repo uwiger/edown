@@ -1,15 +1,19 @@
 
 
-#The edown application#
+<h1>The edown application</h1>
+
 The edown application
 =====================
 
 Status:
 ------
 More-or-less readable Markdown can be generated.
+
 Copyright © 2010 Erlang Solutions Ltd
 
+
 __Authors:__ [`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erlang-solutions.com).
+
 
 Status:
 ------
@@ -18,6 +22,7 @@ A doclet needs to be written that also creates
 a markdown-based index and overview. Currently, the 
 edoc_doclet creates an index.html and overview.html,
 which do not point to the .md files.
+
 
 
 To generate markdown edoc, run:
@@ -29,11 +34,13 @@ edoc:application(App, [{doclet, edown_doclet} | OtherOpts]).
 
 
 
+
 The `edown_xmerl` module is used as an xmerl export module.
 It converts xmerl's "simple xml" to Markdown syntax. Note that
 GH-flavored Markdown allows HTML markup (at least common tags),
 but doesn't expand markdown markup inside HTML markup, so the 
 `edown_xmerl` module has to know the context in which it operates.
+
 
 
 NOTE
@@ -55,10 +62,13 @@ than complying fully with the plugin framework. That is, the
 edown_doclet module will not go out of its way to function together
 with any other layout module than edown_layout, and vice versa.
 
-##Modules##
+<h2 class="indextitle">Modules</h2>
+
+
 
 <table width="100%" border="0" summary="list of modules">
 <tr><td><a href="edown_doclet.md" class="module">edown_doclet</a></td></tr>
 <tr><td><a href="edown_layout.md" class="module">edown_layout</a></td></tr>
 <tr><td><a href="edown_lib.md" class="module">edown_lib</a></td></tr>
 <tr><td><a href="edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
+

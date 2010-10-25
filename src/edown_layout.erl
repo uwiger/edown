@@ -202,9 +202,31 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
     %% 	    io:fwrite("not edown_doclet (~p)~n", [Name])
     %% end,
     %% xhtml(Title, stylesheet(Opts), Body).
-    Res = markdown(Title, stylesheet(Opts), Body),
+    Res = to_simple(markdown(Title, stylesheet(Opts), Body)),
     %% io:fwrite("Res = ~p~n", [Res]),
     Res.
+
+%% This function is a workaround for a bug in xmerl_lib:expand_content/1 that 
+%% causes it to lose track of the parents if #xmlElement{} records are 
+%% encountered in the structure.
+%%
+to_simple([#xmlElement{name = Name, attributes = Attrs, content = Content}|T]) ->
+    [{Name, to_simple_attrs(Attrs), to_simple(Content)} | to_simple(T)];
+to_simple([#xmlText{} = H | T]) ->
+    [H | to_simple(T)];
+to_simple([{N,C} | T]) ->
+    [{N, to_simple(C)} | to_simple(T)];
+to_simple([{N,As,C} | T]) ->
+    [{N, As, to_simple(C)} | to_simple(T)];
+to_simple([[_|_] = L | T]) ->
+    [to_simple(lists:flatten(L)) | to_simple(T)];
+to_simple([H|T]) ->
+    [H | to_simple(T)];
+to_simple([]) ->
+    [].
+
+to_simple_attrs(As) ->
+    [{K,V} || #xmlAttribute{name = K, value = V} <- As].
 
 module_params(Es) ->
     As = [{get_text(argName, Es1),
@@ -431,17 +453,18 @@ throws(Es) ->
     case get_content(throws, Es) of
 	[] -> [];
 	Es1 ->
-	    [{p, (["throws ", {tt, t_utype(get_elem(type, Es1))}]
-		  ++ local_defs(get_elem(localdef, Es1)))}]
+	    [{p, (["throws ", 
+		   {'div', [{class,"html"}], {tt, t_utype(get_elem(type, Es1))}}]
+		   ++ local_defs(get_elem(localdef, Es1)))}]
     end.
 
 %% <!ELEMENT typespec (erlangName, type, localdef*)>
 
 typespec([]) -> [];
 typespec(Es) ->
-    [{tt, ([t_name(get_elem(erlangName, Es))]
-	   ++ t_utype(get_elem(type, Es)))}]
-	++ local_defs(get_elem(localdef, Es)).
+    [{'div', [{class,"html"}], [{tt, ([t_name(get_elem(erlangName, Es))]
+				      ++ t_utype(get_elem(type, Es)))}]}]
+     ++ local_defs(get_elem(localdef, Es)).
 
 %% <!ELEMENT typedecl (typedef, description?)>
 %% <!ELEMENT typedef (erlangName, argtypes, type?, localdef*)>
@@ -456,7 +479,7 @@ typedecl(Name, E=#xmlElement{content = Es}) ->
     Lbl = Name ++ "()",
     (label_anchor(Lbl, E)
      ++ [{h3, [{class, "typedecl"}], [Lbl]}]
-     ++ [{p, typedef(get_content(typedef, Es))}]
+     ++ [{'div', [{class,"html"}], typedef(get_content(typedef, Es))}]
      ++ fulldesc(Es)).
 
 type_name(#xmlElement{content = Es}) ->

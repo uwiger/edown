@@ -52,8 +52,8 @@
 %% @spec (Command::doclet_gen() | doclet_toc(), edoc_context()) -> ok
 %% @doc Main doclet entry point. 
 %%
-%% Also see {@link edoc:layout/2} for layout-related options, and
-%% {@link edoc:get_doc/2} for options related to reading source
+%% Also see {@link //edoc/edoc:layout/2} for layout-related options, and
+%% {@link //edoc/edoc:get_doc/2} for options related to reading source
 %% files.
 %%
 %% Options:
@@ -117,9 +117,9 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     Dir = Ctxt#context.dir,
     Env = Ctxt#context.env,
     Options0 = Ctxt#context.opts,
-    Options = [{layout,edown_layout},
-	       {file_suffix,".md"}
-	       | Options0],
+    Options = set_app_default([{layout,edown_layout},
+			       {file_suffix,".md"}
+			       | Options0]),
     Title = title(App, Options),
     %% CSS = stylesheet(Options),
     {Modules1, Error} = sources(Sources, Dir, Modules, Env, Options),
@@ -140,6 +140,15 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     case Error of
 	true -> exit(error);
 	false -> ok
+    end.
+
+
+set_app_default(Opts) ->
+    case lists:keyfind(app_default,1,Opts) of
+	false ->
+	    [{app_default, "http://www.erlang.org/doc/man"}|Opts];
+	_ ->
+	    Opts
     end.
 
 %% Tried to display logo in a table on top of page, but not working.

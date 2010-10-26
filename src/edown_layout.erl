@@ -76,7 +76,8 @@
 %%  </dd>
 %% </dl>
 %%
-%% @see edoc:layout/2
+%% @see edown_doclet:layout/2
+%% @see //edoc/edoc:layout/2
 
 %% NEW-OPTIONS: xml_export, index_columns, stylesheet
 
@@ -524,7 +525,29 @@ sees(Es) ->
     end.
 
 see(E=#xmlElement{content = Es}) ->
-    see(E, Es).
+    case get_attrval(name, E) of
+	"" ->
+	    see(E, Es);
+	[_|_] = Str ->
+	    see(redirect_uri(Str, E), Es)
+    end.
+
+redirect_uri("//" ++ _, E) ->
+    %% We don't handle this... yet. Presumably, the user does with some 
+    %% of those options only Richard Carlsson knows are there.
+    E;
+redirect_uri(Str, #xmlElement{attributes = As} = E) ->
+    case re:split(Str, ":", [{return,list}]) of
+	[_, _] ->
+	    #xmlAttribute{value = URI} = A =
+		lists:keyfind(href, #xmlAttribute.name, As),
+	    NewURI = re:replace(URI,".html",".md",[{return,list}]),
+	    As1 = lists:keyreplace(href, #xmlAttribute.name, As,
+				   A#xmlAttribute{value = NewURI}),
+	    E#xmlElement{attributes = As1};
+	_ ->
+	    E
+    end.
 
 see(E, Es) ->
     case href(E) of
@@ -887,5 +910,5 @@ overview(E=#xmlElement{name = overview, content = Es}, Options) ->
 	    %% ++ navigation("bottom")
 	    %% ++ timestamp()),
     %% XML = xhtml(Title, stylesheet(Opts), Body),
-    XML = markdown(Title, stylesheet(Opts), Body).
+    _XML = markdown(Title, stylesheet(Opts), Body).
     %% xmerl:export_simple_content(XML, ?HTML_EXPORT).

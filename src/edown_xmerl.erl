@@ -139,8 +139,8 @@ elem(Tag, Data, Attrs, Parents, E) ->
 	tt    -> "`" ++ no_nl(Data) ++ "`";
 	code  -> "`" ++ no_nl(Data) ++ "`";
 	dl    -> Data;
-	dt    -> html_elem(h3, Data, Attrs, Parents, E);
-	dd    -> html_elem(p, Data, Attrs, Parents, E);
+	dt    -> html_elem(dt, Data, Attrs, Parents, E);
+	dd    -> html_elem(dd, Data, Attrs, Parents, E);
 	h1 -> "\n\n#" ++ no_nl(Data) ++ "#\n";
 	h2 -> "\n\n##" ++ no_nl(Data) ++ "##\n";
 	h3 -> "\n\n###" ++ no_nl(Data) ++ "##\n";

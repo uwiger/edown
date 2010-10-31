@@ -59,13 +59,15 @@ redirect_uri("/" ++ _  = URI, "//" ++ _, E) ->
 	false ->
 	    false
     end;
-redirect_uri(_, Name, E) ->
-    case re:split(Name, ":", [{return,list}]) of
-	[_, _] ->
+redirect_uri("", _, _) ->
+    false;
+redirect_uri(Href, _Name, E) ->
+    case lists:member("/", Href) of
+	false ->
 	    [_|_] = URI = get_attrval(href, E),
 	    NewURI = re:replace(URI,".html",".md",[{return,list}]),
 	    replace_uri(NewURI, E);
-	_ ->
+	true ->
 	    false
     end.
 

@@ -172,6 +172,7 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
     Body = ([]   % navigation("top")
             ++ [{h1, Title}]
 	    ++ doc_index(FullDesc, Functions, Types)
+	    ++ [{p,[]}]
 	    ++ ShortDesc
 	    ++ [{p,[]}]
 	    ++ copyright(Es)

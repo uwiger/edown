@@ -68,7 +68,7 @@
 %%  <dd>If the value is `true', documentation of hidden modules and
 %%      functions will also be included. The default value is `false'.
 %%  </dd>
-%%  <dt>{@type {overview, edoc:filename()@}}
+%%  <dt>{@type {overview, //edoc/edoc:filename()@}}
 %%  </dt>
 %%  <dd>Specifies the name of the overview-file. By default, this doclet
 %%      looks for a file `"overview.edoc"' in the target directory.
@@ -84,7 +84,7 @@
 %%      default value is `"stylesheet.css"'. If an empty string is
 %%      specified, no stylesheet reference will be generated.
 %%  </dd>
-%%  <dt>{@type {stylesheet_file, edoc:filename()@}}
+%%  <dt>{@type {stylesheet_file, //edoc/edoc:filename()@}}
 %%  </dt>
 %%  <dd>Specifies the name of the stylesheet file. By default, this
 %%      doclet uses the file `"stylesheet.css"' in the `priv'

@@ -526,58 +526,7 @@ sees(Es) ->
     end.
 
 see(E=#xmlElement{content = Es}) ->
-    case get_attrval(name, E) of
-	"" ->
-	    see(E, Es);
-	[_|_] = Str ->
-	    see(redirect_uri(Str, E), Es)
-    end.
-
-redirect_uri("//" ++ _Str, E) ->
-    case get_attrval(href, E) of
-	"http://" ++ _ = URI ->
-	    %% abusing the filename API a little - but whatever works...
-	    case filename:split(URI) of
-		[_,"www.erlang.org","doc","man",_,"doc",Mod] ->
-		    NewURI = "http://www.erlang.org/doc/man/" ++ Mod,
-		    replace_uri(NewURI, E);
-		_Split ->
-		    E
-	    end;
-	"/" ++ _  = URI ->
-	    case lists:prefix(otp_root(), URI) of
-		true ->
-		    case lists:reverse(filename:split(URI)) of
-			[Mod, "doc", _App | _] ->
-			    NewURI = "http://www.erlang.org/doc/man/" ++ Mod,
-			    replace_uri(NewURI, E);
-			_ ->
-			    E
-		    end;
-		false ->
-		    E
-	    end
-    end;
-redirect_uri(Str, #xmlElement{} = E) ->
-    case re:split(Str, ":", [{return,list}]) of
-	[_, _] ->
-	    [_|_] = URI = get_attrval(href, E),
-	    NewURI = re:replace(URI,".html",".md",[{return,list}]),
-	    replace_uri(NewURI, E);
-	_ ->
-	    E
-    end.
-
-replace_uri(URI, #xmlElement{attributes = As} = E) ->
-    #xmlAttribute{} = A = lists:keyfind(href, #xmlAttribute.name, As),
-    As1 = lists:keyreplace(href, #xmlAttribute.name, As,
-			   A#xmlAttribute{value = URI}),
-    E#xmlElement{attributes = As1}.
-
-otp_root() ->
-    {ok, [[Root]]} = init:get_argument(root),
-    Root.
-
+    see(E, Es).
 
 
 see(E, Es) ->

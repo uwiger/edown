@@ -79,12 +79,24 @@ normalize([]) ->
 '#element#'('div', Data, _, _Parents, _E) ->
     %% special case - we use 'div' to enforce html encoding
     Data;
+'#element#'(a, Data, Attrs, Parents, E) ->
+    case edown_lib:redirect_uri(E) of
+	false ->
+	    elem(a, Data, Attrs, Parents, E);
+	#xmlElement{attributes = Attrs1, parents = Parents1,
+		    content = Data1} = E1 ->
+	    elem(a, Data, Attrs1, Parents1, E1)
+    end;
 '#element#'(Tag, Data, Attrs, Parents, E) ->
+    elem(Tag, Data, Attrs, Parents, E).
+
+
+elem(Tag, Data, Attrs, Parents, E) ->
     case needs_html(Tag) orelse within_html(Parents) of
 	true ->
 	    html_elem(Tag, Data, Attrs, Parents, E);
 	false ->
-	    elem(Tag, Data, Attrs, Parents, E)
+	    md_elem(Tag, Data, Attrs, Parents, E)
     end.
 
 html_elem(Tag, Data, Attrs, Parents, E) ->
@@ -98,7 +110,7 @@ html_elem(Tag, Data, Attrs, Parents, E) ->
 	    ["\n\n", HTML(), "\n\n"]
     end.
 
-elem(a, Data, Attrs, _Parents, _E) ->
+md_elem(a, Data, Attrs, _Parents, _E) ->
     %% io:fwrite("A TAG = ~p~nPs = ~p~n", [Data, _Parents]),
     case lists:keyfind(href, #xmlAttribute.name, Attrs) of
 	#xmlAttribute{value = HRef}  ->
@@ -113,15 +125,15 @@ elem(a, Data, Attrs, _Parents, _E) ->
 		    "\n"]
 	    end
     end;
-elem(img, _Data, Attrs, _Parents, _E) ->
+md_elem(img, _Data, Attrs, _Parents, _E) ->
     #xmlAttribute{value = Src} = lists:keyfind(src,#xmlAttribute.name,Attrs),
     #xmlAttribute{value = Alt} = lists:keyfind(alt,#xmlAttribute.name,Attrs),
     "![" ++ Alt ++ "](" ++ Src ++ ")";
-elem(li, Data, _Attrs, [{ul,_}|_], _E) ->
+md_elem(li, Data, _Attrs, [{ul,_}|_], _E) ->
     "* " ++ Data ++ "\n";
-elem(li, Data, _Attrs, [{ol,_}|_], _E) ->
+md_elem(li, Data, _Attrs, [{ol,_}|_], _E) ->
     "1. " ++ Data ++ "\n";
-elem(Tag, Data, Attrs, Parents, E) ->
+md_elem(Tag, Data, Attrs, Parents, E) ->
     case Tag of
 	title ->
 	    %% io:fwrite("TITLE = |~s|~n", [Data]),

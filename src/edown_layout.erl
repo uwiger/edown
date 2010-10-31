@@ -164,8 +164,8 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
 		_ -> ["Abstract module ", Name, " [", {Args}, "]"]
 	    end,
     Desc = get_content(description, Es),
-    ShortDesc = get_content(briefDescription, Desc),
     FullDesc = get_content(fullDescription, Desc),
+    {ShortDesc, RestDesc} = get_first_sentence(FullDesc),
     Functions = [{function_name(Ex), Ex} || Ex <- get_content(functions, Es)],
     Types = [{type_name(Ex), Ex} || Ex <- get_content(typedecls, Es)],
     SortedFs = lists:sort(Functions),
@@ -173,6 +173,7 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
             ++ [{h1, Title}]
 	    ++ doc_index(FullDesc, Functions, Types)
 	    ++ ShortDesc
+	    ++ [{p,[]}]
 	    ++ copyright(Es)
 	    ++ deprecated(Es, "module")
 	    ++ version(Es)
@@ -182,10 +183,10 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
 	    ++ references(Es)
 	    ++ sees(Es)
 	    ++ todos(Es)
-	    ++ if FullDesc == [] -> [];
+	    ++ if RestDesc == [] -> [];
 		  true -> [{h2, [{a, [{name, "description"}],
 				  ["Description"]}]}
-			   | FullDesc]
+			   | RestDesc]
 	       end
 	    ++ types(lists:sort(Types))
 	    ++ function_index(SortedFs, Opts#opts.index_columns)
@@ -532,22 +533,52 @@ see(E=#xmlElement{content = Es}) ->
 	    see(redirect_uri(Str, E), Es)
     end.
 
-redirect_uri("//" ++ _, E) ->
-    %% We don't handle this... yet. Presumably, the user does with some 
-    %% of those options only Richard Carlsson knows are there.
-    E;
-redirect_uri(Str, #xmlElement{attributes = As} = E) ->
+redirect_uri("//" ++ _Str, E) ->
+    case get_attrval(href, E) of
+	"http://" ++ _ = URI ->
+	    %% abusing the filename API a little - but whatever works...
+	    case filename:split(URI) of
+		[_,"www.erlang.org","doc","man",_,"doc",Mod] ->
+		    NewURI = "http://www.erlang.org/doc/man/" ++ Mod,
+		    replace_uri(NewURI, E);
+		_Split ->
+		    E
+	    end;
+	"/" ++ _  = URI ->
+	    case lists:prefix(otp_root(), URI) of
+		true ->
+		    case lists:reverse(filename:split(URI)) of
+			[Mod, "doc", _App | _] ->
+			    NewURI = "http://www.erlang.org/doc/man/" ++ Mod,
+			    replace_uri(NewURI, E);
+			_ ->
+			    E
+		    end;
+		false ->
+		    E
+	    end
+    end;
+redirect_uri(Str, #xmlElement{} = E) ->
     case re:split(Str, ":", [{return,list}]) of
 	[_, _] ->
-	    #xmlAttribute{value = URI} = A =
-		lists:keyfind(href, #xmlAttribute.name, As),
+	    [_|_] = URI = get_attrval(href, E),
 	    NewURI = re:replace(URI,".html",".md",[{return,list}]),
-	    As1 = lists:keyreplace(href, #xmlAttribute.name, As,
-				   A#xmlAttribute{value = NewURI}),
-	    E#xmlElement{attributes = As1};
+	    replace_uri(NewURI, E);
 	_ ->
 	    E
     end.
+
+replace_uri(URI, #xmlElement{attributes = As} = E) ->
+    #xmlAttribute{} = A = lists:keyfind(href, #xmlAttribute.name, As),
+    As1 = lists:keyreplace(href, #xmlAttribute.name, As,
+			   A#xmlAttribute{value = URI}),
+    E#xmlElement{attributes = As1}.
+
+otp_root() ->
+    {ok, [[Root]]} = init:get_argument(root),
+    Root.
+
+
 
 see(E, Es) ->
     case href(E) of
@@ -912,3 +943,62 @@ overview(E=#xmlElement{name = overview, content = Es}, Options) ->
     %% XML = xhtml(Title, stylesheet(Opts), Body),
     _XML = markdown(Title, stylesheet(Opts), Body).
     %% xmerl:export_simple_content(XML, ?HTML_EXPORT).
+
+
+get_first_sentence([#xmlElement{name = p, content = Es} | Tail]) ->
+    %% Descend into initial paragraph.
+    {First, Rest} = get_first_sentence_1(Es),
+    {First,
+     [#xmlElement{name = p, content = Rest} || Rest =/= []] ++ Tail};
+get_first_sentence(Es) ->
+    get_first_sentence_1(Es).
+
+get_first_sentence_1(Es) ->
+    get_first_sentence_1(Es, []).
+    
+get_first_sentence_1([E = #xmlText{value = Txt} | Es], Acc) ->
+    Last = case Es of
+	       [#xmlElement{name = p} | _] -> true;
+	       [#xmlElement{name = br} | _] -> true;
+	       [] -> true;
+	       _ -> false
+	   end,
+    case end_of_sentence(Txt, Last) of
+	{value, Txt1, Rest} ->
+	    {lists:reverse([E#xmlText{value = Txt1}|Acc]),
+	     if Rest == [] ->
+		     Es;
+		true ->
+		     [#xmlText{value=Rest} | Es]
+	     end};
+	none ->
+	    get_first_sentence_1(Es, [E | Acc])
+    end;
+get_first_sentence_1([E | Es], Acc) ->
+    % Skip non-text segments - don't descend further
+    get_first_sentence_1(Es, [E | Acc]);
+get_first_sentence_1([], Acc) ->
+    {lists:reverse(Acc), []}.
+
+end_of_sentence(Cs, Last) ->
+    end_of_sentence(Cs, Last, []).
+
+%% We detect '.' and '!' as end-of-sentence markers.
+
+end_of_sentence([$.=A, B | Cs], _, As) when B==$\s; B==$\t; B==$\n ->
+    end_of_sentence_1(A, Cs, true, As);
+end_of_sentence([$.=A], Last, As) ->
+    end_of_sentence_1(A, [], Last, As);
+end_of_sentence([$!=A, B | Cs], _, As) when B==$\s; B==$\t; B==$\n ->
+    end_of_sentence_1(A, Cs, true, As);
+end_of_sentence([$!=A], Last, As) ->
+    end_of_sentence_1(A, [], Last, As);
+end_of_sentence([C | Cs], Last, As) ->
+    end_of_sentence(Cs, Last, [C | As]);
+end_of_sentence([], Last, As) ->
+    end_of_sentence_1($., [], Last, edoc_lib:strip_space(As)).  % add a '.'
+
+end_of_sentence_1(C, Cs, true, As) ->
+    {value, lists:reverse([C | As]), Cs};
+end_of_sentence_1(_, _, false, _) ->
+    none.

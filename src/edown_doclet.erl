@@ -18,7 +18,7 @@
 %% @end
 %% =====================================================================
 
-%% @doc EDoc Doclet module for producing Github-flavored Markdown.
+%% @doc EDoc Doclet module for producing Markdown.
 
 
 -module(edown_doclet).

@@ -18,7 +18,7 @@
 {application, edown,
  [
   {vsn, "0.1"},
-  {description, "Github-flavored Markdown extension for EDoc"},
+  {description, "Markdown extension for EDoc"},
   {applications, [kernel, stdlib]},
   {mod, {jobs_app, []}},
   {env, []}

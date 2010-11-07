@@ -18,7 +18,7 @@
 %% @end
 %% =====================================================================
 
-%% Description  : Callback module for exporting XML to Github-flavored Markdown.
+%% Description  : Callback module for exporting XML to Markdown.
 
 -module(edown_xmerl).
 
@@ -83,8 +83,7 @@ normalize([]) ->
     case edown_lib:redirect_uri(E) of
 	false ->
 	    elem(a, Data, Attrs, Parents, E);
-	#xmlElement{attributes = Attrs1, parents = Parents1,
-		    content = Data1} = E1 ->
+	#xmlElement{attributes = Attrs1, parents = Parents1} = E1 ->
 	    elem(a, Data, Attrs1, Parents1, E1)
     end;
 '#element#'(Tag, Data, Attrs, Parents, E) ->

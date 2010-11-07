@@ -18,7 +18,7 @@
 %% @end
 %% =====================================================================
 
-%% @doc Github-flavored Markdown for EDoc - common support functions
+%% @doc Markdown for EDoc - common support functions
 %% @end
 
 -module(edown_lib).

@@ -18,7 +18,7 @@
 %% @end
 %% =====================================================================
 
-%% @doc Github-flavored Markdown layout module for EDoc.
+%% @doc Markdown layout module for EDoc.
 %% Derived from `edoc_layout', which is part of the Erlang/OTP application EDoc.
 %% The module is intended to be used together with edoc.
 %% @end

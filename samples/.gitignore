@@ -16,7 +16,7 @@ edoc-info
 *.log
 
 # specific sample files (relative to sample/)
-markedoc/doc/*.edoc
+markedoc/doc/S*.edoc
 markedoc/doc/*.html
 markedoc/doc/edoc-info
 markedoc/doc/stylesheet.css

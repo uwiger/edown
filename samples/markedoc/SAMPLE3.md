@@ -1,19 +1,31 @@
-edown markedoc 0.3.2
-====================
+SAMPLE 3: markedoc 0.3 README of Feb 2011
+=========================================
 
-**markedoc helps you keep your project's README.md in sync with your overview.edoc.**
+```
+ --------------------------------------------------------------
+| THIS TEXT IS USED AS A SAMPLE TO ILLUSTRATE MARKEDOC USAGE.  |
+| If you see this in your browser, you succeeded compiling it  |
+| from markdown into an edoc.  As you see it's complex enough. |
+ --------------------------------------------------------------
+'''
 
-This is the opposite direction from what **edown** otherwise does.
-
-markedoc translates [Markdown][] formatted texts into [Erlang][] [EDoc][] format, for inclusion into [EDoc][] generated html docs. It is for use on Linux, FreeBSD and Mac OS X and any system that you can install  **[sed][Requirements]** on.
+ **markedoc helps you keep your project's README.md in sync with your overview.edoc.**
+ 
+It is for use on Linux, FreeBSD and Mac OS X and any system that you can install  **[sed][Requirements]** on.
 
 Status: [pre-beta][Status]. Quite stable and usable. See [Status][].
 
-markedoc is a mere [sed][] command file to convert markdown to edoc. It is part of the **[edown][]** project. The actual script file is in the bin folder: bin/markedoc.sed. Your contribution to make markedoc stable is highly [welcome][issues].
+markedoc translates [Markdown][] formatted texts into [Erlang][] [EDoc][] format, for inclusion into [EDoc][] generated html docs.
+
+The actual script file is in the bin folder: bin/markedoc.sed.
+
+markedoc is a mere [sed][] command file to convert markdown to edoc. It is part of the **[edown][]** project.
+
+Your contribution to make markedoc stable is highly [welcome][issues].
 
 [issues]: https://github.com/hdiedrich/markedoc/issues "Issue tracker"
 
-Use                                                           <a name=Use></a>
+Use
 ---
 At the command line for
 
@@ -25,43 +37,43 @@ At the command line for
 
 Usage for Linux and FreeBSD and Mac OS X is completely the same, except for the -r instead of the -E parameter. Both mean the same but happen to have a different name. In the examples below, replace -E with -r where necessary.
 
-Requirements                                          <a name=Requirements></a>
+Requirements
 ------------
 * **[sed][]**: is part of any Linux, FreeBSD and Mac OSX distribution, also see [Notes][].
 
 * **[Erlang/OTP][Erlang]**, see [Notes][].
 
-Test                                                          <a name=Test></a>
+Test
 ----
 
  **FreeBSD, Mac OS X**
-	$ samples/markedoc/test-bsd.sh
+	$ etc/test-bsd.sh
 
  **Linux**
-	$ samples/markedoc/test-linux.sh
+	$ etc/test-linux.sh
 
 Then check html files as listed in the output.
 
-Sample                                                      <a name=Sample></a>
+Sample
 ------
 
-From edown project root, try out:
+From project root (were the README.md file is), try out:
 
  **FreeBSD, Mac OS X**
-	$ sed -E -f bin/markedoc.sed samples/markedoc/SAMPLE1.md > samples/markedoc/doc/SAMPLE.edoc
-	$ erl -noshell -run edoc_run application "'myapp'" '"samples/markedoc"' '[]'
+	$ sed -E -f bin/markedoc.sed samples/SAMPLE1.md > samples/doc/SAMPLE.edoc
+	$ erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
 
  **Linux**
-	$ sed -r -f bin/markedoc.sed samples/markedoc/SAMPLE1.md > samples/markedoc/doc/SAMPLE.edoc
-	$ erl -noshell -run edoc_run application "'myapp'" '"samples/markedoc"' '[]'
+	$ sed -r -f bin/markedoc.sed samples/SAMPLE1.md > samples/doc/SAMPLE.edoc
+	$ erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
 
 This creates a SAMPLE.edoc file from SAMPLE1.md, which is then included in the EDoc generation. Point your browser at
 
-	samples/markedoc/doc/overview-summary.html
+	samples/doc/overview-summary.html
 
 to see the result. For something only vaguely related but pretty, try:
 
-	$ erl -noshell -run edoc_run application "'myapp'" '"samples/markedoc"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
+	$ erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
 
 This illustrates the motivation for the markedoc as it is now: to have all code lines in one block in order to be able to address them as one united div from css.		
 
@@ -86,27 +98,9 @@ Accordingly, the sample stub overview.edoc used for the samples here, looks like
 	@author You 
 	@title  a markedoc sample doc
 	@version 0.2
-	@docfile "samples/markedoc/doc/SAMPLE.edoc"
+	@docfile "samples/doc/SAMPLE.edoc"
 
-Tricks                                                       <a name=Tricks></a>
-------
-
-Markdown cannot jump to headlines as anchors, while edoc makes headlines into anchors automatically. To allow for meaningful anchor jumps like [sample][] within a page, the following workaround makes sense. It is 'weeded out' by markedoc so that it does not trip up edoc. But it makes for local jumps in
-both worlds:
-
-	## Examples                                     <a name=example></a>
-	
-	...
-	
-	[sample]: #sample
-
-
-This makes a tag `[example][]' into a direct jump to the headline 'Example', in both markdown and edoc. 
-Markdown actually uses the `[sample]: #sample' reference. EDoc, however, automatically inserts an anchor for 'Example' being a headline, and of the same name. (The links are not case sensitive.) 
-If you get the reference wrong or forget to make it, the link tag will be displayed in the open, as actual `[example][]'.
-
-
-Status                                                       <a name=Status></a>
+Status
 ------
 
  **Pre-Beta**. Quite usable, but still likes to trip up EDoc now and then, which is kind of easy to do. 
@@ -115,7 +109,7 @@ There are  many ways to create formats that will make the EDoc generator tilt an
 
  **Thanks!**
 
-Notes                                                         <a name=Notes></a>
+Notes
 -----
 
  **[Erlang][]** is a programming language used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecom, banking, e-commerce, computer telephony and instant messaging. Erlang's runtime system has built-in support for concurrency, distribution and fault tolerance. Erlang comes bundled with the Open Telecom Platform, OTP.
@@ -140,6 +134,79 @@ Notes                                                         <a name=Notes></a>
 [winsed]: http://gnuwin32.sourceforge.net/packages/sed.htm
 [sample]: https://github.com/Eonblast/Emysql/raw/master/README.md "This markdown file is translated alright by markedoc."
 
+Todo
+----
+* make work with non-FreeBSD sed
+* robust alternates not tested for some time
+* protect ampersands
+
+Development
+-----------
+To test markedoc, see '[Test][]', above. Or use
+
+ **FreeBSD**
+	sed -E -f bin/markedoc.sed samples/SAMPLE1.md > samples/doc/SAMPLE.edoc
+	erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
+	mv samples/doc/overview-summary.html samples/your-test-results/sample1.html
+	mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE1.edoc	
+	
+	sed -E -f bin/markedoc.sed samples/SAMPLE2.md > samples/doc/SAMPLE.edoc
+	erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
+	mv samples/doc/overview-summary.html samples/your-test-results/sample2.html
+	mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE2.edoc
+	
+	sed -E -f bin/markedoc.sed samples/SAMPLE3.md > samples/doc/SAMPLE.edoc
+	erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
+	mv samples/doc/overview-summary.html samples/your-test-results/sample3.html
+	mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE3.edoc	
+	
+Then check samples/your-test-results/sample1.html - sample3.html and compare with samples/what-you-should-see/sample1.html, sample2.html and  samples/what-you-could-see/sample3.html.
+
+To create the reference samples:
+
+ **FreeBSD**
+	etc/make_samples.sh
+
+or do the following to create six samples and save the results into samples/what-you-should-see/ and samples/what-you-could-see/
+
+ **FreeBSD**
+	sed -E -f bin/markedoc.sed samples/SAMPLE1.md > samples/doc/SAMPLE.edoc
+	erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
+	mv samples/doc/overview-summary.html samples/what-you-could-see/sample1.html
+	mv samples/doc/SAMPLE.edoc samples/what-you-should-see/SAMPLE1.edoc
+	
+	sed -E -f bin/markedoc.sed samples/SAMPLE2.md > samples/doc/SAMPLE.edoc
+	erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
+	mv samples/doc/overview-summary.html samples/what-you-could-see/sample2.html
+	mv samples/doc/SAMPLE.edoc samples/what-you-should-see/SAMPLE2.edoc
+	
+	sed -E -f bin/markedoc.sed samples/SAMPLE3.md > samples/doc/SAMPLE.edoc
+	erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
+	mv samples/doc/overview-summary.html samples/what-you-could-see/sample3.html
+	mv samples/doc/SAMPLE.edoc samples/what-you-should-see/SAMPLE3.edoc
+	
+	sed -E -f bin/markedoc.sed samples/SAMPLE1.md > samples/doc/SAMPLE.edoc
+	erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
+	mv samples/doc/overview-summary.html samples/what-you-could-see/sample1.html
+	mv samples/doc/SAMPLE.edoc samples/what-you-could-see/SAMPLE1.edoc
+	
+	sed -E -f bin/markedoc.sed samples/SAMPLE2.md > samples/doc/SAMPLE.edoc
+	erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
+	mv samples/doc/overview-summary.html samples/what-you-could-see/sample2.html
+	mv samples/doc/SAMPLE.edoc samples/what-you-could-see/SAMPLE2.edoc
+	
+	sed -E -f bin/markedoc.sed samples/SAMPLE3.md > samples/doc/SAMPLE.edoc
+	erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
+	mv samples/doc/overview-summary.html samples/what-you-could-see/sample3.html
+	mv samples/doc/SAMPLE.edoc samples/what-you-could-see/SAMPLE3.edoc		
+
+To test this very README.md, use markdown.lua, credit Niklas Frykholm, <niklas@frykholm.se>:
+
+	lua etc/markdown.lua README.md
+	
+### HTML Special Signs 
+http://www.mountaindragon.com/html/iso.htm
+
 
 License
 -------
@@ -151,34 +218,23 @@ H. Diedrich <hd2010@eonblast.com>
 
 History
 -------
-
-02/18/11 - 0.3.2 - **edown**
-
-* integrated into edown
-
-02/05/11 - 0.3.1 - **more polish** - Linux, FreeBSD, Mac OS X
-
-* added weeding out of markdown anchor references (an md workaround)
-* added protection for & (but edoc still only accepts number codes)
-* fixed trip up by trailing spaces in underline headline format 
-* checked commented out alternate code for code blocks and references.
-
-02/03/11 - 0.3 - **rough edges polished** - Linux, FreeBSD, Mac OS X
+	
+02/03/11 - 0.3 - **rough edges polished:** Linux, FreeBSD, Mac OS X
 
 * added doc for Linux use
 * added support for multi-line '[..]: ... "..."' references
 * added footnote signs and sepcial chars:
-* dagger, double dagger: (+), (++), stars: (\*), (\*\*), (\*\*\*)  
-* superscript 1, 2, 3: (\*1), (\*2), (\*3), copyright (C), (R), (TM),  
+* dagger, double dagger: (+), (++), stars: (*), (**), (***)  
+* superscript 1, 2, 3: (*1), (*2), (*3), copyright (C), (R), (TM),  
 * guillemots <<, >> and middle dot ::
 * added test batches etc/test-bsd.sh and etc/test-linux.sh
-* added css sample in samples/markedoc/what-you-could-see/ 
-* added classes for ``< li >'' list item tags for '[..]:...'-references
+* added css sample in samples/what-you-could-see/ 
+* added classes for `<li>' list item tags for '[..]:...'-references
 * fixed italic and bold merker interference bullet points
 * eliminated [..]: part of '[..]:...'-references, flipping "..." to lead
 * dev: sample creation batch make_samples.sh added
 	
-02/02/11 - 0.2 - **basics complete** - FreeBSD / Mac OS X
+02/02/11 - 0.2 - **basics complete:** FreeBSD / Mac OS X
 
 * added support for === and --- headline format
 * fixed cutting off of last lines 
@@ -190,7 +246,3 @@ History
 	
 01/31/11 - 0.1 - **first release:** FreeBSD / Mac OS X
 	
-[Requirements]: #Requirements
-[Status]: #Status
-[Notes]: #Notes
-[Test]: #Test

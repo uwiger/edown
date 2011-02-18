@@ -1,10 +1,18 @@
-EDown - EDoc Extension for generating Github-flavored Markdown
-==============================================================
+SAMPLE 2: EDown Readme of Jan 2011
+==================================
+```
+ --------------------------------------------------------------
+| THIS TEXT IS USED AS A SAMPLE TO ILLUSTRATE MARKEDOC USAGE.  |
+| If you see this in your browser, you succeeded compiling it  |
+| from markdown into an edoc.                                  |
+ --------------------------------------------------------------
+'''
 
 <ulf.wiger@erlang-solutions.com>
 
 Status:
-------
+-------
+
 More-or-less readable Markdown can be generated.
 A doclet needs to be written that also creates 
 a markdown-based index and overview. Currently, the 
@@ -22,7 +30,8 @@ but doesn't expand markdown markup inside HTML markup, so the
 `edown_xmerl` module has to know the context in which it operates.
 
 NOTE
-====
+----
+
 EDoc provides a plugin structure, so that one may specify own 
 layout modules, export modules, and doclets. However, there is 
 some overlap esp. between the layout and doclet modules, and 
@@ -39,18 +48,3 @@ For now, EDown focuses on producing reasonable Markdown, rather
 than complying fully with the plugin framework. That is, the 
 edown_doclet module will not go out of its way to function together
 with any other layout module than edown_layout, and vice versa.
-
-markedoc
-========
-
-The sed script bin/markedoc works in the opposite direction and converts your README.md to an EDoc file. 
-
-See bin/MARKEDOC-README.md.
-
-**FreeBSD, Mac OS X**
-	$ sed -E -f markedoc.sed <markdown file> > <edoc file>
-
-**Linux**
-	$ sed -r -f markedoc.sed <markdown file> > <edoc file>
-
-

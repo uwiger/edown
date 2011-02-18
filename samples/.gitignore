@@ -5,8 +5,8 @@
 # ----------------------------
 # some artifacts can be expected to happen from experimenting in the main and samples dir:
 
-doc/
-doc/*
+./doc/
+./doc/*
 
 # general intermediary files (relative to sample/)
 SAMPLE.edoc

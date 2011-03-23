@@ -57,10 +57,39 @@ written, and the outline of each, other plugins convert to suitable
 content representation (e.g. HTML or Markdown), and EDoc then 
 writes the files necessary.
 
+
+
 For now, EDown focuses on producing reasonable Markdown, rather
 than complying fully with the plugin framework. That is, the 
 edown_doclet module will not go out of its way to function together
 with any other layout module than edown_layout, and vice versa.
+
+
+
+markedoc
+========
+
+
+
+The sed script bin/markedoc works in the opposite direction and converts 
+your `README.md` to an `EDoc` file. 
+
+
+
+See [bin/MARKEDOC-README.md](bin/MARKEDOC-README.md).
+
+
+
+**FreeBSD, Mac OS X**
+`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
+
+
+
+**Linux**
+`$ sed -r -f markedoc.sed <markdown file> > <edoc file>`
+
+
+
 
 <h2 class="indextitle">Modules</h2>
 

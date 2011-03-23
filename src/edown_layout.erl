@@ -715,16 +715,24 @@ t_type([E=#xmlElement{name = atom}]) ->
     t_atom(E);
 t_type([E=#xmlElement{name = integer}]) ->
     t_integer(E);
+t_type([E=#xmlElement{name = range}]) ->
+    t_range(E);
+t_type([E=#xmlElement{name = binary}]) ->
+    t_binary(E);
 t_type([E=#xmlElement{name = float}]) ->
     t_float(E);
 t_type([#xmlElement{name = nil}]) ->
     t_nil();
 t_type([#xmlElement{name = list, content = Es}]) ->
     t_list(Es);
+t_type([#xmlElement{name = paren, content = Es}]) ->
+    t_paren(Es);
+t_type([#xmlElement{name = nonempty_list, content = Es}]) ->
+    t_nonempty_list(Es);
 t_type([#xmlElement{name = tuple, content = Es}]) ->
     t_tuple(Es);
 t_type([#xmlElement{name = 'fun', content = Es}]) ->
-    t_fun(Es);
+    ["fun("] ++ t_fun(Es) ++ [")"];
 t_type([#xmlElement{name = record, content = Es}]) ->
     t_record(Es);
 t_type([E = #xmlElement{name = abstype, content = Es}]) ->
@@ -742,14 +750,26 @@ t_atom(E) ->
 t_integer(E) ->
     [get_attrval(value, E)].
 
+t_range(E) ->
+    [get_attrval(value, E)].
+
+t_binary(E) ->
+    [get_attrval(value, E)].
+
 t_float(E) ->
     [get_attrval(value, E)].
 
 t_nil() ->
     ["[]"].
 
+t_paren(Es) ->
+    ["("] ++ t_utype(get_elem(type, Es)) ++ [")"].
+
 t_list(Es) ->
     ["["] ++ t_utype(get_elem(type, Es)) ++ ["]"].
+
+t_nonempty_list(Es) ->
+    ["["] ++ t_utype(get_elem(type, Es)) ++ [", ...]"].
 
 t_tuple(Es) ->
     ["{"] ++ seq(fun t_utype_elem/1, Es, ["}"]).

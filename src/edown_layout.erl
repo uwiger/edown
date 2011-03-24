@@ -699,7 +699,7 @@ copyright(Es) ->
     case get_content(copyright, Es) of
 	[] -> [];
 	Es1 ->
-	    [{p, ["Copyright \251 " | Es1]}]
+	    [{p, ["Copyright (c) " | Es1]}]
     end.
 
 version(Es) ->

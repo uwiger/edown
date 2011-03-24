@@ -48,15 +48,23 @@
 	    lists:flatten(io_lib:fwrite("~p", [Text]))
     end.
 
-normalize("\n" ++ [H|T]) when H==$\s;
+normalize(S) ->
+    normalize1(to_string(S)).
+
+normalize1("\n" ++ [H|T]) when H==$\s;
 			      H==$\t ->
-    normalize("\n" ++ T);
-normalize([H|T]) ->
-    [H|normalize(T)];
-normalize([]) ->
+    normalize1("\n" ++ T);
+normalize1([H|T]) ->
+    [H|normalize1(T)];
+normalize1([]) ->
     [].
 
+to_string(S) ->
+    binary_to_list(iolist_to_binary([S])).
 
+strip(Str) -> lstrip(rstrip(Str)).
+lstrip(Str) -> re:replace(Str,"^\\s","",[]).
+rstrip(Str) -> re:replace(Str, "\\s\$", []).
 
 
 %% The '#root#' tag is called when the entire structure has been
@@ -110,52 +118,53 @@ html_elem(Tag, Data, Attrs, Parents, E) ->
     end.
 
 md_elem(a, Data, Attrs, _Parents, _E) ->
-    %% io:fwrite("A TAG = ~p~nPs = ~p~n", [Data, _Parents]),
+    %% io:fwrite("A TAG = ~p~nPs = ~p~n", [_E, _Parents]),
     case lists:keyfind(href, #xmlAttribute.name, Attrs) of
 	#xmlAttribute{value = HRef}  ->
-	    "[" ++ Data ++ "](" ++ HRef ++ ")";
+	    ["[", Data, "](", HRef, ")"];
 	false ->
 	    case lists:keyfind(name, #xmlAttribute.name, Attrs) of
 		#xmlAttribute{} ->
-		    ["\n",
+		    [ %%"\n",
 		     xmerl_lib:start_tag(a,Attrs),
 		     Data,
-		     xmerl_lib:end_tag(a),
-		    "\n"]
+		     xmerl_lib:end_tag(a)
+		      %%"\n"]
+		      ]
 	    end
     end;
 md_elem(img, _Data, Attrs, _Parents, _E) ->
     #xmlAttribute{value = Src} = lists:keyfind(src,#xmlAttribute.name,Attrs),
     #xmlAttribute{value = Alt} = lists:keyfind(alt,#xmlAttribute.name,Attrs),
-    "![" ++ Alt ++ "](" ++ Src ++ ")";
+    ["![", Alt, "](", Src, ")"];
 md_elem(li, Data, _Attrs, [{ul,_}|_], _E) ->
-    "* " ++ Data ++ "\n";
+    ["* ", strip(Data), "\n"];
 md_elem(li, Data, _Attrs, [{ol,_}|_], _E) ->
-    "1. " ++ Data ++ "\n";
+    ["1. ", strip(Data), "\n"];
 md_elem(Tag, Data, Attrs, Parents, E) ->
     case Tag of
 	title ->
 	    %% io:fwrite("TITLE = |~s|~n", [Data]),
 	    Str = lists:flatten(Data),
-	    Str ++ "\n" ++ [$= || _ <- Str] ++ "\n";
+	    [Str, "\n", [$= || _ <- to_string(Str)], "\n"];
 	html  -> Data;
 	body  -> Data;
 	'div' -> Data;
 	ul    -> Data;
 	ol    -> Data;
-	p     -> "\n\n" ++ Data;
-	b     -> "__" ++ no_nl(Data) ++ "__";
-	em    -> "_" ++ no_nl(Data) ++ "_";
-	i     -> "_" ++ no_nl(Data) ++ "_";
-	tt    -> "`" ++ no_nl(Data) ++ "`";
-	code  -> "`" ++ no_nl(Data) ++ "`";
+	p     -> ["\n\n", Data];
+	b     -> ["__", no_nl(Data), "__"];
+	em    -> ["_", no_nl(Data), "_"];
+	i     -> ["_", no_nl(Data), "_"];
+	tt    -> ["`", no_nl(Data), "`"];
+	code  -> ["`", no_nl(Data), "`"];
 	dl    -> Data;
 	dt    -> html_elem(dt, Data, Attrs, Parents, E);
 	dd    -> html_elem(dd, Data, Attrs, Parents, E);
-	h1 -> "\n\n#" ++ no_nl(Data) ++ "#\n";
-	h2 -> "\n\n##" ++ no_nl(Data) ++ "##\n";
-	h3 -> "\n\n###" ++ no_nl(Data) ++ "##\n";
-	h4 -> "\n\n####" ++ no_nl(Data) ++ "##\n";
+	h1 -> ["\n\n#", no_nl(Data), "#\n"];
+	h2 -> ["\n\n##", no_nl(Data), "##\n"];
+	h3 -> ["\n\n###", no_nl(Data), "##\n"];
+	h4 -> ["\n\n####", no_nl(Data), "##\n"];
 	hr -> "---------\n";
 	head -> [];
 	_ ->
@@ -167,13 +176,15 @@ md_elem(Tag, Data, Attrs, Parents, E) ->
     end.
 
 within_html(Tags) ->
-    lists:any(fun({T,_}) -> needs_html(T) end, Tags).
+    lists:any(fun({pre,_}) -> true;
+		 ({T,_}) -> needs_html(T)
+	      end, Tags).
 
 needs_html(T) ->
     lists:member(T, [table,'div',h1,h2,h3,h4,dd,dt]).
 
 no_nl(S) ->
-    string:strip([C || C <- lists:flatten(S),
+    string:strip([C || C <- to_string(S),
 		       C =/= $\n], both).
 
 %% attr(#xmlAttribute{name = N, value = V}) ->

@@ -104,6 +104,11 @@
 %% INHERIT-OPTIONS: stylesheet/1
 
 run(#doclet_gen{}=Cmd, Ctxt) ->
+    %% dbg:tracer(),
+    %% dbg:tpl(?MODULE,x),
+    %% dbg:tpl(edown_layout,x),
+    %% dbg:tpl(edown_xmerl, x),
+    %% dbg:p(all,[c]),
     gen(Cmd#doclet_gen.sources,
 	Cmd#doclet_gen.app,
 	Cmd#doclet_gen.packages,

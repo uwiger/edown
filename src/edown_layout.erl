@@ -522,7 +522,7 @@ local_defs([], _, _Opts) -> [];
 local_defs(Es0, Last, Opts) ->
     [E | Es] = lists:reverse(Es0),
     [?NL,
-     {ul, [{class, "definitions"}],
+     {local_defs, [{class, "definitions"}],
       lists:reverse(lists:append([localdef(E1, [], Opts) || E1 <- Es]),
                     localdef(E, Last, Opts))}].
 
@@ -534,7 +534,7 @@ localdef(E = #xmlElement{content = Es}, Last, Opts) ->
                [V] ->
                    N0 = t_var(V)
            end,
-    [{li, format_type(Name, N0, get_elem(type, Es), Last, Opts)}].
+    [{localdef, format_type(Name, N0, get_elem(type, Es), Last, Opts)}].
 
 %% Use the default formatting of EDoc, which creates references, and
 %% then insert newlines and indentation according to erl_pp (the

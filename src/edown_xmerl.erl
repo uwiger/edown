@@ -97,14 +97,22 @@ rstrip(Str) -> re:replace(Str, "\\s\$", []).
 '#element#'(Tag, Data, Attrs, Parents, E) ->
     elem(Tag, Data, Attrs, Parents, E).
 
-
+%% the alias_for/5 function is used to force HTML rendering of things we
+%% know are likely to cause problems with Markdown.
+elem(local_defs, Data, Attrs, Parents, E) ->
+    alias_for(ul, Data, Attrs, Parents, E);
+elem(localdef, Data, Attrs, Parents, E) ->
+    alias_for(li, Data, Attrs, Parents, E);
 elem(Tag, Data, Attrs, Parents, E) ->
-    case needs_html(Tag) orelse within_html(Parents) of
+    case needs_html(Tag, Attrs) orelse within_html(Parents) of
 	true ->
 	    html_elem(Tag, Data, Attrs, Parents, E);
 	false ->
 	    md_elem(Tag, Data, Attrs, Parents, E)
     end.
+
+alias_for(Tag, Data, Attrs, Parents, E) ->
+    xmerl_html:'#element#'(Tag, Data, Attrs, Parents, E#xmlElement{name = Tag}).
 
 html_elem(Tag, Data, Attrs, Parents, E) ->
     HTML = fun() ->
@@ -181,7 +189,10 @@ within_html(Tags) ->
 	      end, Tags).
 
 needs_html(T) ->
-    lists:member(T, [table,'div',h1,h2,h3,h4,dd,dt]).
+    needs_html(T, []).
+
+needs_html(T, Attrs) ->
+    lists:member(T, [table,'div',h1,h2,h3,h4,dd,dt,local_defs,localdef]).
 
 no_nl(S) ->
     string:strip([C || C <- to_string(S),

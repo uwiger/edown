@@ -43,6 +43,32 @@ but doesn't expand markdown markup inside HTML markup, so the
 
 
 
+** Special edown option: **
+
+
+
+Using the option `{top_level_readme, {File, BaseHref}`, a github-friendly
+`README.md` in the top directory can be generated from the `overview.edoc`.
+This file is the same as the `doc/README.md` file already generated,
+but with relative links corrected (using `BaseHref`) so that they actually
+work. This step is needed since Github doesn't support relative paths in
+Markdown links.
+
+
+
+Example:
+
+
+
+`{top_level_readme, "./README.md", "http://github.com/esl/edown"}`
+
+
+
+The conversion function will fetch the current branch name from git,
+and fail if it cannot do so.
+
+
+
 NOTE
 ====
 EDoc provides a plugin structure, so that one may specify own 

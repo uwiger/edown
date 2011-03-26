@@ -33,7 +33,7 @@ Markdown links.
 
 Example:
 
-`{top_level_readme, "./README.md", "http://github.com/esl/edown"}'
+`{top_level_readme, {"./README.md", "http://github.com/esl/edown"}}'
 
 The conversion function will fetch the current branch name from git,
 and fail if it cannot do so.

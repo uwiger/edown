@@ -60,7 +60,7 @@ Example:
 
 
 
-`{top_level_readme, "./README.md", "http://github.com/esl/edown"}`
+`{top_level_readme, {"./README.md", "http://github.com/esl/edown"}}`
 
 
 

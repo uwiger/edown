@@ -47,7 +47,7 @@ but doesn't expand markdown markup inside HTML markup, so the
 
 
 
-Using the option `{top_level_readme, {File, BaseHref}`, a github-friendly
+Using the option `{top_level_readme, {File, BaseHref}}`, a github-friendly
 `README.md` in the top directory can be generated from the `overview.edoc`.
 This file is the same as the `doc/README.md` file already generated,
 but with relative links corrected (using `BaseHref`) so that they actually

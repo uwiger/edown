@@ -188,7 +188,7 @@ make_top_level_README(Data, App, Dir, F) ->
     edoc_lib:write_file(Text, Dir, F).
 
 redirect_href(Attrs, App, Branch) ->
-    AppBlob = atom_to_list(App) ++ "/blob/" ++ Branch ++ "/",
+    AppBlob = "/" ++ atom_to_list(App) ++ "/blob/" ++ Branch ++ "/",
     case lists:keyfind(href, #xmlAttribute.name, Attrs) of
 	false ->
 	    false;

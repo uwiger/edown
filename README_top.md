@@ -76,7 +76,7 @@ your `README.md` to an `EDoc` file.
 
 
 
-See [bin/MARKEDOC-README.md](edown/blob/master/bin/MARKEDOC-README.md).
+See [bin/MARKEDOC-README.md](/edown/blob/uw-make-top-readme/bin/MARKEDOC-README.md).
 
 
 
@@ -96,8 +96,8 @@ See [bin/MARKEDOC-README.md](edown/blob/master/bin/MARKEDOC-README.md).
 
 
 <table width="100%" border="0" summary="list of modules">
-<tr><td><a href="edown/blob/master/edown_doclet.md" class="module">edown_doclet</a></td></tr>
-<tr><td><a href="edown/blob/master/edown_layout.md" class="module">edown_layout</a></td></tr>
-<tr><td><a href="edown/blob/master/edown_lib.md" class="module">edown_lib</a></td></tr>
-<tr><td><a href="edown/blob/master/edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
+<tr><td><a href="/edown/blob/uw-make-top-readme/edown_doclet.md" class="module">edown_doclet</a></td></tr>
+<tr><td><a href="/edown/blob/uw-make-top-readme/edown_layout.md" class="module">edown_layout</a></td></tr>
+<tr><td><a href="/edown/blob/uw-make-top-readme/edown_lib.md" class="module">edown_lib</a></td></tr>
+<tr><td><a href="/edown/blob/uw-make-top-readme/edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
 

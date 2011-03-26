@@ -12,7 +12,9 @@ main([]) ->
 			 [{doclet, edown_doclet},
 			  {src_path, ["src"]},
 			  {app_default,"http://www.erlang.org/doc/man"},
-			  {top_level_readme, {".", "README_top.md"}}]),
+			  {top_level_readme,
+			   {"./README_top.md",
+			    "http://github.com/esl/edown"}}]),
     case R of
 	ok ->
 	    halt();

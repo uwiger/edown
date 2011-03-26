@@ -141,7 +141,7 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     edoc_lib:write_info_file(App, Packages, Modules1, Dir),
     copy_stylesheet(Dir, Options),
     copy_image(Dir),
-    make_top_level_README(Data, App, Options),
+    make_top_level_README(Data, Options),
     %% handle postponed error during processing of source files
     case Error of
 	true -> exit(error);
@@ -156,26 +156,23 @@ set_app_default(Opts) ->
 	    Opts
     end.
 
-make_top_level_README(Data, App, Options) ->
+make_top_level_README(Data, Options) ->
     case proplists:get_value(top_level_readme, Options) of
 	undefined ->
 	    ok;
-	{Dir, Filename} ->
-	    case App of 
-		?NO_APP ->
-		    erlang:error(missing_app_name, [Data,App,Options]);
-		_ ->
-		    make_top_level_README(Data, App, Dir, Filename)
-	    end
+	{Path, BaseHRef} ->
+	    Dir = filename:dirname(Path),
+	    Filename = filename:basename(Path),
+	    make_top_level_README(Data, Dir, Filename, BaseHRef)
     end.
 
-make_top_level_README(Data, App, Dir, F) ->
+make_top_level_README(Data, Dir, F, BaseHRef) ->
     Branch = get_git_branch(),
     Exp = [xmerl_lib:expand_element(D) || D <- Data],
     New = [xmerl_lib:mapxml(
 	     fun(#xmlElement{name = a,
 			     attributes = Attrs} = E) ->
-		     case redirect_href(Attrs, App, Branch) of
+		     case redirect_href(Attrs, Branch, BaseHRef) of
 			 {true, Attrs1} ->
 			     E#xmlElement{attributes = Attrs1};
 			 false ->
@@ -187,8 +184,8 @@ make_top_level_README(Data, App, Dir, F) ->
     Text = xmerl:export_simple_content(New, edown_xmerl),
     edoc_lib:write_file(Text, Dir, F).
 
-redirect_href(Attrs, App, Branch) ->
-    AppBlob = "/" ++ atom_to_list(App) ++ "/blob/" ++ Branch ++ "/",
+redirect_href(Attrs, Branch, BaseHRef) ->
+    AppBlob = BaseHRef ++ "/blob/" ++ Branch ++ "/",
     case lists:keyfind(href, #xmlAttribute.name, Attrs) of
 	false ->
 	    false;
@@ -199,12 +196,20 @@ redirect_href(Attrs, App, Branch) ->
 		{match, _} ->
 		    false;
 		nomatch ->
-		    HRef1 = AppBlob ++ Href,
+		    HRef1 = do_redirect(Href, AppBlob),
 		    {true,
 		     lists:keyreplace(
 		       href, #xmlAttribute.name, Attrs,
 		       A#xmlAttribute{value = HRef1})}
 	    end
+    end.
+
+do_redirect(Href, Prefix) ->
+    case filename:split(Href) of
+	[_] ->
+	    Prefix ++ "doc/" ++ Href;
+	_ ->
+	    Prefix ++ Href
     end.
 
 get_git_branch() ->

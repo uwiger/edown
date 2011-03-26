@@ -191,7 +191,7 @@ within_html(Tags) ->
 needs_html(T) ->
     needs_html(T, []).
 
-needs_html(T, Attrs) ->
+needs_html(T, _Attrs) ->
     lists:member(T, [table,'div',h1,h2,h3,h4,dd,dt,local_defs,localdef]).
 
 no_nl(S) ->

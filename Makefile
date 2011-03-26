@@ -8,5 +8,5 @@ compile:
 clean:
 	./rebar clean
 
-doc:
-	./rebar doc
+doc: compile
+	./make_doc

@@ -141,12 +141,12 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     edoc_lib:write_info_file(App, Packages, Modules1, Dir),
     copy_stylesheet(Dir, Options),
     copy_image(Dir),
+    make_top_level_README(Data, App, Options),
     %% handle postponed error during processing of source files
     case Error of
 	true -> exit(error);
 	false -> ok
     end.
-
 
 set_app_default(Opts) ->
     case lists:keyfind(app_default,1,Opts) of
@@ -156,8 +156,68 @@ set_app_default(Opts) ->
 	    Opts
     end.
 
+make_top_level_README(Data, App, Options) ->
+    case proplists:get_value(top_level_readme, Options) of
+	undefined ->
+	    ok;
+	{Dir, Filename} ->
+	    case App of 
+		?NO_APP ->
+		    erlang:error(missing_app_name, [Data,App,Options]);
+		_ ->
+		    make_top_level_README(Data, App, Dir, Filename)
+	    end
+    end.
+
+make_top_level_README(Data, App, Dir, F) ->
+    Branch = get_git_branch(),
+    Exp = [xmerl_lib:expand_element(D) || D <- Data],
+    New = [xmerl_lib:mapxml(
+	     fun(#xmlElement{name = a,
+			     attributes = Attrs} = E) ->
+		     case redirect_href(Attrs, App, Branch) of
+			 {true, Attrs1} ->
+			     E#xmlElement{attributes = Attrs1};
+			 false ->
+			     E
+		     end;
+		(Other) ->
+		     Other
+	     end, Exp1) || Exp1 <- Exp],
+    Text = xmerl:export_simple_content(New, edown_xmerl),
+    edoc_lib:write_file(Text, Dir, F).
+
+redirect_href(Attrs, App, Branch) ->
+    AppBlob = atom_to_list(App) ++ "/blob/" ++ Branch ++ "/",
+    case lists:keyfind(href, #xmlAttribute.name, Attrs) of
+	false ->
+	    false;
+	#xmlAttribute{value = "/" ++ _} ->
+	    false;
+	#xmlAttribute{value = Href} = A ->
+	    case re:run(Href, ":", []) of
+		{match, _} ->
+		    false;
+		nomatch ->
+		    HRef1 = AppBlob ++ Href,
+		    {true,
+		     lists:keyreplace(
+		       href, #xmlAttribute.name, Attrs,
+		       A#xmlAttribute{value = HRef1})}
+	    end
+    end.
+
+get_git_branch() ->
+    case os:cmd("git branch | awk '/\\*/ {print $2}'") of
+        [_,_|_] = Res ->
+            %% trailing newline expected - remove.
+            lists:reverse(tl(lists:reverse(Res)));
+        Other ->
+            erlang:error({cannot_get_git_branch, Other})
+    end.
+
 %% Tried to display logo in a table on top of page, but not working.
-%% Presumably, this hits some limitation of GFM
+%% Presumably, this hits some limitation of Markdown
 %%
 %% logo() ->
 %%     {img, [{src, "erlang.png"},{alt,["Erlang logo"]}],[]}.

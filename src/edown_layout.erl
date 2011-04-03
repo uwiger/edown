@@ -219,7 +219,6 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
     %% end,
     %% xhtml(Title, stylesheet(Opts), Body).
     Res = to_simple(markdown(Title, stylesheet(Opts), Body)),
-    %% io:fwrite("Res = ~p~n", [Res]),
     Res.
 
 %% This function is a workaround for a bug in xmerl_lib:expand_content/1 that 
@@ -228,8 +227,13 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
 %%
 to_simple([#xmlElement{name = Name, attributes = Attrs, content = Content}|T]) ->
     [{Name, to_simple_attrs(Attrs), to_simple(Content)} | to_simple(T)];
-to_simple([#xmlText{} = H | T]) ->
-    [H | to_simple(T)];
+to_simple([#xmlText{parents = Ps, value = Text} = H | T]) ->
+    case [P || {P,_} <- Ps, lists:member(P, [pre,tt])] of
+	[] ->
+	    [H#xmlText{value = normalize_text(Text)} | to_simple(T)];
+	_ ->
+	    [H | to_simple(T)]
+    end;
 to_simple([{N,C} | T]) ->
     [{N, to_simple(C)} | to_simple(T)];
 to_simple([{N,As,C} | T]) ->
@@ -243,6 +247,27 @@ to_simple([]) ->
 
 to_simple_attrs(As) ->
     [{K,V} || #xmlAttribute{name = K, value = V} <- As].
+
+normalize_text(Text) ->
+    try normalize(binary_to_list(list_to_binary(Text)))
+    catch
+	error:_ ->
+	    lists:flatten(io_lib:fwrite("~p", [Text]))
+    end.
+
+normalize(S) ->
+    normalize1(to_string(S)).
+
+normalize1("\n" ++ [H|T]) when H==$\s;
+			      H==$\t ->
+    normalize1("\n" ++ T);
+normalize1([H|T]) ->
+    [H|normalize1(T)];
+normalize1([]) ->
+    [].
+
+to_string(S) ->
+    binary_to_list(iolist_to_binary([S])).
 
 module_params(Es) ->
     As = [{get_text(argName, Es1),

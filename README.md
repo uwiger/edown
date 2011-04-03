@@ -27,11 +27,9 @@ which do not point to the .md files.
 
 To generate markdown edoc, run:
 
-
 <pre>
 edoc:application(App, [{doclet, edown_doclet} | OtherOpts]).
 </pre>
-
 
 
 
@@ -107,12 +105,12 @@ See [bin/MARKEDOC-README.md](http://github.com/esl/edown/blob/master/bin/MARKEDO
 
 
 **FreeBSD, Mac OS X**
-`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
+	`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
 
 
 
 **Linux**
-`$ sed -r -f markedoc.sed <markdown file> > <edoc file>`
+	`$ sed -r -f markedoc.sed <markdown file> > <edoc file>`
 
 
 

@@ -37,9 +37,7 @@ __Authors:__ Ulf Wiger ([`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erla
 
 
 
-
 <pre>run(Command::<a href="#type-doclet_gen">doclet_gen()</a> | <a href="#type-doclet_toc">doclet_toc()</a>, Ctxt::<a href="#type-edoc_context">edoc_context()</a>) -> ok</pre>
-
 <br></br>
 
 

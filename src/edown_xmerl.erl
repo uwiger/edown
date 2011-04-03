@@ -41,23 +41,7 @@
 %% The '#text#' function is called for every text segment.
 
 '#text#'(Text) ->
-    %% export_text(Text).
-    try normalize(binary_to_list(list_to_binary(Text)))
-    catch
-	error:_ ->
-	    lists:flatten(io_lib:fwrite("~p", [Text]))
-    end.
-
-normalize(S) ->
-    normalize1(to_string(S)).
-
-normalize1("\n" ++ [H|T]) when H==$\s;
-			      H==$\t ->
-    normalize1("\n" ++ T);
-normalize1([H|T]) ->
-    [H|normalize1(T)];
-normalize1([]) ->
-    [].
+    to_string(Text).
 
 to_string(S) ->
     binary_to_list(iolist_to_binary([S])).
@@ -84,8 +68,12 @@ rstrip(Str) -> re:replace(Str, "\\s\$", []).
 %% for an example. (By default, we always generate the end tag, to make
 %% sure that the scope of a markup is not extended by mistake.)
 
+'#element#'('pre', Data, Attrs, Parents, E) ->
+    xmerl_html:'#element#'('pre', Data, Attrs, Parents, E);
 '#element#'('div', Data, _, _Parents, _E) ->
     %% special case - we use 'div' to enforce html encoding
+    Data;
+'#element#'('pretext', Data, _Attrs, _Parents, _E) ->
     Data;
 '#element#'(a, Data, Attrs, Parents, E) ->
     case edown_lib:redirect_uri(E) of

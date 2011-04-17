@@ -602,7 +602,7 @@ format_type(Prefix, Name, Type, Last, #opts{pretty_printer = erl_pp}=Opts) ->
         format_type(Prefix, Name, Type, Last, Opts#opts{pretty_printer =''})
     end;
 format_type(Prefix, _Name, Type, Last, _Opts) ->
-    [{tt, Prefix ++ [" = "] ++ t_utype(Type) ++ Last}].
+    [{pre, Prefix ++ [" = "] ++ t_utype(Type) ++ Last}].
 
 pp_type(Prefix, Type) ->
     Atom = list_to_atom(lists:duplicate(iolist_size(Prefix), $a)),

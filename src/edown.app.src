@@ -19,7 +19,6 @@
  [
   {vsn, "0.2.2"},
   {description, "Markdown extension for EDoc"},
-  {applications, [kernel, stdlib]},
-  {mod, {jobs_app, []}},
+  {applications, [kernel, stdlib, edoc]},
   {env, []}
  ]}.

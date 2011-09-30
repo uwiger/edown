@@ -180,7 +180,7 @@ needs_html(T) ->
     needs_html(T, []).
 
 needs_html(T, _Attrs) ->
-    lists:member(T, [table,'div',h1,h2,h3,h4,dd,dt,local_defs,localdef]).
+    lists:member(T, [table,'div',h2,h3,h4,dd,dt,local_defs,localdef]).
 
 no_nl(S) ->
     string:strip([C || C <- to_string(S),

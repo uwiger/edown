@@ -1,9 +1,6 @@
-Module edown_doclet
-===================
 
 
-<h1>Module edown_doclet</h1>
-
+#Module edown_doclet#
 * [Description](#description)
 * [Function Index](#index)
 * [Function Details](#functions)

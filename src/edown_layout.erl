@@ -1003,9 +1003,10 @@ local_label(R) ->
     "#" ++ R.
 
 
-markdown(Title, _CSS, Body) ->
-    [{title, [lists:flatten(Title)]}|
-     Body].
+markdown(_Title, _CSS, Body) ->
+    %% [{title, [lists:flatten(Title)]}|
+    %%  Body].
+    Body.
 
 %% xhtml(Title, CSS, Body) ->
 %%     [{html, [?NL,

@@ -130,7 +130,7 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     {Modules1, Error} = sources(Sources, Dir, Modules, Env, Options),
     packages(Packages, Dir, FileMap, Env, Options),
     Overview = overview(Dir, Title, Env, Options),
-    Data = 
+    Data =
 	[{h1, [Title]}]
 	 ++ Overview
 	 ++ lists:concat([packages_frame(Packages) || Packages =/= []])
@@ -140,7 +140,7 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     edoc_lib:write_file(Text, Dir, ?INDEX_FILE),
     edoc_lib:write_info_file(App, Packages, Modules1, Dir),
     copy_stylesheet(Dir, Options),
-    copy_image(Dir),
+    copy_image(Dir, Options),
     make_top_level_README(Data, Options),
     %% handle postponed error during processing of source files
     case Error of
@@ -397,14 +397,19 @@ overview(Dir, Title, Env, Opts) ->
     %% edoc_lib:write_file(Text, Dir, ?OVERVIEW_SUMMARY).
 
 
-copy_image(Dir) ->
-    case code:priv_dir(?EDOC_APP) of
-	PrivDir when is_list(PrivDir) ->
-	    From = filename:join(PrivDir, ?IMAGE),
-	    edoc_lib:copy_file(From, filename:join(Dir, ?IMAGE));
-	_ ->
-	    report("cannot find default image file.", []),
-	    exit(error)
+copy_image(Dir, Options) ->
+    case proplists:get_value(image, Options) of
+	O when O==undefined; O==?IMAGE ->
+	    case code:priv_dir(?EDOC_APP) of
+		PrivDir when is_list(PrivDir) ->
+		    From = filename:join(PrivDir, ?IMAGE),
+		    edoc_lib:copy_file(From, filename:join(Dir, ?IMAGE));
+		_ ->
+		    report("cannot find default image file.", []),
+		    exit(error)
+	    end;
+	"" ->
+	    ok
     end.
 
 %% NEW-OPTIONS: stylesheet_file
@@ -412,7 +417,7 @@ copy_image(Dir) ->
 
 copy_stylesheet(Dir, Options) ->
     case proplists:get_value(stylesheet, Options) of
-	undefined ->
+	O when O==undefined; O==?STYLESHEET ->
 	    From = case proplists:get_value(stylesheet_file, Options) of
 		       File when is_list(File) ->
 			   File;
@@ -427,7 +432,7 @@ copy_stylesheet(Dir, Options) ->
 			   end
 		   end,
 	    edoc_lib:copy_file(From, filename:join(Dir, ?STYLESHEET));
-	_ ->
+	"" ->
 	    ok
     end.
 

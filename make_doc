@@ -12,6 +12,8 @@ main([]) ->
 			 [{doclet, edown_doclet},
 			  {src_path, ["src"]},
 			  {app_default,"http://www.erlang.org/doc/man"},
+			  {stylesheet, ""},  % don't copy stylesheet.css
+			  {image, ""},       % don't copy erlang.png
 			  {top_level_readme,
 			   {"./README.md",
 			    "http://github.com/esl/edown"}}]),

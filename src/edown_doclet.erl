@@ -122,9 +122,10 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     Dir = Ctxt#context.dir,
     Env = Ctxt#context.env,
     Options0 = Ctxt#context.opts,
-    Options = set_app_default([{layout,edown_layout},
-			       {file_suffix,".md"}
-			       | Options0]),
+    Options = set_app_default([{layout,edown_layout} |
+			       Options0] ++
+				  [{file_suffix,".md"}]),
+
     Title = title(App, Options),
     %% CSS = stylesheet(Options),
     {Modules1, Error} = sources(Sources, Dir, Modules, Env, Options),
@@ -137,7 +138,7 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
 	 ++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
 
     Text = xmerl:export_simple_content(Data, edown_xmerl),
-    edoc_lib:write_file(Text, Dir, ?INDEX_FILE),
+    edoc_lib:write_file(Text, Dir, right_suffix(?INDEX_FILE, Options)),
     edoc_lib:write_info_file(App, Packages, Modules1, Dir),
     copy_stylesheet(Dir, Options),
     copy_image(Dir, Options),
@@ -147,6 +148,11 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
 	true -> exit(error);
 	false -> ok
     end.
+
+right_suffix(File, Options) ->
+    Base = filename:basename(File, filename:extension(File)),
+    Ext = proplists:get_value(file_suffix, Options),
+    Base ++ Ext.
 
 set_app_default(Opts) ->
     case lists:keyfind(app_default,1,Opts) of
@@ -517,38 +523,3 @@ toc(_Paths, _Ctxt) ->
     %% Dir = Ctxt#context.dir,
     %% Env = Ctxt#context.env,
     %% app_index_file(Paths, Dir, Env, Opts).
-
-%% TODO: FIXME: it's unclear how much of this is working at all
-
-%% NEW-OPTIONS: title
-%% INHERIT-OPTIONS: overview/4
-
-%% app_index_file(Paths, Dir, Env, Options) ->
-%%     Title = proplists:get_value(title, Options,"Overview"),
-%% %    Priv = proplists:get_bool(private, Options),
-%%     CSS = stylesheet(Options),
-%%     Apps1 = [{filename:dirname(A),filename:basename(A)} || A <- Paths],
-%%     index_file(Dir, false, Title),
-%%     application_frame(Dir, Apps1, Title, CSS),
-%%     modules_frame(Dir, [], Title, CSS),
-%%     overview(Dir, Title, Env, Options),
-%% %    edoc_lib:write_info_file(Prod, [], Modules1, Dir),
-%%     copy_stylesheet(Dir, Options).
-
-%% application_frame(Dir, Apps, Title, CSS) ->
-%%     Body = [?NL,
-%% 	    {h2, ["Applications"]},
-%% 	    ?NL,
-%% 	    {table, [{width, "100%"}, {border, 0}],
-%% 	     lists:concat(
-%% 	       [[{tr, [{td, [], [{a, [{href,app_ref(Path,App)},
-%% 				      {target,"_top"}],
-%% 				  [App]}]}]}]
-%% 		|| {Path,App} <- Apps])},
-%% 	    ?NL],
-%%     XML = xhtml(Title, CSS, Body),
-%%     Text = xmerl:export_simple([XML], xmerl_html, []),
-%%     edoc_lib:write_file(Text, Dir, ?MODULES_FRAME).
-
-%% app_ref(Path,M) ->
-%%     filename:join([Path,M,?EDOC_DIR,?INDEX_FILE]).

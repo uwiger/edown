@@ -112,8 +112,7 @@ See [bin/MARKEDOC-README.md](bin/MARKEDOC-README.md).
 
 
 
-<h2 class="indextitle">Modules</h2>
-
+##Modules##
 
 
 <table width="100%" border="0" summary="list of modules">

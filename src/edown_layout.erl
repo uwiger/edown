@@ -198,8 +198,9 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
 	    ++ sees(Es)
 	    ++ todos(Es)
 	    ++ if RestDesc == [] -> [];
-		  true -> [{h2, [{a, [{name, "description"}],
-				  ["Description"]}]}
+		  true -> [
+			   {a, [{name, "description"}], []},
+			   {h2, ["Description"]}
 			   | RestDesc]
 	       end
 	    ++ types(lists:sort(Types), Opts)
@@ -341,8 +342,9 @@ function_index(Fs, Cols) ->
     case function_index_rows(Fs, Cols, []) of
 	[] -> [];
 	Rows ->
-	    [{h2, [{a, [{name, ?FUNCTION_INDEX_LABEL}],
-		    [?FUNCTION_INDEX_TITLE]}]},
+	    [
+	     {a, [{name, ?FUNCTION_INDEX_LABEL}], []},
+	     {h2, [?FUNCTION_INDEX_TITLE]},
 	     {table, [{width, "100%"}, {border, 1},
 		      {cellspacing,0}, {cellpadding,2},
 		      {summary, "function index"}],
@@ -401,7 +403,8 @@ functions(Fs, Opts) ->
     if Es == [] -> [];
        true ->
             [?NL,
-             {h2, [{a, [{name, ?FUNCTIONS_LABEL}], [?FUNCTIONS_TITLE]}]},
+	     {a, [{name, ?FUNCTIONS_LABEL}], []},
+             {h2, [?FUNCTIONS_TITLE]},
              ?NL | Es]
     end.
 
@@ -519,8 +522,8 @@ types([], _Opts) -> [];
 types(Ts, Opts) ->
     Es = lists:flatmap(fun ({Name, E}) -> typedecl(Name, E, Opts) end, Ts),
     [?NL,
-     {h2, [{a, [{name, ?DATA_TYPES_LABEL}],
-            [?DATA_TYPES_TITLE]}]},
+     {a, [{name, ?DATA_TYPES_LABEL}], []},
+     {h2, [?DATA_TYPES_TITLE]},
      ?NL | Es].
 
 typedecl(Name, E=#xmlElement{content = Es}, Opts) ->

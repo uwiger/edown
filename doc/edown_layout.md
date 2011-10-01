@@ -12,29 +12,25 @@ Markdown layout module for EDoc.
 
 Copyright (c) 2010 Erlang Solutions Ltd
 
-__Authors:__ Ulf Wiger ([`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erlang-solutions.com)).
+__Authors:__ Ulf Wiger ([`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erlang-solutions.com)).<a name="description"></a>
 
-<h2><a name="description">Description</a></h2>
-
+##Description##
   Derived from `edoc_layout`, which is part of the Erlang/OTP application EDoc.
-The module is intended to be used together with edoc.
+The module is intended to be used together with edoc.<a name="index"></a>
 
-<h2><a name="index">Function Index</a></h2>
-
+##Function Index##
 
 
 <table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#markdown-3">markdown/3</a></td><td></td></tr><tr><td valign="top"><a href="#module-2">module/2</a></td><td>The layout function.</td></tr><tr><td valign="top"><a href="#overview-2">overview/2</a></td><td></td></tr><tr><td valign="top"><a href="#package-2">package/2</a></td><td></td></tr><tr><td valign="top"><a href="#type-1">type/1</a></td><td></td></tr></table>
 
 
+<a name="functions"></a>
 
-
-<h2><a name="functions">Function Details</a></h2>
-
+##Function Details##
 
 <a name="markdown-3"></a>
 
-<h3>markdown/3</h3>
-
+###markdown/3##
 
 
 
@@ -43,8 +39,7 @@ The module is intended to be used together with edoc.
 
 <a name="module-2"></a>
 
-<h3>module/2</h3>
-
+###module/2##
 
 
 
@@ -123,18 +118,17 @@ the source file. The default value is <code>true</code>.
 
 
 
-<dd>Specifies an <a href="http://www.erlang.org/doc/man/index.html" target="_top"><code>xmerl</code></a> callback module to be
-used for exporting the documentation. See <a href="http://www.erlang.org/doc/man/xmerl.html#export_simple_content-2"><code>//xmerl/xmerl:export_simple_content/2</code></a> for details.
+<dd>Specifies an <a href="/Users/uwiger/ETC/git/xmerl/doc/index.md" target="_top"><code>xmerl</code></a> callback module to be
+used for exporting the documentation. See <a href="/Users/uwiger/ETC/git/xmerl/doc/xmerl.md#export_simple_content-2"><code>//xmerl/xmerl:export_simple_content/2</code></a> for details.
 </dd>
 
 
 
 
 
-__See also:__ [//edoc/edoc:layout/2](http://www.erlang.org/doc/man/edoc.html#layout-2), [edown_doclet:layout/2](edown_doclet.md#layout-2).<a name="overview-2"></a>
+__See also:__ [//edoc/edoc:layout/2](/Users/uwiger/ETC/git/edoc/doc/edoc.md#layout-2), [edown_doclet:layout/2](edown_doclet.md#layout-2).<a name="overview-2"></a>
 
-<h3>overview/2</h3>
-
+###overview/2##
 
 
 
@@ -143,8 +137,7 @@ __See also:__ [//edoc/edoc:layout/2](http://www.erlang.org/doc/man/edoc.html#lay
 
 <a name="package-2"></a>
 
-<h3>package/2</h3>
-
+###package/2##
 
 
 
@@ -153,8 +146,7 @@ __See also:__ [//edoc/edoc:layout/2](http://www.erlang.org/doc/man/edoc.html#lay
 
 <a name="type-1"></a>
 
-<h3>type/1</h3>
-
+###type/1##
 
 
 

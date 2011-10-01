@@ -12,31 +12,28 @@ EDoc Doclet module for producing Markdown.
 
 Copyright (c) 2010 Erlang Solutions Ltd
 
-__Authors:__ Ulf Wiger ([`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erlang-solutions.com)).
+__Authors:__ Ulf Wiger ([`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erlang-solutions.com)).<a name="index"></a>
 
-<h2><a name="index">Function Index</a></h2>
-
+##Function Index##
 
 
 <table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#run-2">run/2</a></td><td>Main doclet entry point.</td></tr></table>
 
 
+<a name="functions"></a>
 
-
-<h2><a name="functions">Function Details</a></h2>
-
+##Function Details##
 
 <a name="run-2"></a>
 
-<h3>run/2</h3>
+###run/2##
 
 
 
 
-
-<pre>run(Command::<a href="#type-doclet_gen">doclet_gen()</a> | <a href="#type-doclet_toc">doclet_toc()</a>, Ctxt::<a href="#type-edoc_context">edoc_context()</a>) -> ok</pre>
-<br></br>
-
+<pre>run(Command :: <a href="#type-doclet_gen">doclet_gen()</a> | <a href="#type-doclet_toc">doclet_toc()</a>,
+    Ctxt :: <a href="#type-edoc_context">edoc_context()</a>) ->
+       ok</pre>
 
 
 
@@ -46,8 +43,8 @@ Main doclet entry point.
 
 
 
-Also see [`//edoc/edoc:layout/2`](http://www.erlang.org/doc/man/edoc.html#layout-2) for layout-related options, and
-[`//edoc/edoc:get_doc/2`](http://www.erlang.org/doc/man/edoc.html#get_doc-2) for options related to reading source  
+Also see [`//edoc/edoc:layout/2`](/Users/uwiger/ETC/git/edoc/doc/edoc.md#layout-2) for layout-related options, and
+[`//edoc/edoc:get_doc/2`](/Users/uwiger/ETC/git/edoc/doc/edoc.md#get_doc-2) for options related to reading source  
 files.
 
 Options:
@@ -80,7 +77,7 @@ functions will also be included. The default value is <code>false</code>.
 
 
 
-<dt><code>{overview, <a href="http://www.erlang.org/doc/man/edoc.html#type-filename">//edoc/edoc:filename()</a>}</code>
+<dt><code>{overview, <a href="/Users/uwiger/ETC/git/edoc/doc/edoc.md#type-filename">//edoc/edoc:filename()</a>}</code>
 </dt>
 
 
@@ -120,7 +117,7 @@ specified, no stylesheet reference will be generated.
 
 
 
-<dt><code>{stylesheet_file, <a href="http://www.erlang.org/doc/man/edoc.html#type-filename">//edoc/edoc:filename()</a>}</code>
+<dt><code>{stylesheet_file, <a href="/Users/uwiger/ETC/git/edoc/doc/edoc.md#type-filename">//edoc/edoc:filename()</a>}</code>
 </dt>
 
 

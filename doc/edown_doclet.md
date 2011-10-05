@@ -31,7 +31,7 @@ __Authors:__ Ulf Wiger ([`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erla
 
 
 
-<pre>run(Command::<a href="#type-doclet_gen">doclet_gen()</a> | <a href="#type-doclet_toc">doclet_toc()</a>, Ctxt::<a href="#type-edoc_context">edoc_context()</a>) -> ok</pre>
+<pre>run(Command::[doclet_gen()](#type-doclet_gen) | [doclet_toc()](#type-doclet_toc), Ctxt::[edoc_context()](#type-edoc_context)) -&gt; ok</pre>
 <br></br>
 
 
@@ -43,8 +43,8 @@ Main doclet entry point.
 
 
 
-Also see [`//edoc/edoc:layout/2`](http://www.erlang.org/doc/man/edoc.html#layout-2) for layout-related options, and
-[`//edoc/edoc:get_doc/2`](http://www.erlang.org/doc/man/edoc.html#get_doc-2) for options related to reading source  
+Also see [`//edoc/edoc:layout/2`](/Users/uwiger/ETC/git/edoc/doc/edoc.md#layout-2) for layout-related options, and
+[`//edoc/edoc:get_doc/2`](/Users/uwiger/ETC/git/edoc/doc/edoc.md#get_doc-2) for options related to reading source  
 files.
 
 Options:
@@ -77,7 +77,7 @@ functions will also be included. The default value is <code>false</code>.
 
 
 
-<dt><code>{overview, <a href="http://www.erlang.org/doc/man/edoc.html#type-filename">//edoc/edoc:filename()</a>}</code>
+<dt><code>{overview, <a href="/Users/uwiger/ETC/git/edoc/doc/edoc.md#type-filename">//edoc/edoc:filename()</a>}</code>
 </dt>
 
 
@@ -117,7 +117,7 @@ specified, no stylesheet reference will be generated.
 
 
 
-<dt><code>{stylesheet_file, <a href="http://www.erlang.org/doc/man/edoc.html#type-filename">//edoc/edoc:filename()</a>}</code>
+<dt><code>{stylesheet_file, <a href="/Users/uwiger/ETC/git/edoc/doc/edoc.md#type-filename">//edoc/edoc:filename()</a>}</code>
 </dt>
 
 

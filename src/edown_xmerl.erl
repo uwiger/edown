@@ -68,6 +68,8 @@ rstrip(Str) -> re:replace(Str, "\\s\$", []).
 %% for an example. (By default, we always generate the end tag, to make
 %% sure that the scope of a markup is not extended by mistake.)
 
+'#element#'('pre_pre', Data, Attrs, Parents, E) ->
+    '#element#'(pre, escape_pre(Data), Attrs, Parents, E);
 '#element#'('pre', Data, Attrs, Parents, E) ->
     xmerl_html:'#element#'('pre', Data, Attrs, Parents, E);
 '#element#'('div', Data, _, _Parents, _E) ->
@@ -98,6 +100,9 @@ elem(Tag, Data, Attrs, Parents, E) ->
 	false ->
 	    md_elem(Tag, Data, Attrs, Parents, E)
     end.
+
+escape_pre(Data) ->
+    re:replace(re:replace(Data, "<", "\\&lt;", [global]), ">", "\\&gt;", [global]).
 
 alias_for(Tag, Data, Attrs, Parents, E) ->
     xmerl_html:'#element#'(Tag, Data, Attrs, Parents, E#xmlElement{name = Tag}).

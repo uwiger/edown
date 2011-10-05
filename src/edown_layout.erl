@@ -14,7 +14,7 @@
 %% limitations under the License.
 %%==============================================================================
 %% @author Ulf Wiger <ulf.wiger@erlang-solutions.com>
-%% @copyright 2010 Erlang Solutions Ltd 
+%% @copyright 2010 Erlang Solutions Ltd
 %% @end
 %% =====================================================================
 
@@ -572,7 +572,7 @@ format_spec(Name, Type, Defs, #opts{pretty_printer = erl_pp}=Opts) ->
         L = t_clause(Name, Type),
         O = pp_clause(Name, Type),
         {R, ".\n"} = etypef(L, O),
-        [{pre, R}]
+        [{pre_pre, R}]
     catch _:_ ->
         %% Example: "@spec ... -> record(a)"
         format_spec(Name, Type, Defs, Opts#opts{pretty_printer=''})
@@ -580,7 +580,7 @@ format_spec(Name, Type, Defs, #opts{pretty_printer = erl_pp}=Opts) ->
 format_spec(Sep, Type, Defs, _Opts) ->
     %% Very limited formatting.
     Br = if Defs =:= [] -> br; true -> [] end,
-    [{pre, t_clause(Sep, Type)}, Br].
+    [{pre_pre, t_clause(Sep, Type)}, Br].
 
 t_clause(Name, Type) ->
     #xmlElement{content = [#xmlElement{name = 'fun', content = C}]} = Type,
@@ -599,13 +599,13 @@ format_type(Prefix, Name, Type, Last, #opts{pretty_printer = erl_pp}=Opts) ->
         L = t_utype(Type),
         O = pp_type(Name, Type),
         {R, ".\n"} = etypef(L, O),
-        [{pre, Prefix ++ [" = "] ++ R ++ Last}]
+        [{pre_pre, Prefix ++ [" = "] ++ R ++ Last}]
     catch _:_ ->
         %% Example: "t() = record(a)."
         format_type(Prefix, Name, Type, Last, Opts#opts{pretty_printer =''})
     end;
 format_type(Prefix, _Name, Type, Last, _Opts) ->
-    [{pre, Prefix ++ [" = "] ++ t_utype(Type) ++ Last}].
+    [{pre_pre, Prefix ++ [" = "] ++ t_utype(Type) ++ Last}].
 
 pp_type(Prefix, Type) ->
     Atom = list_to_atom(lists:duplicate(iolist_size(Prefix), $a)),

@@ -1,10 +1,7 @@
 
 
-#The edown application#
+#Edown - Markdown generated from Edoc#
 
-Status:
-------
-More-or-less readable Markdown can be generated.
 
 Copyright (c) 2010 Erlang Solutions Ltd
 

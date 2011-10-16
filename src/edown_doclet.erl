@@ -132,8 +132,7 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
     packages(Packages, Dir, FileMap, Env, Options),
     Overview = overview(Dir, Title, Env, Options),
     Data =
-	[{h1, [Title]}]
-	 ++ Overview
+	Overview
 	 ++ lists:concat([packages_frame(Packages) || Packages =/= []])
 	 ++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
 

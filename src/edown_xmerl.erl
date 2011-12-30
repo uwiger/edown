@@ -69,7 +69,12 @@ rstrip(Str) -> re:replace(Str, "\\s\$", []).
 %% sure that the scope of a markup is not extended by mistake.)
 
 '#element#'('pre_pre', Data, Attrs, Parents, E) ->
-    '#element#'(pre, escape_pre(Data), Attrs, Parents, E);
+    case re:run(Data, "<a href=", []) of
+	{match, _} ->
+	    '#element#'(pre, Data, Attrs, Parents, E);
+	nomatch ->
+	    '#element#'(pre, escape_pre(Data), Attrs, Parents, E)
+    end;
 '#element#'('pre', Data, Attrs, Parents, E) ->
     xmerl_html:'#element#'('pre', Data, Attrs, Parents, E);
 '#element#'('div', Data, _, _Parents, _E) ->
@@ -178,6 +183,7 @@ md_elem(Tag, Data, Attrs, Parents, E) ->
 
 within_html(Tags) ->
     lists:any(fun({pre,_}) -> true;
+		 ({pre_pre,_}) -> true;
 		 ({T,_}) -> needs_html(T)
 	      end, Tags).
 

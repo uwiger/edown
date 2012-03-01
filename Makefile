@@ -1,6 +1,6 @@
 .PHONY: all compile clean doc
 
-all: compile doc
+all: compile
 
 compile:
 	./rebar compile

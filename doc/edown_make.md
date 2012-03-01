@@ -49,7 +49,7 @@ This function does not manage dependencies. It is simply a wrapper around
 
 
 
-<pre>main(Args::[Config]) -> <a href="#type-no_return">no_return()</a></pre>
+<pre>main(Args::[Config]) -&gt; no_return()</pre>
 <br></br>
 
 

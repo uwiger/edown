@@ -75,6 +75,13 @@ rstrip(Str) -> re:replace(Str, "\\s\$", []).
 	nomatch ->
 	    '#element#'(pre, escape_pre(Data), Attrs, Parents, E)
     end;
+'#element#'('esc_tt', Data, Attrs, Parents, E) ->
+    case within_html(Parents) of
+	true ->
+	    '#element#'(tt, escape_pre(Data), Attrs, Parents, E);
+	false ->
+	    '#element#'(tt, Data, Attrs, Parents, E)
+    end;
 '#element#'('pre', Data, Attrs, Parents, E) ->
     xmerl_html:'#element#'('pre', Data, Attrs, Parents, E);
 '#element#'('div', Data, _, _Parents, _E) ->

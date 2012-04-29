@@ -16,7 +16,9 @@
 %% @author Ulf Wiger <ulf.wiger@erlang-solutions.com>
 %% @copyright 2010 Erlang Solutions Ltd 
 %% @end
-%% =====================================================================
+%% =============================================================================
+%% Modified 2012 by Beads Land-Trujillo:  get_git_branch/0, redirect_href/3
+%% =============================================================================
 
 %% @doc EDoc Doclet module for producing Markdown.
 
@@ -201,7 +203,12 @@ redirect_href(Attrs, Branch, BaseHRef) ->
 		{match, _} ->
 		    false;
 		nomatch ->
-		    HRef1 = do_redirect(Href, AppBlob),
+			case Href of 
+				[$# | _]	->
+					HRef1 = do_redirect(?INDEX_FILE ++ Href, AppBlob);
+				_Else ->
+					HRef1 = do_redirect(Href, AppBlob)
+			end,			
 		    {true,
 		     lists:keyreplace(
 		       href, #xmlAttribute.name, Attrs,

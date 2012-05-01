@@ -229,7 +229,7 @@ get_git_branch() ->
 	case string:tokens(Git, " \n") of
 		[$*,Branch]					-> Branch;
 		[$*,"(no","branch)",Branch]	-> Branch;
-		Other						-> erlang:error({cannot_get_git_branch, Other})
+		Other						-> erlang:error({cannot_get_git_branch, Git})
 	end.
 
 %% Tried to display logo in a table on top of page, but not working.

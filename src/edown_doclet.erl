@@ -229,7 +229,8 @@ get_git_branch() ->
 	case string:tokens(Git, " \n") of
 		[$*,Branch]					-> Branch;
 		[$*,"(no","branch)",Branch]	-> Branch;
-		_Other						-> What = io_lib:format("~s~n", Git),
+		_Other						-> What = io_lib:format("~s~n", [Git]),
+									   io:format("~s~n", [Git]),
 									   erlang:error({cannot_get_git_branch, What})
 	end.
 

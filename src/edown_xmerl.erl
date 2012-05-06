@@ -16,7 +16,9 @@
 %% @author Ulf Wiger <ulf.wiger@erlang-solutions.com>
 %% @copyright 2010 Erlang Solutions Ltd 
 %% @end
-%% =====================================================================
+%% =============================================================================
+%% Modified 2012 by Beads Land-Trujillo:  '#text#'/1, brstrip/1
+%% =============================================================================
 
 %% Description  : Callback module for exporting XML to Markdown.
 

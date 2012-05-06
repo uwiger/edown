@@ -50,7 +50,7 @@ strip(Str) -> lstrip(rstrip(Str)).
 lstrip(Str) -> re:replace(Str,"^\\s","",[]).
 rstrip(Str) -> re:replace(Str, "\\s\$", []).
 
-brstrip(Str) -> re:replace(Str, "\\s\\s\$", "\\s", [global, multiline]).
+brstrip(Str) -> re:replace(Str, "\\s+\\s\$", " ", [global, multiline]).
 
 %% The '#root#' tag is called when the entire structure has been
 %% exported. It does not appear in the structure itself.

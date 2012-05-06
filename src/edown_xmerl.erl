@@ -50,6 +50,7 @@ strip(Str) -> lstrip(rstrip(Str)).
 lstrip(Str) -> re:replace(Str,"^\\s","",[]).
 rstrip(Str) -> re:replace(Str, "\\s\$", []).
 
+% Strip double spaces at end of line -- markdown reads as hard return.
 brstrip(Str) -> re:replace(Str, "\\s+\\s\$", " ", [global, multiline]).
 
 %% The '#root#' tag is called when the entire structure has been

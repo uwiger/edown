@@ -178,9 +178,6 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
 	    end,
     Desc = get_content(description, Es),
     FullDesc = get_content(fullDescription, Desc),
-
-	if FullDesc == [] -> true; true -> throw(FullDesc) end,
-
 	{ShortDesc, RestDesc} = get_first_sentence(FullDesc),
     Functions = [{function_name(Ex), Ex} || Ex <- get_content(functions, Es)],
     Types = [{type_name(Ex), Ex} || Ex <- get_content(typedecls, Es)],

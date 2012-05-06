@@ -41,7 +41,7 @@
 %% The '#text#' function is called for every text segment.
 
 '#text#'(Text) ->
-    to_string(Text).
+    rstrip(to_string(Text)).
 
 to_string(S) ->
     binary_to_list(iolist_to_binary([S])).

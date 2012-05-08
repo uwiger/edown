@@ -50,9 +50,7 @@ The module is intended to be used together with edoc.<a name="index"></a>
 
 
 
-The layout function.
-
-Options to the standard layout:
+The layout function. Options to the standard layout:
 
 
 
@@ -118,15 +116,15 @@ the source file. The default value is <code>true</code>.
 
 
 
-<dd>Specifies an <a href="/Users/uwiger/FL/git/xmerl/doc/index.md" target="_top"><code>xmerl</code></a> callback module to be
-used for exporting the documentation. See <a href="/Users/uwiger/FL/git/xmerl/doc/xmerl.md#export_simple_content-2"><code>//xmerl/xmerl:export_simple_content/2</code></a> for details.
+<dd>Specifies an <a href="http://www.erlang.org/doc/man/index.html" target="_top"><code>xmerl</code></a> callback module to be
+used for exporting the documentation. See <a href="http://www.erlang.org/doc/man/xmerl.html#export_simple_content-2"><code>//xmerl/xmerl:export_simple_content/2</code></a> for details.
 </dd>
 
 
 
 
 
-__See also:__ [//edoc/edoc:layout/2](/Users/uwiger/FL/git/edoc/doc/edoc.md#layout-2), [edown_doclet:layout/2](edown_doclet.md#layout-2).<a name="overview-2"></a>
+__See also:__ [//edoc/edoc:layout/2](http://www.erlang.org/doc/man/edoc.html#layout-2), [edown_doclet:layout/2](edown_doclet.md#layout-2).<a name="overview-2"></a>
 
 ###overview/2##
 

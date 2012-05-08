@@ -39,15 +39,11 @@ __Authors:__ Ulf Wiger ([`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erla
 
 
 
-Main doclet entry point.
+Main doclet entry point. 
 
-
-
-Also see [`//edoc/edoc:layout/2`](/Users/uwiger/FL/git/edoc/doc/edoc.md#layout-2) for layout-related options, and
-[`//edoc/edoc:get_doc/2`](/Users/uwiger/FL/git/edoc/doc/edoc.md#get_doc-2) for options related to reading source  
-files.
-
-Options:
+Also see [`//edoc/edoc:layout/2`](http://www.erlang.org/doc/man/edoc.html#layout-2) for layout-related options, and
+[`//edoc/edoc:get_doc/2`](http://www.erlang.org/doc/man/edoc.html#get_doc-2) for options related to reading source 
+files. Options:
 
 
 
@@ -77,7 +73,7 @@ functions will also be included. The default value is <code>false</code>.
 
 
 
-<dt><code>{overview, <a href="/Users/uwiger/FL/git/edoc/doc/edoc.md#type-filename">//edoc/edoc:filename()</a>}</code>
+<dt><code>{overview, <a href="http://www.erlang.org/doc/man/edoc.html#type-filename">//edoc/edoc:filename()</a>}</code>
 </dt>
 
 
@@ -117,7 +113,7 @@ specified, no stylesheet reference will be generated.
 
 
 
-<dt><code>{stylesheet_file, <a href="/Users/uwiger/FL/git/edoc/doc/edoc.md#type-filename">//edoc/edoc:filename()</a>}</code>
+<dt><code>{stylesheet_file, <a href="http://www.erlang.org/doc/man/edoc.html#type-filename">//edoc/edoc:filename()</a>}</code>
 </dt>
 
 

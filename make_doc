@@ -8,6 +8,14 @@
 %%
 main([]) ->
     code:add_patha("ebin"),
+    Default = "esl",
+    U = case os:getenv("TGT") of
+	    [] -> Default;
+	    false -> Default;
+	    Str   -> Str
+	end,
+    TopURL = "http://github.com/" ++ U ++ "/edown",
+    io:fwrite("Making edown docs for [~s]...~n", [TopURL]),
     R = edoc:application(edown, ".",
 			 [{doclet, edown_doclet},
 			  {source_path, ["src"]},
@@ -15,8 +23,7 @@ main([]) ->
 			  {stylesheet, ""},  % don't copy stylesheet.css
 			  {image, ""},       % don't copy erlang.png
 			  {top_level_readme,
-			   {"./README.md",
-			    "http://github.com/esl/edown"}}]),
+			   {"./README.md", TopURL}}]),
     case R of
 	ok ->
 	    halt();

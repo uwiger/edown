@@ -225,11 +225,10 @@ do_redirect(Href, Prefix) ->
     end.
 
 get_git_branch() ->
-	Git = os:cmd("git branch"),
-	case string:tokens(Git, " \n") of
-		["*", Branch]					-> Branch;
-		["*", "(no", "branch)", Branch]	-> Branch;
-		Other							-> erlang:error({cannot_get_git_branch, Other})
+	Git = os:cmd("git describe --always --all"),
+	case string:tokens(Git, " \n/") of
+		[_, Branch]	-> Branch;
+		Other		-> erlang:error({cannot_get_git_branch, Other})
 	end.
 
 %% Tried to display logo in a table on top of page, but not working.

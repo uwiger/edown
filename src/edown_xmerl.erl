@@ -13,7 +13,7 @@
 %% See the License for the specific language governing permissions and
 %% limitations under the License.
 %%==============================================================================
-%% @author Ulf Wiger <ulf.wiger@erlang-solutions.com>
+%% @author Ulf Wiger <ulf@wiger.net>
 %% @copyright 2010 Erlang Solutions Ltd 
 %% @end
 %% =============================================================================
@@ -174,7 +174,18 @@ md_elem(Tag, Data, Attrs, Parents, E) ->
 	em    -> ["_", no_nl(Data), "_"];
 	i     -> ["_", no_nl(Data), "_"];
 	tt    -> ["`", no_nl(Data), "`"];
-	code  -> ["`", no_nl(Data), "`"];
+	code  ->
+	    %% edoc_macros.erl hard-codes expansion of the {@type ...} macro
+	    %% as a HTML href inside <code>...</code>
+	    case re:run(Data, "<a href=", []) of
+		{match,_} ->
+		    %% ["<code>", no_nl(Data), "</code>"];
+		    ["<code>", no_nl(Data), "</code>"];
+		_ ->
+		    %% ["`", no_nl(Data), "`"]
+		    %% Don't strip newlines here, as it messes up the specs
+		    ["`", Data, "`"]
+	    end;
 	dl    -> Data;
 	dt    -> html_elem(dt, Data, Attrs, Parents, E);
 	dd    -> html_elem(dd, Data, Attrs, Parents, E);
@@ -195,6 +206,7 @@ md_elem(Tag, Data, Attrs, Parents, E) ->
 within_html(Tags) ->
     lists:any(fun({pre,_}) -> true;
 		 ({pre_pre,_}) -> true;
+		 ({code,_}) -> true;
 		 ({T,_}) -> needs_html(T)
 	      end, Tags).
 

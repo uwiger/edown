@@ -12,7 +12,7 @@ Markdown layout module for EDoc.
 
 Copyright (c) 2010 Erlang Solutions Ltd
 
-__Authors:__ Ulf Wiger ([`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erlang-solutions.com)).<a name="description"></a>
+__Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).<a name="description"></a>
 
 ##Description##
   Derived from `edoc_layout`, which is part of the Erlang/OTP application EDoc.

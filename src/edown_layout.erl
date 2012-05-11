@@ -13,7 +13,7 @@
 %% See the License for the specific language governing permissions and
 %% limitations under the License.
 %%==============================================================================
-%% @author Ulf Wiger <ulf.wiger@erlang-solutions.com>
+%% @author Ulf Wiger <ulf@wiger.net>
 %% @copyright 2010 Erlang Solutions Ltd
 %% @end
 %% =====================================================================

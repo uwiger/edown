@@ -50,7 +50,7 @@ The module is intended to be used together with edoc.<a name="index"></a>
 
 
 
-The layout function. Options to the standard layout:
+The layout function.Options to the standard layout:
 
 
 

@@ -14,7 +14,7 @@
 %% limitations under the License.
 %%==============================================================================
 %% @author Ulf Wiger <ulf@wiger.net>
-%% @copyright 2010 Erlang Solutions Ltd 
+%% @copyright 2010 Erlang Solutions Ltd
 %% @end
 %% =============================================================================
 %% Modified 2012 by Beads Land-Trujillo:  '#text#'/1, brstrip/1
@@ -53,12 +53,12 @@ lstrip(Str) -> re:replace(Str,"^\\s","",[]).
 rstrip(Str) -> re:replace(Str, "\\s\$", []).
 
 % Strip double spaces at end of line -- markdown reads as hard return.
-brstrip(Str) -> re:replace(Str, "\\s+\\s\$", " ", [global, multiline]).
+brstrip(Str) -> re:replace(Str, "\\s+\\s\$", "", [global, multiline]).
 
 %% The '#root#' tag is called when the entire structure has been
 %% exported. It does not appear in the structure itself.
 
-'#root#'(Data, Attrs, [], _E) -> 
+'#root#'(Data, Attrs, [], _E) ->
     case find_attribute(header, Attrs) of
 	{value, Hdr} ->
 	    [lists:flatten(io_lib:fwrite("HEADER: ~p~n", [Hdr])), Data];
@@ -229,7 +229,3 @@ no_nl(S) ->
 %%     integer_to_list(V);
 %% a_val(V) ->
 %%     V.
-
-
-
-

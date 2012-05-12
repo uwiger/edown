@@ -228,13 +228,17 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
 %%
 to_simple([#xmlElement{name = Name, attributes = Attrs, content = Content}|T]) ->
     [{Name, to_simple_attrs(Attrs), to_simple(Content)} | to_simple(T)];
-to_simple([#xmlText{parents = Ps, value = Text} = H | T]) ->
-    case [P || {P,_} <- Ps, lists:member(P, [pre,tt])] of
-	[] ->
-	    [H#xmlText{value = normalize_text(Text)} | to_simple(T)];
+to_simple([#xmlText{value = "\n" ++ _ = Txt} = H|T]) ->
+    %% Treat explicit double-newlines specially, as they are otherwise converted
+    %% in the next stage, causing trouble for Markdown
+    case [C || C <- Txt, C =/= $\s] of
+	"\n\n" ->
+	    [{p, []} | to_simple(T)];
 	_ ->
-	    [H | to_simple(T)]
+	    [text_to_simple(H) | to_simple(T)]
     end;
+to_simple([#xmlText{} = H | T]) ->
+    [text_to_simple(H) | to_simple(T)];
 to_simple([{N,C} | T]) ->
     [{N, to_simple(C)} | to_simple(T)];
 to_simple([{N,As,C} | T]) ->
@@ -245,6 +249,15 @@ to_simple([H|T]) ->
     [H | to_simple(T)];
 to_simple([]) ->
     [].
+
+text_to_simple(#xmlText{parents = Ps, value = Text} = X) ->
+    case [P || {P,_} <- Ps, lists:member(P, [pre,tt])] of
+	[] ->
+	    X#xmlText{value = normalize_text(Text)};
+	_ ->
+	    X
+    end.
+
 
 to_simple_attrs(As) ->
     [{K,V} || #xmlAttribute{name = K, value = V} <- As].
@@ -1010,7 +1023,21 @@ local_label(R) ->
 markdown(_Title, _CSS, Body) ->
     %% [{title, [lists:flatten(Title)]}|
     %%  Body].
-    Body.
+    collapse_ps(Body).
+
+collapse_ps([{p,[]},Next|T]) when element(1,Next) == p ->
+    collapse_ps([Next|T]);
+collapse_ps([{Tag,Content}|T]) ->
+    [{Tag, collapse_ps(Content)} | collapse_ps(T)];
+collapse_ps([{Tag,As,Content}|T]) ->
+    [{Tag, As, collapse_ps(Content)} | collapse_ps(T)];
+collapse_ps([H|T]) ->
+    [H | collapse_ps(T)];
+collapse_ps([]) ->
+    [].
+
+
+
 
 %% xhtml(Title, CSS, Body) ->
 %%     [{html, [?NL,

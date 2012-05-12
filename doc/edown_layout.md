@@ -8,8 +8,6 @@
 
 Markdown layout module for EDoc.
 
-
-
 Copyright (c) 2010 Erlang Solutions Ltd
 
 __Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).<a name="description"></a>
@@ -33,8 +31,6 @@ The module is intended to be used together with edoc.<a name="index"></a>
 ###markdown/3##
 
 
-
-
 `markdown(Title, CSS, Body) -> any()`
 
 <a name="module-2"></a>
@@ -42,15 +38,13 @@ The module is intended to be used together with edoc.<a name="index"></a>
 ###module/2##
 
 
-
-
 `module(Element, Options) -> any()`
 
 
 
+The layout function.
 
-
-The layout function. Options to the standard layout:
+Options to the standard layout:
 
 
 
@@ -129,8 +123,6 @@ __See also:__ [//edoc/edoc:layout/2](http://www.erlang.org/doc/man/edoc.html#lay
 ###overview/2##
 
 
-
-
 `overview(E, Options) -> any()`
 
 <a name="package-2"></a>
@@ -138,15 +130,11 @@ __See also:__ [//edoc/edoc:layout/2](http://www.erlang.org/doc/man/edoc.html#lay
 ###package/2##
 
 
-
-
 `package(E, Options) -> any()`
 
 <a name="type-1"></a>
 
 ###type/1##
-
-
 
 
 `type(E) -> any()`

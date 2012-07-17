@@ -6,7 +6,7 @@
 Copyright (c) 2010 Erlang Solutions Ltd
 
 
-__Authors:__ [`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erlang-solutions.com).
+__Authors:__ [`ulf.wiger@feuerlabs.com`](mailto:ulf.wiger@feuerlabs.com).
 
 
 Status:

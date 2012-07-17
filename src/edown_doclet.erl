@@ -225,11 +225,14 @@ do_redirect(Href, Prefix) ->
     end.
 
 get_git_branch() ->
-	Git = os:cmd("git describe --always --all"),
-	case string:tokens(Git, " \n/") of
+    case os:cmd("git describe --always --all") of
+	"fatal:" ++ _ -> "master";  % sensible default
+	Git ->
+	    case string:tokens(Git, " \n/") of
 		[_, Branch]	-> Branch;
 		Other		-> erlang:error({cannot_get_git_branch, Other})
-	end.
+	    end
+    end.
 
 %% Tried to display logo in a table on top of page, but not working.
 %% Presumably, this hits some limitation of Markdown

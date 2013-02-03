@@ -32,7 +32,7 @@
 	 '#element#'/5,
 	 '#text#'/1]).
 
--import(xmerl_lib, [markup/3, find_attribute/2, export_text/1]).
+-import(xmerl_lib, [find_attribute/2]).
 
 -include_lib("xmerl/include/xmerl.hrl").
 

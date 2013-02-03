@@ -189,10 +189,10 @@ md_elem(Tag, Data, Attrs, Parents, E) ->
 	dl    -> Data;
 	dt    -> html_elem(dt, Data, Attrs, Parents, E);
 	dd    -> html_elem(dd, Data, Attrs, Parents, E);
-	h1 -> ["\n\n#", no_nl(Data), "#\n"];
-	h2 -> ["\n\n##", no_nl(Data), "##\n"];
-	h3 -> ["\n\n###", no_nl(Data), "##\n"];
-	h4 -> ["\n\n####", no_nl(Data), "##\n"];
+	h1 -> ["\n\n# ", no_nl(Data), " #\n"];
+	h2 -> ["\n\n## ", no_nl(Data), " ##\n"];
+	h3 -> ["\n\n### ", no_nl(Data), " ###\n"];
+	h4 -> ["\n\n#### ", no_nl(Data), " ####\n"];
 	hr -> "---------\n";
 	head -> [];
 	_ ->

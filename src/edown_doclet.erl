@@ -286,7 +286,7 @@ source({M, P, Name, Path}, Dir, Suffix, Env, Set, Private, Hidden,
 		andalso ((not is_hidden(Doc)) orelse Hidden) of
 		true ->
 		    Text = edoc:layout(Doc, Options),
-		    Name1 = packages:last(M) ++ Suffix,
+		    Name1 = packages_last(M) ++ Suffix,
 		    edoc_lib:write_file(Text, Dir, Name1, P),
 		    {sets:add_element(Module, Set), Error};
 		false ->
@@ -298,6 +298,21 @@ source({M, P, Name, Path}, Dir, Suffix, Env, Set, Private, Hidden,
     end.
 
 check_name(M, M0, P0, File) ->
+    case erlang:function_exported(packages, strip_last, 1) of
+	true ->
+	    check_name_(M, M0, P0, File);
+	false ->
+	    ok
+    end.
+
+%% If running pre-R16B OTP, where packages are still "supported".
+packages_last(M) ->
+    case erlang:function_exported(packages, last, 1) of
+	true  -> packages:last(M);
+	false -> atom_to_list(M)
+    end.
+
+check_name_(M, M0, P0, File) ->
     P = list_to_atom(packages:strip_last(M)),
     N = packages:last(M),
     N0 = packages:last(M0),

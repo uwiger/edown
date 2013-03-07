@@ -42,6 +42,46 @@ Example:
 The conversion function will fetch the current branch name from git,
 and fail if it cannot do so.
 
+Rebar customizations
+====================
+A set of escripts can be found under
+[edown/priv/scripts/](priv/scripts/), which
+can be used to customize the `rebar` built process. The
+[rebar.config.script](priv/scripts/rebar.config.script)
+file should be copied into your application, next to `rebar.config`.
+It will sense if `doc` is a current target, and will then include
+`edown` in the `deps`; otherwise, it removes it. This way, you will
+not have to pull down `edown` unless you really want to build the
+docs. It will also locate edown along your path, in which case
+it doesn't need to pull it down again.
+
+The script will also start the `inets` application, so that you
+can include URLs as part of a `doc_path` option (see below).
+
+Links to other EDown-generated docs
+===================================
+There is a way to configure Edoc/Edown to get URLs right even
+when linking to other Edown-generated docs on Github.
+
+First, you need to specify paths to the `edoc-info` files for
+each repository as part of `edoc_opts` in your rebar.config, e.g.<pre>   {doc_path, ["http://raw.github.com/uwiger/setup/master/doc",
+               "http://raw.github.com/uwiger/gproc/master/doc"]}</pre>
+
+Note (1) that we use "http:://...", not "https://...", since
+Edoc doesn't recognize the latter. Also note that we use URLs
+to the raw files. This is for Edoc as it fetches the `edoc-info`
+files. Edown will detect and rewrite such links in the generated
+output, since "raw" links wouldn't work for the markdown files.
+
+The next issue is that Edoc uses httpd_client to fetch the
+`edoc-info` files, which requires `inets` to be started. To
+further complicate matters, `ssl` (and thus `crypto` and
+`public_key`) must also be started, since Github will
+redirect to https.
+
+One way to solve this is to use the escripts found under
+`edown/priv/scripts`.
+
 NOTE
 ====
 EDoc provides a plugin structure, so that one may specify own 

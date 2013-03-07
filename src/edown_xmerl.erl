@@ -138,7 +138,7 @@ md_elem(a, Data, Attrs, _Parents, _E) ->
     %% io:fwrite("A TAG = ~p~nPs = ~p~n", [_E, _Parents]),
     case lists:keyfind(href, #xmlAttribute.name, Attrs) of
 	#xmlAttribute{value = HRef}  ->
-	    ["[", Data, "](", HRef, ")"];
+	    ["[", Data, "](", rewrite_github_url(HRef), ")"];
 	false ->
 	    case lists:keyfind(name, #xmlAttribute.name, Attrs) of
 		#xmlAttribute{} ->
@@ -229,3 +229,14 @@ no_nl(S) ->
 %%     integer_to_list(V);
 %% a_val(V) ->
 %%     V.
+
+rewrite_github_url("http://raw.github.com" ++ _ = URL) ->
+    case filename:split(URL) of
+	["http:","raw.github.com",User,App,Label,"doc"|Rest] ->
+	    "https://" ++ filename:join(
+			    ["github.com",User,App,"blob",Label,"doc"|Rest]);
+	_ ->
+	    URL
+    end;
+rewrite_github_url(URL) ->
+    URL.

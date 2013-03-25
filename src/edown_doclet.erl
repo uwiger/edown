@@ -170,11 +170,18 @@ make_top_level_README(Data, Options) ->
 	{Path, BaseHRef} ->
 	    Dir = filename:dirname(Path),
 	    Filename = filename:basename(Path),
-	    make_top_level_README(Data, Dir, Filename, BaseHRef)
+	    make_top_level_README(Data, Dir, Filename, BaseHRef);
+	{Path, BaseHRef, Branch} ->
+	    Dir = filename:dirname(Path),
+	    Filename = filename:basename(Path),
+	    make_top_level_README(Data, Dir, Filename, BaseHRef, Branch)
     end.
 
 make_top_level_README(Data, Dir, F, BaseHRef) ->
     Branch = get_git_branch(),
+    make_top_level_README(Data, Dir, F, BaseHRef, Branch).
+
+make_top_level_README(Data, Dir, F, BaseHRef, Branch) ->
     Exp = [xmerl_lib:expand_element(D) || D <- Data],
     New = [xmerl_lib:mapxml(
 	     fun(#xmlElement{name = a,

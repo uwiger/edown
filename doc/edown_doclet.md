@@ -1,18 +1,18 @@
 
 
-#Module edown_doclet#
+# Module edown_doclet #
 * [Description](#description)
 * [Function Index](#index)
 * [Function Details](#functions)
 
 
 EDoc Doclet module for producing Markdown.
-
 Copyright (c) 2010 Erlang Solutions Ltd
 
-__Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).<a name="index"></a>
+__Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).
+<a name="index"></a>
 
-##Function Index##
+## Function Index ##
 
 
 <table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#run-2">run/2</a></td><td>Main doclet entry point.</td></tr></table>
@@ -20,16 +20,18 @@ __Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).<a name="index"
 
 <a name="functions"></a>
 
-##Function Details##
+## Function Details ##
 
 <a name="run-2"></a>
 
-###run/2##
+### run/2 ###
 
 
-<pre>run(Command::<a href="#type-doclet_gen">doclet_gen()</a> | <a href="#type-doclet_toc">doclet_toc()</a>, Ctxt::<a href="#type-edoc_context">edoc_context()</a>) -> ok</pre>
+<pre><code>
+run(Command::<a href="#type-doclet_gen">doclet_gen()</a> | <a href="#type-doclet_toc">doclet_toc()</a>, Ctxt::<a href="#type-edoc_context">edoc_context()</a>) -&gt; ok
+</code></pre>
+
 <br></br>
-
 
 
 
@@ -40,6 +42,7 @@ Main doclet entry point.
 Also see [`//edoc/edoc:layout/2`](http://www.erlang.org/doc/man/edoc.html#layout-2) for layout-related options, and
 [`//edoc/edoc:get_doc/2`](http://www.erlang.org/doc/man/edoc.html#get_doc-2) for options related to reading source
 files.
+
 
 Options:
 
@@ -134,5 +137,6 @@ will be copied to the target directory.
 
 <dd>Specifies the title of the overview-page.
 </dd>
+
 
 

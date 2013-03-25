@@ -1,22 +1,22 @@
 
 
-#Module edown_layout#
+# Module edown_layout #
 * [Description](#description)
 * [Function Index](#index)
 * [Function Details](#functions)
 
 
 Markdown layout module for EDoc.
-
 Copyright (c) 2010 Erlang Solutions Ltd
 
-__Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).<a name="description"></a>
+__Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).
+<a name="description"></a>
 
-##Description##
+## Description ##
   Derived from `edoc_layout`, which is part of the Erlang/OTP application EDoc.
 The module is intended to be used together with edoc.<a name="index"></a>
 
-##Function Index##
+## Function Index ##
 
 
 <table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#markdown-3">markdown/3</a></td><td></td></tr><tr><td valign="top"><a href="#module-2">module/2</a></td><td>The layout function.</td></tr><tr><td valign="top"><a href="#overview-2">overview/2</a></td><td></td></tr><tr><td valign="top"><a href="#package-2">package/2</a></td><td></td></tr><tr><td valign="top"><a href="#type-1">type/1</a></td><td></td></tr></table>
@@ -24,25 +24,24 @@ The module is intended to be used together with edoc.<a name="index"></a>
 
 <a name="functions"></a>
 
-##Function Details##
+## Function Details ##
 
 <a name="markdown-3"></a>
 
-###markdown/3##
-
+### markdown/3 ###
 
 `markdown(Title, CSS, Body) -> any()`
 
+
 <a name="module-2"></a>
 
-###module/2##
-
+### module/2 ###
 
 `module(Element, Options) -> any()`
 
 
-
 The layout function.
+
 
 Options to the standard layout:
 
@@ -118,24 +117,25 @@ used for exporting the documentation. See <a href="http://www.erlang.org/doc/man
 
 
 
-__See also:__ [//edoc/edoc:layout/2](http://www.erlang.org/doc/man/edoc.html#layout-2), [edown_doclet:layout/2](edown_doclet.md#layout-2).<a name="overview-2"></a>
+__See also:__ [//edoc/edoc:layout/2](http://www.erlang.org/doc/man/edoc.html#layout-2), [edown_doclet:layout/2](edown_doclet.md#layout-2).
+<a name="overview-2"></a>
 
-###overview/2##
-
+### overview/2 ###
 
 `overview(E, Options) -> any()`
 
+
 <a name="package-2"></a>
 
-###package/2##
-
+### package/2 ###
 
 `package(E, Options) -> any()`
 
+
 <a name="type-1"></a>
 
-###type/1##
-
+### type/1 ###
 
 `type(E) -> any()`
+
 

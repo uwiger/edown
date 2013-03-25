@@ -1,13 +1,13 @@
 
 
-#Module edown_make#
+# Module edown_make #
 * [Function Index](#index)
 * [Function Details](#functions)
 
 
 <a name="index"></a>
 
-##Function Index##
+## Function Index ##
 
 
 <table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#from_script-1">from_script/1</a></td><td>Reads ConfigFile and calls <a href="edoc.md#application-3"><code>edoc:application/3</code></a></td></tr><tr><td valign="top"><a href="#main-1">main/1</a></td><td>Escript entry point for building edown (or edoc) documentation.</td></tr></table>
@@ -15,16 +15,18 @@
 
 <a name="functions"></a>
 
-##Function Details##
+## Function Details ##
 
 <a name="from_script-1"></a>
 
-###from_script/1##
+### from_script/1 ###
 
 
-<pre>from_script(Config::ConfigFile) -&gt; ok | {error, Reason}</pre>
+<pre><code>
+from_script(Config::ConfigFile) -&gt; ok | {error, Reason}
+</code></pre>
+
 <br></br>
-
 
 
 
@@ -35,15 +37,19 @@ Reads ConfigFile and calls [`edoc:application/3`](edoc.md#application-3)
 The ConfigFile will be read using [`file:script/1`](file.md#script-1), and should return
 `{App, Dir, Options}`, as required by [`edoc:application/3`](edoc.md#application-3).
 
+
 This function does not manage dependencies. It is simply a wrapper around
-[`edoc:application/3`](edoc.md#application-3).<a name="main-1"></a>
+[`edoc:application/3`](edoc.md#application-3).
+<a name="main-1"></a>
 
-###main/1##
+### main/1 ###
 
 
-<pre>main(Args::[Config]) -&gt; no_return()</pre>
+<pre><code>
+main(Args::[Config]) -&gt; no_return()
+</code></pre>
+
 <br></br>
-
 
 
 
@@ -74,5 +80,7 @@ config file as an input argument, corresponding to
 
 `escript edoc_make.beam ConfigFile`
 
+
 (The reason for this is that if the beam file can be passed directly to
 the escript command, setting the path should also be doable that way).
+

@@ -1,7 +1,6 @@
 
 
-#Edown - Markdown generated from Edoc#
-
+# Edown - Markdown generated from Edoc #
 
 Copyright (c) 2010 Erlang Solutions Ltd
 
@@ -17,9 +16,13 @@ a markdown-based index and overview. Currently, the
 edoc_doclet creates an index.html and overview.html,
 which do not point to the .md files.
 
-To generate markdown edoc, run:<pre>
+To generate markdown edoc, run:
+
+```
+
 edoc:application(App, [{doclet, edown_doclet} | OtherOpts]).
-</pre>
+
+```
 
 The `edown_xmerl` module is used as an xmerl export module.
 It converts xmerl's "simple xml" to Markdown syntax. Note that
@@ -64,8 +67,12 @@ There is a way to configure Edoc/Edown to get URLs right even
 when linking to other Edown-generated docs on Github.
 
 First, you need to specify paths to the `edoc-info` files for
-each repository as part of `edoc_opts` in your rebar.config, e.g.<pre>   {doc_path, ["http://raw.github.com/uwiger/setup/master/doc",
-               "http://raw.github.com/uwiger/gproc/master/doc"]}</pre>
+each repository as part of `edoc_opts` in your rebar.config, e.g.
+
+```
+   {doc_path, ["http://raw.github.com/uwiger/setup/master/doc",
+               "http://raw.github.com/uwiger/gproc/master/doc"]}
+```
 
 Note (1) that we use "http:://...", not "https://...", since
 Edoc doesn't recognize the latter. Also note that we use URLs
@@ -113,7 +120,8 @@ See [bin/MARKEDOC-README.md](bin/MARKEDOC-README.md).
 
 **Linux**`$ sed -r -f markedoc.sed <markdown file> > <edoc file>`
 
-##Modules##
+
+## Modules ##
 
 
 <table width="100%" border="0" summary="list of modules">

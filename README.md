@@ -1,7 +1,6 @@
 
 
-#Edown - Markdown generated from Edoc#
-
+# Edown - Markdown generated from Edoc #
 
 Copyright (c) 2010 Erlang Solutions Ltd
 
@@ -17,9 +16,13 @@ a markdown-based index and overview. Currently, the
 edoc_doclet creates an index.html and overview.html,
 which do not point to the .md files.
 
-To generate markdown edoc, run:<pre>
+To generate markdown edoc, run:
+
+```
+
 edoc:application(App, [{doclet, edown_doclet} | OtherOpts]).
-</pre>
+
+```
 
 The `edown_xmerl` module is used as an xmerl export module.
 It converts xmerl's "simple xml" to Markdown syntax. Note that
@@ -45,9 +48,9 @@ and fail if it cannot do so.
 Rebar customizations
 ====================
 A set of escripts can be found under
-[edown/priv/scripts/](http://github.com/esl/edown/blob/master/priv/scripts/), which
+[edown/priv/scripts/](http://github.com/esl/gproc/blob/master/priv/scripts/), which
 can be used to customize the `rebar` built process. The
-[rebar.config.script](http://github.com/esl/edown/blob/master/priv/scripts/rebar.config.script)
+[rebar.config.script](http://github.com/esl/gproc/blob/master/priv/scripts/rebar.config.script)
 file should be copied into your application, next to `rebar.config`.
 It will sense if `doc` is a current target, and will then include
 `edown` in the `deps`; otherwise, it removes it. This way, you will
@@ -64,8 +67,12 @@ There is a way to configure Edoc/Edown to get URLs right even
 when linking to other Edown-generated docs on Github.
 
 First, you need to specify paths to the `edoc-info` files for
-each repository as part of `edoc_opts` in your rebar.config, e.g.<pre>   {doc_path, ["http://raw.github.com/uwiger/setup/master/doc",
-               "http://raw.github.com/uwiger/gproc/master/doc"]}</pre>
+each repository as part of `edoc_opts` in your rebar.config, e.g.
+
+```
+   {doc_path, ["http://raw.github.com/uwiger/setup/master/doc",
+               "http://raw.github.com/uwiger/gproc/master/doc"]}
+```
 
 Note (1) that we use "http:://...", not "https://...", since
 Edoc doesn't recognize the latter. Also note that we use URLs
@@ -107,19 +114,20 @@ markedoc
 The sed script bin/markedoc works in the opposite direction and converts 
 your `README.md` to an `EDoc` file. 
 
-See [bin/MARKEDOC-README.md](http://github.com/esl/edown/blob/master/bin/MARKEDOC-README.md).
+See [bin/MARKEDOC-README.md](http://github.com/esl/gproc/blob/master/bin/MARKEDOC-README.md).
 
 **FreeBSD, Mac OS X**`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
 
 **Linux**`$ sed -r -f markedoc.sed <markdown file> > <edoc file>`
 
-##Modules##
+
+## Modules ##
 
 
 <table width="100%" border="0" summary="list of modules">
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_doclet.md" class="module">edown_doclet</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_layout.md" class="module">edown_layout</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_lib.md" class="module">edown_lib</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_make.md" class="module">edown_make</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
+<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_doclet.md" class="module">edown_doclet</a></td></tr>
+<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_layout.md" class="module">edown_layout</a></td></tr>
+<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_lib.md" class="module">edown_lib</a></td></tr>
+<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_make.md" class="module">edown_make</a></td></tr>
+<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
 

@@ -44,6 +44,34 @@ Example:
 
 The conversion function will fetch the current branch name from git,
 and fail if it cannot do so.
+Github customizations
+=====================
+`pre` tags are converted into github "fenced" code blocks, i.e.
+
+```
+```...'''
+```
+
+. If language-specific syntax highlighting is desired,
+this can be achieved by adding a 'lang' attribute, e.g.
+
+```
+<pre lang="erlang">
+incr(X) ->
+  %% This should be formatted with Erlang syntax highlighting
+  X + 1.
+</pre>
+```
+
+which should format like this:
+
+```erlang
+
+incr(X) ->
+  %% This should be formatted with Erlang syntax highlighting
+  X + 1.
+
+```
 
 Rebar customizations
 ====================

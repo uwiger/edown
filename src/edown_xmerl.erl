@@ -230,7 +230,11 @@ md_elem(Tag, Data, Attrs, Parents, E) ->
             %% would have written it and markdown rendering will take
             %% care of entity escaping so that a code block describing
             %% XML or HTML will get rendered properly.
-            ["\n```\n", Data, "\n```\n"];
+	    Lang = case lists:keyfind(lang, #xmlAttribute.name, Attrs) of
+		       #xmlAttribute{value = Lang1} -> Lang1;
+		       false -> ""
+		   end,
+	    ["\n```", Lang, "\n", Data, "\n```\n"];
 	_ ->
 		    ["\n",
 		     xmerl_lib:start_tag(Tag,Attrs),

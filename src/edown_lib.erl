@@ -14,7 +14,7 @@
 %% limitations under the License.
 %%==============================================================================
 %% @author Ulf Wiger <ulf.wiger@erlang-solutions.com>
-%% @copyright 2010 Erlang Solutions Ltd 
+%% @copyright 2010 Erlang Solutions Ltd
 %% @end
 %% =====================================================================
 
@@ -65,7 +65,7 @@ redirect_uri(Href, _Name, E) ->
     case lists:member("/", Href) of
 	false ->
 	    [_|_] = URI = get_attrval(href, E),
-	    NewURI = re:replace(URI,".html",".md",[{return,list}]),
+	    NewURI = re:replace(URI,".html",".md",[{return,list},unicode]),
 	    replace_uri(NewURI, E);
 	true ->
 	    false

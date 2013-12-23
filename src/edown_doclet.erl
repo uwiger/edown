@@ -14,7 +14,7 @@
 %% limitations under the License.
 %%==============================================================================
 %% @author Ulf Wiger <ulf@wiger.net>
-%% @copyright 2010 Erlang Solutions Ltd 
+%% @copyright 2010 Erlang Solutions Ltd
 %% @end
 %% =============================================================================
 %% Modified 2012 by Beads Land-Trujillo:  get_git_branch/0, redirect_href/3
@@ -52,7 +52,7 @@
 %% included in Packages!
 
 %% @spec (Command::doclet_gen() | doclet_toc(), edoc_context()) -> ok
-%% @doc Main doclet entry point. 
+%% @doc Main doclet entry point.
 %%
 %% Also see {@link //edoc/edoc:layout/2} for layout-related options, and
 %% {@link //edoc/edoc:get_doc/2} for options related to reading source
@@ -139,7 +139,8 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
 	 ++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
 
     Text = xmerl:export_simple_content(Data, edown_xmerl),
-    edoc_lib:write_file(Text, Dir, right_suffix(?INDEX_FILE, Options)),
+    edoc_lib:write_file(Text, Dir, right_suffix(?INDEX_FILE, Options), '',
+                        [{encoding, utf8}]),
     edoc_lib:write_info_file(App, Packages, Modules1, Dir),
     copy_stylesheet(Dir, Options),
     copy_image(Dir, Options),
@@ -210,12 +211,12 @@ redirect_href(Attrs, Branch, BaseHRef) ->
 		{match, _} ->
 		    false;
 		nomatch ->
-			case Href of 
+			case Href of
 				[$# | _]	->
 					HRef1 = do_redirect(?INDEX_FILE ++ Href, AppBlob);
 				_Else ->
 					HRef1 = do_redirect(Href, AppBlob)
-			end,			
+			end,
 		    {true,
 		     lists:keyreplace(
 		       href, #xmlAttribute.name, Attrs,
@@ -294,7 +295,8 @@ source({M, P, Name, Path}, Dir, Suffix, Env, Set, Private, Hidden,
 		true ->
 		    Text = edoc:layout(Doc, Options),
 		    Name1 = packages_last(M) ++ Suffix,
-		    edoc_lib:write_file(Text, Dir, Name1, P),
+		    edoc_lib:write_file(Text, Dir, Name1, P,
+                               [{encoding, edoc_lib:read_encoding(Name, [])}]),
 		    {sets:add_element(Module, Set), Error};
 		false ->
 		    {Set, Error}

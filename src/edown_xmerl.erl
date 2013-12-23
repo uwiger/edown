@@ -46,14 +46,15 @@
     brstrip(to_string(Text)).
 
 to_string(S) ->
-    binary_to_list(iolist_to_binary([S])).
+    %%binary_to_list(iolist_to_binary([S])).
+    unicode:characters_to_list([S]).
 
 strip(Str) -> lstrip(rstrip(Str)).
-lstrip(Str) -> re:replace(Str,"^\\s","",[]).
-rstrip(Str) -> re:replace(Str, "\\s\$", []).
+lstrip(Str) -> re:replace(Str,"^\\s","", [unicode]).
+rstrip(Str) -> re:replace(Str, "\\s\$", "", [unicode]).
 
 % Strip double spaces at end of line -- markdown reads as hard return.
-brstrip(Str) -> re:replace(Str, "\\s+\\s\$", "", [global, multiline]).
+brstrip(Str) -> re:replace(Str, "\\s+\\s\$", "", [global, multiline, unicode]).
 
 %% The '#root#' tag is called when the entire structure has been
 %% exported. It does not appear in the structure itself.
@@ -109,7 +110,7 @@ elem(Tag, Data, Attrs, Parents, E) ->
     end.
 
 escape_pre(Data) ->
-    re:replace(re:replace(Data, "<", "\\&lt;", [global]), ">", "\\&gt;", [global]).
+    re:replace(re:replace(Data, "<", "\\&lt;", [global, unicode]), ">", "\\&gt;", [global, unicode]).
 
 %% Given content of a pre tag in `Data', entity escape angle brackets
 %% but leave anchor tags alone. This is less than pretty, but is

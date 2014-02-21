@@ -27,9 +27,11 @@ edoc:application(App, [{doclet, edown_doclet} | OtherOpts]).
 The `edown_xmerl` module is used as an xmerl export module.
 It converts xmerl's "simple xml" to Markdown syntax. Note that
 GH-flavored Markdown allows HTML markup (at least common tags),
-but doesn't expand markdown markup inside HTML markup, so the`edown_xmerl` module has to know the context in which it operates.
+but doesn't expand markdown markup inside HTML markup, so the
+`edown_xmerl` module has to know the context in which it operates.
 
-** Special edown option: **
+Top-level README
+----------------
 
 Using the option `{top_level_readme, {File, BaseHref}}`, a github-friendly
 `README.md` in the top directory can be generated from the `overview.edoc`.
@@ -44,6 +46,23 @@ Example:
 
 The conversion function will fetch the current branch name from git,
 and fail if it cannot do so.
+
+It is also possible to add the branch information specifically:
+`{top_level_readme, {File, BaseHref, Branch}}`, although this shouldn't be
+necessary as long as edown can derive the branch name from git.
+
+Using Atlassian Stash as target
+-------------------------------
+
+The option `{edown_target, github | stash}` can be used to control which
+is the intended host repository. This affects how links are rewritten in
+order to find related files and stay on the correct branch.
+
+The default value is `github`.
+
+Note that at the moment, the
+[Markdown viewer plugin](https://bitbucket.org/atlassianlabs/stash-markdown-viewer-plugin) will be needed in order to render the generated documentation
+as Markdown on Stash.
 Github customizations
 =====================
 `pre` tags are converted into github "fenced" code blocks, i.e.
@@ -76,9 +95,9 @@ incr(X) ->
 Rebar customizations
 ====================
 A set of escripts can be found under
-[edown/priv/scripts/](http://github.com/esl/edown/blob/master/priv/scripts/), which
+[edown/priv/scripts/](http://localhost:7990/users/uwiger/repos/edown/browse/priv/scripts/?at=refs/heads/uw-stash-links), which
 can be used to customize the `rebar` built process. The
-[rebar.config.script](http://github.com/esl/edown/blob/master/priv/scripts/rebar.config.script)
+[rebar.config.script](http://localhost:7990/users/uwiger/repos/edown/browse/priv/scripts/rebar.config.script?at=refs/heads/uw-stash-links)
 file should be copied into your application, next to `rebar.config`.
 It will sense if `doc` is a current target, and will then include
 `edown` in the `deps`; otherwise, it removes it. This way, you will
@@ -142,7 +161,7 @@ markedoc
 The sed script bin/markedoc works in the opposite direction and converts 
 your `README.md` to an `EDoc` file. 
 
-See [bin/MARKEDOC-README.md](http://github.com/esl/edown/blob/master/bin/MARKEDOC-README.md).
+See [bin/MARKEDOC-README.md](http://localhost:7990/users/uwiger/repos/edown/browse/bin/MARKEDOC-README.md?at=refs/heads/uw-stash-links).
 
 **FreeBSD, Mac OS X**`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
 
@@ -153,9 +172,9 @@ See [bin/MARKEDOC-README.md](http://github.com/esl/edown/blob/master/bin/MARKEDO
 
 
 <table width="100%" border="0" summary="list of modules">
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_doclet.md" class="module">edown_doclet</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_layout.md" class="module">edown_layout</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_lib.md" class="module">edown_lib</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_make.md" class="module">edown_make</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
+<tr><td><a href="http://localhost:7990/users/uwiger/repos/edown/browse/doc/edown_doclet.md?at=refs/heads/uw-stash-links" class="module">edown_doclet</a></td></tr>
+<tr><td><a href="http://localhost:7990/users/uwiger/repos/edown/browse/doc/edown_layout.md?at=refs/heads/uw-stash-links" class="module">edown_layout</a></td></tr>
+<tr><td><a href="http://localhost:7990/users/uwiger/repos/edown/browse/doc/edown_lib.md?at=refs/heads/uw-stash-links" class="module">edown_lib</a></td></tr>
+<tr><td><a href="http://localhost:7990/users/uwiger/repos/edown/browse/doc/edown_make.md?at=refs/heads/uw-stash-links" class="module">edown_make</a></td></tr>
+<tr><td><a href="http://localhost:7990/users/uwiger/repos/edown/browse/doc/edown_xmerl.md?at=refs/heads/uw-stash-links" class="module">edown_xmerl</a></td></tr></table>
 

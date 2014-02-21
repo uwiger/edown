@@ -14,7 +14,7 @@ main([]) ->
 	    false -> Default;
 	    Str   -> Str
 	end,
-    TopURL = "http://github.com/" ++ U ++ "/edown",
+    TopURL = top_url(U),
     io:fwrite("Making edown docs for [~s]...~n", [TopURL]),
     R = edoc:application(edown, ".",
 			 [{doclet, edown_doclet},
@@ -22,6 +22,7 @@ main([]) ->
 			  {app_default,"http://www.erlang.org/doc/man"},
 			  {stylesheet, ""},  % don't copy stylesheet.css
 			  {image, ""},       % don't copy erlang.png
+                          {edown_target, target()},
 			  {top_level_readme,
 			   {"./README.md", TopURL}}]),
     case R of
@@ -30,4 +31,19 @@ main([]) ->
 	Err ->
 	    io:fwrite("~p~n", [Err]),
 	    halt(1)
+    end.
+
+top_url(User) ->
+    case os:getenv("EDOWN_TOP_URL") of
+        false ->
+            "http://github.com/" ++ User ++ "/edown";
+        URL ->
+            URL
+    end.
+
+target() ->
+    case os:getenv("EDOWN_TARGET") of
+        false -> github;
+        "github" -> github;
+        "stash"  -> stash
     end.

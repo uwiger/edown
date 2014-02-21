@@ -21,10 +21,11 @@ edoc:application(App, [{doclet, edown_doclet} | OtherOpts]).
 The `edown_xmerl' module is used as an xmerl export module.
 It converts xmerl's "simple xml" to Markdown syntax. Note that
 GH-flavored Markdown allows HTML markup (at least common tags),
-but doesn't expand markdown markup inside HTML markup, so the 
+but doesn't expand markdown markup inside HTML markup, so the
 `edown_xmerl' module has to know the context in which it operates.
 
-** Special edown option: **
+Top-level README
+----------------
 
 Using the option `{top_level_readme, {File, BaseHref}}', a github-friendly
 `README.md' in the top directory can be generated from the `overview.edoc'.
@@ -39,6 +40,23 @@ Example:
 
 The conversion function will fetch the current branch name from git,
 and fail if it cannot do so.
+
+It is also possible to add the branch information specifically:
+`{top_level_readme, {File, BaseHref, Branch}}', although this shouldn't be
+necessary as long as edown can derive the branch name from git.
+
+Using Atlassian Stash as target
+-------------------------------
+
+The option `{edown_target, github | stash}' can be used to control which
+is the intended host repository. This affects how links are rewritten in
+order to find related files and stay on the correct branch.
+
+The default value is `github'.
+
+Note that at the moment, the
+<a href="https://bitbucket.org/atlassianlabs/stash-markdown-viewer-plugin">Markdown viewer plugin</a> will be needed in order to render the generated documentation
+as Markdown on Stash.
 
 Github customizations
 =====================

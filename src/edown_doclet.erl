@@ -168,25 +168,30 @@ make_top_level_README(Data, Options) ->
 	undefined ->
 	    ok;
 	{Path, BaseHRef} ->
-	    Dir = filename:dirname(Path),
-	    Filename = filename:basename(Path),
-	    make_top_level_README(Data, Dir, Filename, BaseHRef);
+            Dir = filename:dirname(Path),
+            Filename = filename:basename(Path),
+	    make_top_level_README(Data, Dir, Filename, BaseHRef,
+                                  get_git_branch(), target(Options));
 	{Path, BaseHRef, Branch} ->
-	    Dir = filename:dirname(Path),
-	    Filename = filename:basename(Path),
-	    make_top_level_README(Data, Dir, Filename, BaseHRef, Branch)
+            Dir = filename:dirname(Path),
+            Filename = filename:basename(Path),
+	    make_top_level_README(Data, Dir, Filename, BaseHRef, Branch,
+                                  target(Options))
     end.
 
-make_top_level_README(Data, Dir, F, BaseHRef) ->
-    Branch = get_git_branch(),
-    make_top_level_README(Data, Dir, F, BaseHRef, Branch).
+target(Options) ->
+    proplists:get_value(edown_target, Options, github).
 
-make_top_level_README(Data, Dir, F, BaseHRef, Branch) ->
+%% make_top_level_README(Data, Dir, F, BaseHRef) ->
+%%     Branch = get_git_branch(),
+%%     make_top_level_README(Data, Dir, F, BaseHRef, Branch).
+
+make_top_level_README(Data, Dir, F, BaseHRef, Branch, Target) ->
     Exp = [xmerl_lib:expand_element(D) || D <- Data],
     New = [xmerl_lib:mapxml(
 	     fun(#xmlElement{name = a,
 			     attributes = Attrs} = E) ->
-		     case redirect_href(Attrs, Branch, BaseHRef) of
+		     case redirect_href(Attrs, Branch, BaseHRef, Target) of
 			 {true, Attrs1} ->
 			     E#xmlElement{attributes = Attrs1};
 			 false ->
@@ -198,8 +203,9 @@ make_top_level_README(Data, Dir, F, BaseHRef, Branch) ->
     Text = xmerl:export_simple_content(New, edown_xmerl),
     edoc_lib:write_file(Text, Dir, F).
 
-redirect_href(Attrs, Branch, BaseHRef) ->
-    AppBlob = BaseHRef ++ "/blob/" ++ Branch ++ "/",
+redirect_href(Attrs, Branch, BaseHRef, Target) ->
+    {Prefix, URIArgs} = href_redirect_parts(Target, BaseHRef, Branch),
+    %% AppBlob = BaseHRef ++ "/blob/" ++ Branch ++ "/",
     case lists:keyfind(href, #xmlAttribute.name, Attrs) of
 	false ->
 	    false;
@@ -212,9 +218,10 @@ redirect_href(Attrs, Branch, BaseHRef) ->
 		nomatch ->
 			case Href of 
 				[$# | _]	->
-					HRef1 = do_redirect(?INDEX_FILE ++ Href, AppBlob);
+					HRef1 = do_redirect(?INDEX_FILE ++ Href,
+                                                           Prefix, URIArgs);
 				_Else ->
-					HRef1 = do_redirect(Href, AppBlob)
+					HRef1 = do_redirect(Href, Prefix, URIArgs)
 			end,			
 		    {true,
 		     lists:keyreplace(
@@ -223,12 +230,18 @@ redirect_href(Attrs, Branch, BaseHRef) ->
 	    end
     end.
 
-do_redirect(Href, Prefix) ->
+href_redirect_parts(github, BaseHRef, Branch) ->
+    {BaseHRef ++ "/blob/" ++ Branch ++ "/", []};
+href_redirect_parts(stash, BaseHRef, Branch) ->
+    {BaseHRef ++ "/browse/", "?at=refs/heads/" ++ Branch}.
+
+
+do_redirect(Href, Prefix, Args) ->
     case filename:split(Href) of
 	[_] ->
-	    Prefix ++ "doc/" ++ Href;
+	    Prefix ++ "doc/" ++ Href ++ Args;
 	_ ->
-	    Prefix ++ Href
+	    Prefix ++ Href ++ Args
     end.
 
 get_git_branch() ->

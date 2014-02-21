@@ -336,7 +336,7 @@ write_file(Text, Dir, LastName, Name, P, Enc) ->
     end.
 
 encoding(auto, Name) ->
-    edoc_lib:read_encoding(Name);
+    edoc_lib:read_encoding(Name, []);
 encoding(Enc, _) ->
     Enc.
 

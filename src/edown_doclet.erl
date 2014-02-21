@@ -298,6 +298,7 @@ sources(Sources, Dir, Modules, Env, Options) ->
 source({M, P, Name, Path}, Dir, Suffix, Env, Set, Private, Hidden,
        Error, Options) ->
     File = filename:join(Path, Name),
+    Enc = guess_encoding(File),
     case catch {ok, edoc:get_doc(File, Env, Options)} of
 	{ok, {Module, Doc}} ->
 	    check_name(Module, M, P, File),
@@ -306,7 +307,7 @@ source({M, P, Name, Path}, Dir, Suffix, Env, Set, Private, Hidden,
 		true ->
 		    Text = edoc:layout(Doc, Options),
 		    Name1 = packages_last(M) ++ Suffix,
-		    write_file(Text, Dir, Name1, Name, P),
+		    write_file(Text, Dir, Name1, Name, P, Enc),
 		    {sets:add_element(Module, Set), Error};
 		false ->
 		    {Set, Error}
@@ -314,6 +315,15 @@ source({M, P, Name, Path}, Dir, Suffix, Env, Set, Private, Hidden,
 	R ->
 	    report("skipping source file '~s': ~W.", [File, R, 15]),
 	    {Set, true}
+    end.
+
+guess_encoding(File) ->
+    try epp:read_encoding(File) of
+        none -> latin1;
+        Enc  -> Enc
+    catch
+        _:_ ->
+            latin1
     end.
 
 write_file(Text, Dir, F) ->

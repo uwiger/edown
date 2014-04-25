@@ -139,7 +139,7 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
 	 ++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
 
     Text = xmerl:export_simple_content(Data, edown_xmerl),
-    write_file(Text, Dir, right_suffix(?INDEX_FILE, Options), '', utf8),
+    write_file(Text, Dir, right_suffix(?INDEX_FILE, Options), '', ''),
     edoc_lib:write_info_file(App, Packages, Modules1, Dir),
     copy_stylesheet(Dir, Options),
     copy_image(Dir, Options),

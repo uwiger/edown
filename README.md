@@ -76,9 +76,9 @@ incr(X) ->
 Rebar customizations
 ====================
 A set of escripts can be found under
-[edown/priv/scripts/](http://github.com/esl/edown/blob/master/priv/scripts/), which
+[edown/priv/scripts/](http://github.com/esl/gproc/blob/master/priv/scripts/), which
 can be used to customize the `rebar` built process. The
-[rebar.config.script](http://github.com/esl/edown/blob/master/priv/scripts/rebar.config.script)
+[rebar.config.script](http://github.com/esl/gproc/blob/master/priv/scripts/rebar.config.script)
 file should be copied into your application, next to `rebar.config`.
 It will sense if `doc` is a current target, and will then include
 `edown` in the `deps`; otherwise, it removes it. This way, you will
@@ -142,7 +142,7 @@ markedoc
 The sed script bin/markedoc works in the opposite direction and converts 
 your `README.md` to an `EDoc` file. 
 
-See [bin/MARKEDOC-README.md](http://github.com/esl/edown/blob/master/bin/MARKEDOC-README.md).
+See [bin/MARKEDOC-README.md](http://github.com/esl/gproc/blob/master/bin/MARKEDOC-README.md).
 
 **FreeBSD, Mac OS X**`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
 
@@ -153,9 +153,9 @@ See [bin/MARKEDOC-README.md](http://github.com/esl/edown/blob/master/bin/MARKEDO
 
 
 <table width="100%" border="0" summary="list of modules">
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_doclet.md" class="module">edown_doclet</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_layout.md" class="module">edown_layout</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_lib.md" class="module">edown_lib</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_make.md" class="module">edown_make</a></td></tr>
-<tr><td><a href="http://github.com/esl/edown/blob/master/doc/edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
+<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_doclet.md" class="module">edown_doclet</a></td></tr>
+<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_layout.md" class="module">edown_layout</a></td></tr>
+<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_lib.md" class="module">edown_lib</a></td></tr>
+<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_make.md" class="module">edown_make</a></td></tr>
+<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
 

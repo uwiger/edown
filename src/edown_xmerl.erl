@@ -92,6 +92,8 @@ brstrip(Str) -> re:replace(Str, "\\s+\\s\$", "", [global, multiline, unicode]).
 	#xmlElement{attributes = Attrs1, parents = Parents1} = E1 ->
 	    elem(a, Data, Attrs1, Parents1, E1)
     end;
+'#element#'(br, _, _, _, _) ->
+    ["<br />"];
 '#element#'(Tag, Data, Attrs, Parents, E) ->
     elem(Tag, Data, Attrs, Parents, E).
 

@@ -21,21 +21,21 @@
 # ----------------------------------------------------------
 # SAMPLE WORKFLOW (change -r to -E for FreeBSD / Mac OS X):
 # sed -r -f markedoc.sed README.md > doc/README.edoc
-# erl -noshell -run edoc_run application "'myapp'" '"."' '[]' 
+# erl -noshell -run edoc_run application "'myapp'" '"."' '[]'
 # ----------------------------------------------------------
 # REQUIREMENTS: sed, Erlang
 # Windows: http://gnuwin32.sourceforge.net/packages/sed.htm
 # ----------------------------------------------------------
-# STATUS: Pre-Beta. 
+# STATUS: Pre-Beta.
 # It can reliably do nice things but likes to trip up EDoc.
 # With a bit of patience, and mostly with pretty clean md
 # markup, and some blank lines sometimes, most things work.
 # ----------------------------------------------------------
 # LICENSE: Free software, no warranties.
 # ----------------------------------------------------------
-# On edown: https://github.com/esl/edown 
+# On edown: https://github.com/uwiger/edown
 # On Markdown: http://daringfireball.net/projects/markdown/
-# On Edoc: http://www.erlang.org/doc/apps/edoc/ 
+# On Edoc: http://www.erlang.org/doc/apps/edoc/
 # On sed: http://www.gnu.org/software/sed/manual/sed.html
 # ----------------------------------------------------------
 # Repository: https://github.com/hdiedrich/markedoc/
@@ -55,7 +55,7 @@
 # is used to join lines.  't' is a conditional branch.  ':'
 # is a label.  The order  of replacement functions matters.
 # There are tabs in some patterns that may look like spaces.
-# See  'man sed'  for more info.  If you are a  sed master, 
+# See  'man sed'  for more info.  If you are a  sed master,
 # your help making this better is much appreciated.
 # **********************************************************
 
@@ -112,7 +112,7 @@
 	s/^(.*)$/```\1'''/
 	# protect @ (for edoc related texts that explain @-tags). There is a tab in [].
 	s/([ 	\"\'\`]+@)/\1@/g
-	# send result to stdout  
+	# send result to stdout
 	p
 	# Now make sure that that last line is not lost:
 	# ----------------------------------------------
@@ -134,15 +134,15 @@
 	s/([ 	\"\'\`]+@)/\1@/g
 	b end
 	#
-} 
+}
 
 :end_of_code_blocks_handling
 
 # robust alternate for code blocks: each tabbed line
 # --------------------------------------------------
-# If the above keeps being difficult, use this more robust 
-# version. The main difference is simply that it will tag each 
-# line separately. If you work out the right margins and 
+# If the above keeps being difficult, use this more robust
+# version. The main difference is simply that it will tag each
+# line separately. If you work out the right margins and
 # paddings for <pre> in your css file, that might give just as
 # nice results as the above. There are tabs in this pattern.
 # s/^	(.+)$/```	\1'''/
@@ -173,7 +173,7 @@ s/::/\&#183;/g
 # guillemot
 s/<</\&#171;/g
 s/>>/\&#187;/g
-	
+
 
 # copy right
 # ----------
@@ -192,19 +192,19 @@ s/\[([^]]+)\]\(([^)]+)\)/<a href=\"\2\">\1<\/a>/
 # references, '[..]:...'-style
 # ----------------------------
 # urls
-s/(\[([^]]+)\]): +\[?(http[s]?:\/\/[^.>" ]+\.[^>" ]+)\]? *	*("([^"]+)") *	*$/<li class="ref url"> \5:<a name="\2" id="\2" href="\3" target="_parent">\3<\/a><\/li>/ 
+s/(\[([^]]+)\]): +\[?(http[s]?:\/\/[^.>" ]+\.[^>" ]+)\]? *	*("([^"]+)") *	*$/<li class="ref url"> \5:<a name="\2" id="\2" href="\3" target="_parent">\3<\/a><\/li>/
 # check next line "..." description
 /(\[([^]]+)\]): +\[?(http[s]?:\/\/[^.>" ]+\.[^>" ]+)\]? *$/ {
-	# get next line, if the current is not the last 
+	# get next line, if the current is not the last
 	$!N
 	# try two line spanning, or single (last) line
-	s/(\[([^]]+)\]): +\[?(http[s]?:\/\/[^.>" ]+\.[^>" ]+)\]? *	*\n *	*("([^"]*)") *	*$/<li class="ref url"> \5:<a name="\2" id="\2" href="\3" target="_parent">\3<\/a><\/li>/ 
+	s/(\[([^]]+)\]): +\[?(http[s]?:\/\/[^.>" ]+\.[^>" ]+)\]? *	*\n *	*("([^"]*)") *	*$/<li class="ref url"> \5:<a name="\2" id="\2" href="\3" target="_parent">\3<\/a><\/li>/
 	t double_line_url_done
 	# try one line only, rest to be saved
-	s/(\[([^]]+)\]): +\[?(http[s]?:\/\/[^.>" ]+\.[^>" ]+)\]? *	*(\n)/<li class="ref url"> <a name="\2" id="\2" href="\3" target="_parent">\3<\/a><\/li>\4/ 
+	s/(\[([^]]+)\]): +\[?(http[s]?:\/\/[^.>" ]+\.[^>" ]+)\]? *	*(\n)/<li class="ref url"> <a name="\2" id="\2" href="\3" target="_parent">\3<\/a><\/li>\4/
 	t double_line_url_done
 	# case of last line, single, no "..." description
-	s/(\[([^]]+)\]): +\[?(http[s]?:\/\/[^.>" ]+\.[^>" ]+)\]? *	*$/<li class="ref url"> <a name="\2" id="\2" href="\3" target="_parent">\3<\/a><\/li>/ 
+	s/(\[([^]]+)\]): +\[?(http[s]?:\/\/[^.>" ]+\.[^>" ]+)\]? *	*$/<li class="ref url"> <a name="\2" id="\2" href="\3" target="_parent">\3<\/a><\/li>/
 	: double_line_url_done
 	# print out up to first \n, delete, start from top with the rest
 	P
@@ -212,19 +212,19 @@ s/(\[([^]]+)\]): +\[?(http[s]?:\/\/[^.>" ]+\.[^>" ]+)\]? *	*("([^"]+)") *	*$/<li
 }
 
 # email addresses
-s/(\[([^]]+)\]): +<?([^@>" ]+@[^.>" ]+\.[^>" ]+)>? *	*("([^"]+)") *	*$/<li class="ref email"> \5:<a name="\2" id="\2" href="mailto:\3">\3<\/a><\/li>/ 
+s/(\[([^]]+)\]): +<?([^@>" ]+@[^.>" ]+\.[^>" ]+)>? *	*("([^"]+)") *	*$/<li class="ref email"> \5:<a name="\2" id="\2" href="mailto:\3">\3<\/a><\/li>/
 # check next line "..." description
 /(\[([^]]+)\]): +<?([^@>" ]+@[^.>" ]+\.[^>" ]+)>? *	*("([^"]+)")? *	*$/ {
-	# get next line, if the current is not the last 
+	# get next line, if the current is not the last
 	$!N
 	# try two line spanning, or single (last) line
-	s/(\[([^]]+)\]): +<?([^@>" ]+@[^.>" ]+\.[^>" ]+)>? *	*\n *	*("([^"]+)") *	*$/<li class="ref email"> \5:<a name="\2" id="\2" href="mailto:\3">\3<\/a><\/li>/ 
+	s/(\[([^]]+)\]): +<?([^@>" ]+@[^.>" ]+\.[^>" ]+)>? *	*\n *	*("([^"]+)") *	*$/<li class="ref email"> \5:<a name="\2" id="\2" href="mailto:\3">\3<\/a><\/li>/
 	t double_line_mail_done
 	# try one line only, rest to be saved
-	s/(\[([^]]+)\]): +<?([^@>" ]+@[^.>" ]+\.[^>" ]+)>? *	*(\n)/<li class="ref email"> <a name="\2" id="\2" href="mailto:\3">\3<\/a><\/li>\4/ 
+	s/(\[([^]]+)\]): +<?([^@>" ]+@[^.>" ]+\.[^>" ]+)>? *	*(\n)/<li class="ref email"> <a name="\2" id="\2" href="mailto:\3">\3<\/a><\/li>\4/
 	t double_line_mail_done
 	# case of last line, single, no "..." description
-	s/(\[([^]]+)\]): +<?([^@>" ]+@[^.>" ]+\.[^>" ]+)>? *	*$/<li class="ref email"> <a name="\2" id="\2" href="mailto:\3">\3<\/a><\/li>/ 
+	s/(\[([^]]+)\]): +<?([^@>" ]+@[^.>" ]+\.[^>" ]+)>? *	*$/<li class="ref email"> <a name="\2" id="\2" href="mailto:\3">\3<\/a><\/li>/
 	: double_line_mail_done
 	# print out up to first \n, delete, start from top with the rest
 	P
@@ -238,7 +238,7 @@ s/\[([^]]+)\]\[([^]]+)\]/<a href="javascript:goto('\2')" onMouseOver="this.title
 
 # robust alternate reference for the [x]: ... format, jumping to footnote.
 # ------------------------------------------------------------------------
-# If you don't like the javascript tags, comment out the previous 'smart' 
+# If you don't like the javascript tags, comment out the previous 'smart'
 # reference patterns and uncomment these.
 # s/\[([^]]+)\]\[\]/<a href="#\1">\1<\/a>/g
 # s/\[([^]]+)\]\[([^]]+)\]/<a href="#\2">\1<\/a>/g
@@ -278,7 +278,7 @@ s/`([^`]+)`/<code>\1<\/code>/g
 # protect @
 # ---------
 # leading space or tab indicates use as code sample for, well, edoc
-# itself most likely, so escape it. 
+# itself most likely, so escape it.
 s/([ 	\"\'\`]+@)/\1@/g
 
 # headlines by underline === or ---
@@ -307,7 +307,7 @@ s/([ 	\"\'\`]+@)/\1@/g
 	D
 	# and this is the goto for successful headline substitutions above:
 	:substi
-} 
+}
 
 :skip_alt_headlines
 :end

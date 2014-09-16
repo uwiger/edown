@@ -7,7 +7,7 @@
 
 
 EDoc Doclet module for producing Markdown.
-Copyright (c) 2010 Erlang Solutions Ltd
+Copyright (c) 2014 Ulf Wiger
 
 __Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).
 <a name="index"></a>
@@ -30,9 +30,7 @@ __Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).
 <pre><code>
 run(Command::<a href="#type-doclet_gen">doclet_gen()</a> | <a href="#type-doclet_toc">doclet_toc()</a>, Ctxt::<a href="#type-edoc_context">edoc_context()</a>) -&gt; ok
 </code></pre>
-
-<br></br>
-
+<br />
 
 
 Main doclet entry point.

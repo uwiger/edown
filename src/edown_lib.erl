@@ -1,5 +1,5 @@
 %%==============================================================================
-%% Copyright 2010 Erlang Solutions Ltd.
+%% Copyright 2014 Ulf Wiger
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -13,8 +13,8 @@
 %% See the License for the specific language governing permissions and
 %% limitations under the License.
 %%==============================================================================
-%% @author Ulf Wiger <ulf.wiger@erlang-solutions.com>
-%% @copyright 2010 Erlang Solutions Ltd
+%% @author Ulf Wiger <ulf@wiger.net>
+%% @copyright 2014 Ulf Wiger
 %% @end
 %% =====================================================================
 

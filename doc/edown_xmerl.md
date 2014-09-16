@@ -4,7 +4,7 @@
 * [Function Index](#index)
 * [Function Details](#functions)
 
-Copyright (c) 2010 Erlang Solutions Ltd
+Copyright (c) 2014 Ulf Wiger
 
 __Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).
 <a name="index"></a>

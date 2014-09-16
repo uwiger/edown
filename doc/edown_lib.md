@@ -7,9 +7,9 @@
 
 
 Markdown for EDoc - common support functions.
-Copyright (c) 2010 Erlang Solutions Ltd
+Copyright (c) 2014 Ulf Wiger
 
-__Authors:__ Ulf Wiger ([`ulf.wiger@erlang-solutions.com`](mailto:ulf.wiger@erlang-solutions.com)).
+__Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).
 <a name="index"></a>
 
 ## Function Index ##

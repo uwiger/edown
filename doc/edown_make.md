@@ -25,9 +25,7 @@
 <pre><code>
 from_script(Config::ConfigFile) -&gt; ok | {error, Reason}
 </code></pre>
-
-<br></br>
-
+<br />
 
 
 Reads ConfigFile and calls [`edoc:application/3`](edoc.md#application-3)
@@ -48,9 +46,7 @@ This function does not manage dependencies. It is simply a wrapper around
 <pre><code>
 main(Args::[Config]) -&gt; no_return()
 </code></pre>
-
-<br></br>
-
+<br />
 
 
 Escript entry point for building edown (or edoc) documentation

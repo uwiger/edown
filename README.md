@@ -2,17 +2,17 @@
 
 # Edown - Markdown generated from Edoc #
 
-Copyright (c) 2010 Erlang Solutions Ltd
+Copyright (c) 2014 Ulf Wiger
 
 
-__Authors:__ [`ulf.wiger@feuerlabs.com`](mailto:ulf.wiger@feuerlabs.com).
+__Authors:__ [`ulf@wiger.net`](mailto:ulf@wiger.net).
 
 
 Status:
 ------
 More-or-less readable Markdown can be generated.
-A doclet needs to be written that also creates 
-a markdown-based index and overview. Currently, the 
+A doclet needs to be written that also creates
+a markdown-based index and overview. Currently, the
 edoc_doclet creates an index.html and overview.html,
 which do not point to the .md files.
 
@@ -42,7 +42,7 @@ Markdown links.
 
 Example:
 
-`{top_level_readme, {"./README.md", "http://github.com/esl/edown"}}`
+`{top_level_readme, {"./README.md", "http://github.com/uwiger/edown"}}`
 
 The conversion function will fetch the current branch name from git,
 and fail if it cannot do so.
@@ -95,9 +95,9 @@ incr(X) ->
 Rebar customizations
 ====================
 A set of escripts can be found under
-[edown/priv/scripts/](http://github.com/esl/gproc/blob/master/priv/scripts/), which
+[edown/priv/scripts/](http://github.com/uwiger/edown/blob/master/priv/scripts/), which
 can be used to customize the `rebar` built process. The
-[rebar.config.script](http://github.com/esl/gproc/blob/master/priv/scripts/rebar.config.script)
+[rebar.config.script](http://github.com/uwiger/edown/blob/master/priv/scripts/rebar.config.script)
 file should be copied into your application, next to `rebar.config`.
 It will sense if `doc` is a current target, and will then include
 `edown` in the `deps`; otherwise, it removes it. This way, you will
@@ -138,30 +138,30 @@ One way to solve this is to use the escripts found under
 
 NOTE
 ====
-EDoc provides a plugin structure, so that one may specify own 
-layout modules, export modules, and doclets. However, there is 
-some overlap esp. between the layout and doclet modules, and 
+EDoc provides a plugin structure, so that one may specify own
+layout modules, export modules, and doclets. However, there is
+some overlap esp. between the layout and doclet modules, and
 several functions are expected to produce files on their own.
 This causes a problem for EDown, since it cannot handle frames.
 Instead, it would probably like to create one overview file with
 different sections. It would have been better to have a framework
-where some plugin functions identify the different files to be 
+where some plugin functions identify the different files to be
 written, and the outline of each, other plugins convert to suitable
-content representation (e.g. HTML or Markdown), and EDoc then 
+content representation (e.g. HTML or Markdown), and EDoc then
 writes the files necessary.
 
 For now, EDown focuses on producing reasonable Markdown, rather
-than complying fully with the plugin framework. That is, the 
+than complying fully with the plugin framework. That is, the
 edown_doclet module will not go out of its way to function together
 with any other layout module than edown_layout, and vice versa.
 
 markedoc
 ========
 
-The sed script bin/markedoc works in the opposite direction and converts 
-your `README.md` to an `EDoc` file. 
+The sed script bin/markedoc works in the opposite direction and converts
+your `README.md` to an `EDoc` file.
 
-See [bin/MARKEDOC-README.md](http://github.com/esl/gproc/blob/master/bin/MARKEDOC-README.md).
+See [bin/MARKEDOC-README.md](http://github.com/uwiger/edown/blob/master/bin/MARKEDOC-README.md).
 
 **FreeBSD, Mac OS X**`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
 
@@ -172,9 +172,9 @@ See [bin/MARKEDOC-README.md](http://github.com/esl/gproc/blob/master/bin/MARKEDO
 
 
 <table width="100%" border="0" summary="list of modules">
-<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_doclet.md" class="module">edown_doclet</a></td></tr>
-<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_layout.md" class="module">edown_layout</a></td></tr>
-<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_lib.md" class="module">edown_lib</a></td></tr>
-<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_make.md" class="module">edown_make</a></td></tr>
-<tr><td><a href="http://github.com/esl/gproc/blob/master/doc/edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
+<tr><td><a href="http://github.com/uwiger/edown/blob/master/doc/edown_doclet.md" class="module">edown_doclet</a></td></tr>
+<tr><td><a href="http://github.com/uwiger/edown/blob/master/doc/edown_layout.md" class="module">edown_layout</a></td></tr>
+<tr><td><a href="http://github.com/uwiger/edown/blob/master/doc/edown_lib.md" class="module">edown_lib</a></td></tr>
+<tr><td><a href="http://github.com/uwiger/edown/blob/master/doc/edown_make.md" class="module">edown_make</a></td></tr>
+<tr><td><a href="http://github.com/uwiger/edown/blob/master/doc/edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
 

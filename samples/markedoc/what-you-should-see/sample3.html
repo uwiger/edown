@@ -19,7 +19,7 @@
  --------------------------------------------------------------</pre>
 
  <p><b>markedoc helps you keep your project's README.md in sync with your overview.edoc.</b></p>
- 
+
 <p>It is for use on Linux, FreeBSD and Mac OS X and any system that you can install  <b><a href="javascript:goto('Requirements')" onMouseOver="this.title=url('Requirements')">sed</a></b> on.</p>
 
 <p>Status: <a href="javascript:goto('Status')" onMouseOver="this.title=url('Status')">pre-beta</a>. Quite stable and usable. See <a href="javascript:goto('Status')" onMouseOver="this.title=url('Status')">Status</a>.</p>
@@ -100,7 +100,7 @@ At the command line for</p>
 
 <p>Accordingly, the sample stub overview.edoc used for the samples here, looks like this:</p>
 
-<pre> @author You 
+<pre> @author You
  @title  a markedoc sample doc
  @version 0.2
  @docfile "samples/doc/SAMPLE.edoc"</pre>
@@ -125,7 +125,7 @@ At the command line for</p>
 
  <p><b><a href="javascript:goto('edown')" onMouseOver="this.title=url('edown')">edown</a></b> is an EDoc extension for generating Github-flavored Markdown. It uses edoc-style commented Erlang sources to create markdown files from them. </p>
 
-<p><li class="ref url"> <a name="edown" id="edown" href="https://github.com/esl/edown" target="_parent">https://github.com/esl/edown</a></li></p>
+<p><li class="ref url"> <a name="edown" id="edown" href="https://github.com/uwiger/edown" target="_parent">https://github.com/uwiger/edown</a></li></p>
 
  <p><b><a href="javascript:goto('Markdown')" onMouseOver="this.title=url('Markdown')">Markdown</a></b> is a text-to-HTML conversion tool for web writers. Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML).</p>
 
@@ -149,13 +149,13 @@ To test markedoc, see '<a href="javascript:goto('Test')" onMouseOver="this.title
 <pre> sed -E -f bin/markedoc.sed samples/SAMPLE1.md &gt; samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
  mv samples/doc/overview-summary.html samples/your-test-results/sample1.html
- mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE1.edoc	
- 
+ mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE1.edoc
+
  sed -E -f bin/markedoc.sed samples/SAMPLE2.md &gt; samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
  mv samples/doc/overview-summary.html samples/your-test-results/sample2.html
  mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE2.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE3.md &gt; samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
  mv samples/doc/overview-summary.html samples/your-test-results/sample3.html
@@ -174,27 +174,27 @@ Then check samples/your-test-results/sample1.html - sample3.html and compare wit
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample1.html
  mv samples/doc/SAMPLE.edoc samples/what-you-should-see/SAMPLE1.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE2.md &gt; samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample2.html
  mv samples/doc/SAMPLE.edoc samples/what-you-should-see/SAMPLE2.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE3.md &gt; samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample3.html
  mv samples/doc/SAMPLE.edoc samples/what-you-should-see/SAMPLE3.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE1.md &gt; samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample1.html
  mv samples/doc/SAMPLE.edoc samples/what-you-could-see/SAMPLE1.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE2.md &gt; samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample2.html
  mv samples/doc/SAMPLE.edoc samples/what-you-could-see/SAMPLE2.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE3.md &gt; samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample3.html

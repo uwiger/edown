@@ -10,7 +10,7 @@
 '''
 
  <b>markedoc helps you keep your project's README.md in sync with your overview.edoc.</b>
- 
+
 It is for use on Linux, FreeBSD and Mac OS X and any system that you can install  <b><a href="javascript:goto('Requirements')" onMouseOver="this.title=url('Requirements')">sed</a></b> on.
 
 Status: <a href="javascript:goto('Status')" onMouseOver="this.title=url('Status')">pre-beta</a>. Quite stable and usable. See <a href="javascript:goto('Status')" onMouseOver="this.title=url('Status')">Status</a>.
@@ -87,20 +87,20 @@ to see the result. For something only vaguely related but pretty, try:
  $ erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
 '''
 
-This illustrates the motivation for the markedoc as it is now: to have all code lines in one block in order to be able to address them as one united div from css.		
+This illustrates the motivation for the markedoc as it is now: to have all code lines in one block in order to be able to address them as one united div from css.
 
 For your own projects you'd copy markedoc.sed in the right place and do something like:
 
  <b>FreeBSD, Mac OS X</b>
 ```
  $ sed -E -f bin/markedoc.sed README.md > doc/README.edoc
- $ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'	
+ $ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'
 '''
 
  <b>Linux</b>
 ```
  $ sed -r -f bin/markedoc.sed README.md > doc/README.edoc
- $ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'	
+ $ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'
 '''
 
 And that's it. This could also be part of your Makefile. For the intermediary README.edoc to automatically become part of your generated EDoc html pages, you would use a @@docfile tag in your overview.edoc file, like so:
@@ -114,7 +114,7 @@ By running sed, then edoc, this makes the README.edoc part of the overview page.
 Accordingly, the sample stub overview.edoc used for the samples here, looks like this:
 
 ```
- @@author You 
+ @@author You
  @@title  a markedoc sample doc
  @@version 0.2
  @@docfile "samples/doc/SAMPLE.edoc"
@@ -122,7 +122,7 @@ Accordingly, the sample stub overview.edoc used for the samples here, looks like
 
 === Status ===
 
- <b>Pre-Beta</b>. Quite usable, but still likes to trip up EDoc now and then, which is kind of easy to do. 
+ <b>Pre-Beta</b>. Quite usable, but still likes to trip up EDoc now and then, which is kind of easy to do.
 
 There are  many ways to create formats that will make the EDoc generator tilt and unfortunately, the errors it throws are sometimes not quite so illuminating to the reader. But why not try an incremental approach and see what works. As you can see from this <a href="javascript:goto('sample')" onMouseOver="this.title=url('sample')">source sample</a>, which works alright, it's quite a lot that <em>does</em> work and the murky bits can usally be worked out fast. Sometimes an additional line helps, some spaces at the end of a line, general intuitive stuff. Please experiment and push your fixes to me.
 
@@ -138,9 +138,9 @@ There are  many ways to create formats that will make the EDoc generator tilt an
 
 <li class="ref url"> <a name="EDoc" id="EDoc" href="http://www.erlang.org/doc/apps/edoc/chapter.html" target="_parent">http://www.erlang.org/doc/apps/edoc/chapter.html</a></li>
 
- <b><a href="javascript:goto('edown')" onMouseOver="this.title=url('edown')">edown</a></b> is an EDoc extension for generating Github-flavored Markdown. It uses edoc-style commented Erlang sources to create markdown files from them. 
+ <b><a href="javascript:goto('edown')" onMouseOver="this.title=url('edown')">edown</a></b> is an EDoc extension for generating Github-flavored Markdown. It uses edoc-style commented Erlang sources to create markdown files from them.
 
-<li class="ref url"> <a name="edown" id="edown" href="https://github.com/esl/edown" target="_parent">https://github.com/esl/edown</a></li>
+<li class="ref url"> <a name="edown" id="edown" href="https://github.com/uwiger/edown" target="_parent">https://github.com/uwiger/edown</a></li>
 
  <b><a href="javascript:goto('Markdown')" onMouseOver="this.title=url('Markdown')">Markdown</a></b> is a text-to-HTML conversion tool for web writers. Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML).
 
@@ -165,18 +165,18 @@ To test markedoc, see '<a href="javascript:goto('Test')" onMouseOver="this.title
  sed -E -f bin/markedoc.sed samples/SAMPLE1.md > samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
  mv samples/doc/overview-summary.html samples/your-test-results/sample1.html
- mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE1.edoc	
- 
+ mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE1.edoc
+
  sed -E -f bin/markedoc.sed samples/SAMPLE2.md > samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
  mv samples/doc/overview-summary.html samples/your-test-results/sample2.html
  mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE2.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE3.md > samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
  mv samples/doc/overview-summary.html samples/your-test-results/sample3.html
- mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE3.edoc	
- 
+ mv samples/doc/SAMPLE.edoc samples/your-test-results/SAMPLE3.edoc
+
 '''
 Then check samples/your-test-results/sample1.html - sample3.html and compare with samples/what-you-should-see/sample1.html, sample2.html and  samples/what-you-could-see/sample3.html.
 
@@ -195,38 +195,38 @@ or do the following to create six samples and save the results into samples/what
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample1.html
  mv samples/doc/SAMPLE.edoc samples/what-you-should-see/SAMPLE1.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE2.md > samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample2.html
  mv samples/doc/SAMPLE.edoc samples/what-you-should-see/SAMPLE2.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE3.md > samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample3.html
  mv samples/doc/SAMPLE.edoc samples/what-you-should-see/SAMPLE3.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE1.md > samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample1.html
  mv samples/doc/SAMPLE.edoc samples/what-you-could-see/SAMPLE1.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE2.md > samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample2.html
  mv samples/doc/SAMPLE.edoc samples/what-you-could-see/SAMPLE2.edoc
- 
+
  sed -E -f bin/markedoc.sed samples/SAMPLE3.md > samples/doc/SAMPLE.edoc
  erl -noshell -run edoc_run application "'myapp'" '"samples"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
  mv samples/doc/overview-summary.html samples/what-you-could-see/sample3.html
- mv samples/doc/SAMPLE.edoc samples/what-you-could-see/SAMPLE3.edoc		
+ mv samples/doc/SAMPLE.edoc samples/what-you-could-see/SAMPLE3.edoc
 '''
 
 To test this very README.md, use markdown.lua, credit Niklas Frykholm, <a href="mailto:niklas@frykholm.se">niklas@frykholm.se</a>:
 
 ```
  lua etc/markdown.lua README.md
- 
+
 '''
 === HTML Special Signs  ===
 http://www.mountaindragon.com/html/iso.htm
@@ -240,7 +240,7 @@ H. Diedrich <a href="mailto:hd2010@eonblast.com">hd2010@eonblast.com</a>
 
 === History ===
 ```
- 
+
 '''
 02/03/11 - 0.3 - <b>rough edges polished:</b> Linux, FreeBSD, Mac OS X
 
@@ -257,7 +257,7 @@ H. Diedrich <a href="mailto:hd2010@eonblast.com">hd2010@eonblast.com</a>
 <li> eliminated [..]: part of '[..]:...'-references, flipping "..." to lead</li>
 <li> dev: sample creation batch make_samples.sh added</li>
 ```
- 
+
 '''
 02/02/11 - 0.2 - <b>basics complete:</b> FreeBSD / Mac OS X
 
@@ -269,7 +269,7 @@ H. Diedrich <a href="mailto:hd2010@eonblast.com">hd2010@eonblast.com</a>
 <li> eliminated need for echoing '@@doc' first into edoc output file</li>
 <li> added javascript title tag setting for '[..]:...'-style references.</li>
 ```
- 
+
 '''
 01/31/11 - 0.1 - <b>first release:</b> FreeBSD / Mac OS X
 ``` '''

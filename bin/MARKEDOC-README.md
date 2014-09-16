@@ -63,17 +63,17 @@ to see the result. For something only vaguely related but pretty, try:
 
 	$ erl -noshell -run edoc_run application "'myapp'" '"samples/markedoc"' '[{def,{vsn,""}},{stylesheet, "markedoc.css"}]'
 
-This illustrates the motivation for the markedoc as it is now: to have all code lines in one block in order to be able to address them as one united div from css.		
+This illustrates the motivation for the markedoc as it is now: to have all code lines in one block in order to be able to address them as one united div from css.
 
 For your own projects you'd copy markedoc.sed in the right place and do something like:
 
  **FreeBSD, Mac OS X**
 	$ sed -E -f bin/markedoc.sed README.md > doc/README.edoc
-	$ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'	
+	$ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'
 
  **Linux**
 	$ sed -r -f bin/markedoc.sed README.md > doc/README.edoc
-	$ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'	
+	$ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'
 
 And that's it. This could also be part of your Makefile. For the intermediary README.edoc to automatically become part of your generated EDoc html pages, you would use a @docfile tag in your overview.edoc file, like so:
 
@@ -83,7 +83,7 @@ By running sed, then edoc, this makes the README.edoc part of the overview page.
 
 Accordingly, the sample stub overview.edoc used for the samples here, looks like this:
 
-	@author You 
+	@author You
 	@title  a markedoc sample doc
 	@version 0.2
 	@docfile "samples/markedoc/doc/SAMPLE.edoc"
@@ -95,21 +95,21 @@ Markdown cannot jump to headlines as anchors, while edoc makes headlines into an
 both worlds:
 
 	## Examples                                     <a name=example></a>
-	
+
 	...
-	
+
 	[sample]: #sample
 
 
-This makes a tag `[example][]' into a direct jump to the headline 'Example', in both markdown and edoc. 
-Markdown actually uses the `[sample]: #sample' reference. EDoc, however, automatically inserts an anchor for 'Example' being a headline, and of the same name. (The links are not case sensitive.) 
+This makes a tag `[example][]' into a direct jump to the headline 'Example', in both markdown and edoc.
+Markdown actually uses the `[sample]: #sample' reference. EDoc, however, automatically inserts an anchor for 'Example' being a headline, and of the same name. (The links are not case sensitive.)
 If you get the reference wrong or forget to make it, the link tag will be displayed in the open, as actual `[example][]'.
 
 
 Status                                                       <a name=Status></a>
 ------
 
- **Pre-Beta**. Quite usable, but still likes to trip up EDoc now and then, which is kind of easy to do. 
+ **Pre-Beta**. Quite usable, but still likes to trip up EDoc now and then, which is kind of easy to do.
 
 There are  many ways to create formats that will make the EDoc generator tilt and unfortunately, the errors it throws are sometimes not quite so illuminating to the reader. But why not try an incremental approach and see what works. As you can see from this [source sample][sample], which works alright, it's quite a lot that *does* work and the murky bits can usally be worked out fast. Sometimes an additional line helps, some spaces at the end of a line, general intuitive stuff. Please experiment and push your fixes to me.
 
@@ -120,19 +120,19 @@ Notes                                                         <a name=Notes></a>
 
  **[Erlang][]** is a programming language used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecom, banking, e-commerce, computer telephony and instant messaging. Erlang's runtime system has built-in support for concurrency, distribution and fault tolerance. Erlang comes bundled with the Open Telecom Platform, OTP.
 
-[Erlang]: http://www.erlang.org/doc/  
+[Erlang]: http://www.erlang.org/doc/
 
  **[EDoc][]** is the Erlang program documentation generator. Inspired by the Javadoc tool for the Java programming language, EDoc is adapted to the conventions of the Erlang world, and has several features not found in Javadoc. Edoc is part of the Erlang/OTP distribution.
 
 [EDoc]: http://www.erlang.org/doc/apps/edoc/chapter.html
 
- **[edown][]** is an EDoc extension for generating Github-flavored Markdown. It uses edoc-style commented Erlang sources to create markdown files from them. 
+ **[edown][]** is an EDoc extension for generating Github-flavored Markdown. It uses edoc-style commented Erlang sources to create markdown files from them.
 
-[edown]: https://github.com/esl/edown
+[edown]: https://github.com/uwiger/edown
 
  **[Markdown][]** is a text-to-HTML conversion tool for web writers. Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML).
 
-[Markdown]: http://daringfireball.net/projects/markdown/ 
+[Markdown]: http://daringfireball.net/projects/markdown/
 
  **[sed][]** ('stream editor') is a Unix utility that parses text files and implements a programming language which can apply textual transformations to such files. It reads input files line by line (sequentially), applying the operation which has been specified via the command line (or a sed script), and then outputs the line. It is available today for most operating systems. There seems to be [one for Windows][winsed], too.
 
@@ -160,7 +160,7 @@ History
 
 * added weeding out of markdown anchor references (an md workaround)
 * added protection for & (but edoc still only accepts number codes)
-* fixed trip up by trailing spaces in underline headline format 
+* fixed trip up by trailing spaces in underline headline format
 * checked commented out alternate code for code blocks and references.
 
 02/03/11 - 0.3 - **rough edges polished** - Linux, FreeBSD, Mac OS X
@@ -168,28 +168,28 @@ History
 * added doc for Linux use
 * added support for multi-line '[..]: ... "..."' references
 * added footnote signs and sepcial chars:
-* dagger, double dagger: (+), (++), stars: (\*), (\*\*), (\*\*\*)  
-* superscript 1, 2, 3: (\*1), (\*2), (\*3), copyright (C), (R), (TM),  
+* dagger, double dagger: (+), (++), stars: (\*), (\*\*), (\*\*\*)
+* superscript 1, 2, 3: (\*1), (\*2), (\*3), copyright (C), (R), (TM),
 * guillemots <<, >> and middle dot ::
 * added test batches etc/test-bsd.sh and etc/test-linux.sh
-* added css sample in samples/markedoc/what-you-could-see/ 
+* added css sample in samples/markedoc/what-you-could-see/
 * added classes for ``< li >'' list item tags for '[..]:...'-references
 * fixed italic and bold merker interference bullet points
 * eliminated [..]: part of '[..]:...'-references, flipping "..." to lead
 * dev: sample creation batch make_samples.sh added
-	
+
 02/02/11 - 0.2 - **basics complete** - FreeBSD / Mac OS X
 
 * added support for === and --- headline format
-* fixed cutting off of last lines 
+* fixed cutting off of last lines
 * fixed page-local anchor jumps
 * fixed space in javascript links
 * eliminated end-space requirement at end of '[..]:...'-style references.
 * eliminated need for echoing '@doc' first into edoc output file
 * added javascript title tag setting for '[..]:...'-style references.
-	
+
 01/31/11 - 0.1 - **first release:** FreeBSD / Mac OS X
-	
+
 [Requirements]: #Requirements
 [Status]: #Status
 [Notes]: #Notes

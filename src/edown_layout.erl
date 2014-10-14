@@ -898,6 +898,8 @@ t_type([#xmlElement{name = 'fun', content = Es}]) ->
     ["fun("] ++ t_fun(Es) ++ [")"];
 t_type([E = #xmlElement{name = record, content = Es}]) ->
     t_record(E, Es);
+t_type([#xmlElement{name = map}]) ->
+    t_map();
 t_type([E = #xmlElement{name = abstype, content = Es}]) ->
     t_abstype(E, Es);
 t_type([#xmlElement{name = union, content = Es}]) ->
@@ -948,6 +950,9 @@ t_record(E, Es) ->
         Fs ->
             see(E, Name) ++ ["{"] ++ seq(fun t_field/1, Fs, ["}"])
     end.
+
+t_map() ->
+    ["#{}"].
 
 t_field(#xmlElement{content = Es}) ->
     t_type(get_elem(atom, Es)) ++ [" = "] ++ t_utype(get_elem(type, Es)).

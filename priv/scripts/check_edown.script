@@ -14,6 +14,7 @@ case lists:member("doc", Args) of
     true ->
 	%% We actually only need to start inets if we have a doc path with http URIS
 	application:start(crypto),
+	application:start(asn1),
 	application:start(public_key),
 	application:start(ssl),
 	application:start(inets),

@@ -129,7 +129,7 @@ output, since "raw" links wouldn't work for the markdown files.
 
 The next issue is that Edoc uses httpd_client to fetch the
 `edoc-info` files, which requires `inets` to be started. To
-further complicate matters, `ssl` (and thus `crypto` and
+further complicate matters, `ssl` (and thus `crypto`, 'asn1' and
 `public_key`) must also be started, since Github will
 redirect to https.
 

@@ -905,7 +905,9 @@ t_type([E = #xmlElement{name = record, content = Es}]) ->
 t_type([E = #xmlElement{name = abstype, content = Es}]) ->
     t_abstype(E, Es);
 t_type([#xmlElement{name = union, content = Es}]) ->
-    t_union(Es).
+    t_union(Es);
+t_type([#xmlElement{name = type} = K, #xmlElement{name = type} = V]) ->
+    t_map_field([K,V]).
 
 t_var(E) ->
     [get_attrval(name, E)].

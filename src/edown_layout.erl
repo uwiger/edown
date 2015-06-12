@@ -186,7 +186,7 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
             ++ [{h1, Title}]
 	    ++ doc_index(FullDesc, Functions, Types)
 	    ++ [{p,[]}]
-	    ++ ShortDesc
+	    ++ [{p, ShortDesc}]
 	    ++ [{p,[]}]
 	    ++ copyright(Es)
 	    ++ deprecated(Es, "module")

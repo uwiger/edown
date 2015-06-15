@@ -185,9 +185,7 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
     Body = ([]   % navigation("top")
             ++ [{h1, Title}]
 	    ++ doc_index(FullDesc, Functions, Types)
-	    ++ [{p,[]}]
 	    ++ ShortDesc
-	    ++ [{p,[]}]
 	    ++ copyright(Es)
 	    ++ deprecated(Es, "module")
 	    ++ version(Es)
@@ -219,8 +217,7 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
     %% 	    io:fwrite("not edown_doclet (~p)~n", [Name])
     %% end,
     %% xhtml(Title, stylesheet(Opts), Body).
-    Res = to_simple(markdown(Title, stylesheet(Opts), Body)),
-    Res.
+    to_simple(markdown(Title, stylesheet(Opts), Body)).
 
 %% This function is a workaround for a bug in xmerl_lib:expand_content/1 that
 %% causes it to lose track of the parents if #xmlElement{} records are
@@ -1268,9 +1265,10 @@ ot_name([E]) ->
 
 get_first_sentence([#xmlElement{name = p, content = Es} | Tail]) ->
     %% Descend into initial paragraph.
+    Tail1 = drop_empty_lines(Tail),
     {First, Rest} = get_first_sentence_1(Es),
     {First,
-     [#xmlElement{name = p, content = Rest} || Rest =/= []] ++ Tail};
+     [#xmlElement{name = p, content = Rest} || Rest =/= []] ++ Tail1};
 get_first_sentence(Es) ->
     get_first_sentence_1(Es).
 
@@ -1290,7 +1288,8 @@ get_first_sentence_1([E = #xmlText{value = Txt} | Es], Acc) ->
 	     if Rest == [] ->
 		     Es;
 		true ->
-		     [#xmlText{value=Rest} | Es]
+		     [#xmlText{value=trim_leading_lines(
+				       normalize_text(Rest))} | Es]
 	     end};
 	none ->
 	    get_first_sentence_1(Es, [E | Acc])
@@ -1298,8 +1297,10 @@ get_first_sentence_1([E = #xmlText{value = Txt} | Es], Acc) ->
 get_first_sentence_1([E | Es], Acc) ->
     % Skip non-text segments - don't descend further
     get_first_sentence_1(Es, [E | Acc]);
+get_first_sentence_1([], []) ->
+    {[], []};
 get_first_sentence_1([], Acc) ->
-    {lists:reverse(Acc), []}.
+    {{p, lists:reverse(Acc)}, []}.
 
 end_of_sentence(Cs, Last) ->
     end_of_sentence(Cs, Last, []).
@@ -1323,3 +1324,17 @@ end_of_sentence_1(C, Cs, true, As) ->
     {value, lists:reverse([C | As]), Cs};
 end_of_sentence_1(_, _, false, _) ->
     none.
+
+drop_empty_lines([#xmlText{value = Txt}=H|T]) ->
+    case trim_leading_lines(normalize_text(Txt)) of
+	[] ->
+	    drop_empty_lines(T);
+	Rest ->
+	    [H#xmlText{value = Rest}|T]
+    end.
+
+trim_leading_lines([H|T]) when H==$\n; H==$\t; H==$\s ->
+    trim_leading_lines(T);
+trim_leading_lines(Str) ->
+    Str.
+

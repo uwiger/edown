@@ -90,9 +90,7 @@
 
 module(Element, Options) ->
     XML = layout_module(Element, init_opts(Element, Options)),
-    Export = proplists:get_value(xml_export, Options,
-				 ?DEFAULT_XML_EXPORT),
-    xmerl:export_simple(XML, Export, []).
+    edown_lib:export(XML, Options).
 
 % Put layout options in a data structure for easier access.
 
@@ -1060,8 +1058,7 @@ type(E) ->
 
 type(E, Ds) ->
     Opts = [],
-    xmerl:export_simple_content(t_utype_elem(E) ++ local_defs(Ds, Opts),
-                                ?HTML_EXPORT).
+    edown_lib:export(t_utype_elem(E) ++ local_defs(Ds, Opts), Opts).
 
 package(E=#xmlElement{name = package, content = Es}, Options) ->
     Opts = init_opts(E, Options),
@@ -1083,7 +1080,7 @@ package(E=#xmlElement{name = package, content = Es}, Options) ->
 	    ++ FullDesc),
     %% XML = xhtml(Title, stylesheet(Opts), Body),
     XML = markdown(Title, stylesheet(Opts), Body),
-    xmerl:export_simple_content(XML, ?HTML_EXPORT).
+    edown_lib:export(XML, Options).
 
 overview(E=#xmlElement{name = overview, content = Es}, Options) ->
     Opts = init_opts(E, Options),

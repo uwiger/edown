@@ -267,7 +267,6 @@ no_nl(S) ->
 
 replace_edown_p(Data) ->
     Data1 = binary_to_list(iolist_to_binary(Data)),
-    io:fwrite("Data1 = ~p~n", [Data1]),
     replace_edown_p(Data1, []).
 
 replace_edown_p("<edown_p>" ++ Data, Acc) ->

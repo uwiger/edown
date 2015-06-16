@@ -137,8 +137,7 @@ gen(Sources, App, Packages, Modules, FileMap, Ctxt) ->
 	Overview
 	 ++ lists:concat([packages_frame(Packages) || Packages =/= []])
 	 ++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
-
-    Text = xmerl:export_simple_content(Data, edown_xmerl),
+    Text = edown_lib:export(Data, Options),
     write_file(Text, Dir, right_suffix(?INDEX_FILE, Options), '', ''),
     edoc_lib:write_info_file(App, Packages, Modules1, Dir),
     copy_stylesheet(Dir, Options),
@@ -175,8 +174,7 @@ make_top_level_README(Data, Options) ->
 	{Path, BaseHRef, Branch} ->
             Dir = filename:dirname(Path),
             Filename = filename:basename(Path),
-	    make_top_level_README(Data, Dir, Filename, BaseHRef, Branch,
-                                  target(Options))
+	    make_top_level_README(Data, Dir, Filename, BaseHRef, Branch, Options)
     end.
 
 target(Options) ->
@@ -186,7 +184,8 @@ target(Options) ->
 %%     Branch = get_git_branch(),
 %%     make_top_level_README(Data, Dir, F, BaseHRef, Branch).
 
-make_top_level_README(Data, Dir, F, BaseHRef, Branch, Target) ->
+make_top_level_README(Data, Dir, F, BaseHRef, Branch, Options) ->
+    Target = target(Options),
     Exp = [xmerl_lib:expand_element(D) || D <- Data],
     New = [xmerl_lib:mapxml(
 	     fun(#xmlElement{name = a,
@@ -200,7 +199,7 @@ make_top_level_README(Data, Dir, F, BaseHRef, Branch, Target) ->
 		(Other) ->
 		     Other
 	     end, Exp1) || Exp1 <- Exp],
-    Text = xmerl:export_simple_content(New, edown_xmerl),
+    Text = edown_lib:export(New, Options),
     write_file(Text, Dir, F).
 
 redirect_href(Attrs, Branch, BaseHRef, Target) ->

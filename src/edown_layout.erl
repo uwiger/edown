@@ -1328,7 +1328,11 @@ drop_empty_lines([#xmlText{value = Txt}=H|T]) ->
 	    drop_empty_lines(T);
 	Rest ->
 	    [H#xmlText{value = Rest}|T]
-    end.
+    end;
+drop_empty_lines([H|T]) when is_list(H) ->
+    drop_empty_lines(H ++ T);
+drop_empty_lines(L) ->
+    L.
 
 trim_leading_lines([H|T]) when H==$\n; H==$\t; H==$\s ->
     trim_leading_lines(T);

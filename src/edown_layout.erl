@@ -183,7 +183,7 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
     Body = ([]   % navigation("top")
             ++ [{h1, Title}]
 	    ++ doc_index(FullDesc, Functions, Types)
-	    ++ ShortDesc
+	    ++ [{p, ShortDesc}]
 	    ++ copyright(Es)
 	    ++ deprecated(Es, "module")
 	    ++ version(Es)

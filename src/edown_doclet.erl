@@ -193,7 +193,7 @@ redirect_href(Attrs, Branch, BaseHRef, Target) ->
 	#xmlAttribute{value = "/" ++ _} ->
 	    false;
 	#xmlAttribute{value = Href} = A ->
-	    case re:run(Href, ":", []) of
+	    case re:run(Href, ":", [unicode]) of
 		{match, _} ->
 		    false;
 		nomatch ->

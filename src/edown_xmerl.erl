@@ -205,7 +205,7 @@ md_elem(Tag, Data, Attrs, Parents, E) ->
 	code  ->
 	    %% edoc_macros.erl hard-codes expansion of the {@type ...} macro
 	    %% as a HTML href inside <code>...</code>
-	    case re:run(Data, "<a href=", []) of
+	    case re:run(Data, "<a href=", [unicode]) of
 		{match,_} ->
 		    %% ["<code>", no_nl(Data), "</code>"];
 		    ["<code>", no_nl(Data), "</code>"];
@@ -266,7 +266,7 @@ no_nl(S) ->
 		       C =/= $\n], both).
 
 replace_edown_p(Data) ->
-    Data1 = binary_to_list(iolist_to_binary(Data)),
+    Data1 = unicode:characters_to_list([Data]),
     replace_edown_p(Data1, []).
 
 replace_edown_p("<edown_p>" ++ Data, Acc) ->

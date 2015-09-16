@@ -214,7 +214,9 @@ redirect_href(Attrs, Branch, BaseHRef, Target) ->
 href_redirect_parts(github, BaseHRef, Branch) ->
     {BaseHRef ++ "/blob/" ++ Branch ++ "/", []};
 href_redirect_parts(stash, BaseHRef, Branch) ->
-    {BaseHRef ++ "/browse/", "?at=refs/heads/" ++ Branch}.
+    {BaseHRef ++ "/browse/", "?at=refs/heads/" ++ Branch};
+href_redirect_parts(gitlab, BaseHRef, Branch) ->
+    {BaseHRef ++ "/tree/" ++ Branch ++ "/", []}.
 
 
 do_redirect(Href, Prefix, Args) ->

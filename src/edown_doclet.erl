@@ -119,7 +119,8 @@ gen(Sources, App, Modules, Ctxt) ->
     Title = title(App, Options),
     %% CSS = stylesheet(Options),
     {Modules1, Error} = sources(Sources, Dir, Modules, Env, Options),
-    Data = overview(Dir, Title, Env, Options),
+    Data = overview(Dir, Title, Env, Options)
+        ++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
     Text = edown_lib:export(Data, Options),
     write_file(Text, Dir, right_suffix(?INDEX_FILE, Options)),
     write_info_file(App, Modules1, Dir),
@@ -362,6 +363,22 @@ check_name(M, M0, File) ->
 		    ok
 	    end
     end.
+
+modules_frame(Ms) ->
+    [{h2, [{class, "indextitle"}], ["Modules"]},
+     {table, [{width, "100%"}, {border, 0},
+              {summary, "list of modules"}],
+      lists:concat(
+        [[?NL,
+          {tr, [{td, [],
+                 [{a, [{href, module_ref(M)},
+                       {class, "module"}],
+                   [atom_to_list(M)]}]}]}]
+         || M <- Ms])}].
+
+module_ref(M) ->
+    edoc_refs:relative_package_path(M, '') ++ ?DEFAULT_FILE_SUFFIX.
+
 
 %% NEW-OPTIONS: overview
 %% INHERIT-OPTIONS: read_file/4

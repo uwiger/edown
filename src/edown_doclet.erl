@@ -377,7 +377,7 @@ modules_frame(Ms) ->
          || M <- Ms])}].
 
 module_ref(M) ->
-    edoc_refs:relative_package_path(M, '') ++ ?DEFAULT_FILE_SUFFIX.
+    atom_to_list(M) ++ ?DEFAULT_FILE_SUFFIX.
 
 
 %% NEW-OPTIONS: overview

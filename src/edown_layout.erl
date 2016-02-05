@@ -179,7 +179,9 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
     {ShortDesc, RestDesc} = get_first_sentence(FullDesc),
     Functions = [{function_name(Ex), Ex} || Ex <- get_content(functions, Es)],
     Types = [{type_name(Ex), Ex} || Ex <- get_content(typedecls, Es)],
-    SortedFs = lists:sort(Functions),
+    SortedFs = if Opts#opts.sort_functions -> lists:sort(Functions);
+                  true -> Functions
+               end,
     Body = ([]   % navigation("top")
             ++ [{h1, Title}]
 	    ++ doc_index(FullDesc, Functions, Types)
@@ -201,9 +203,7 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
 	       end
 	    ++ types(lists:sort(Types), Opts)
 	    ++ function_index(SortedFs, Opts#opts.index_columns)
-	    ++ if Opts#opts.sort_functions -> functions(SortedFs, Opts);
-		  true -> functions(Functions, Opts)
-	       end),
+	    ++ functions(SortedFs, Opts)),
 	    %% ++ navigation("bottom")
 	    %% ++ timestamp()),
     %% if Name == "edown_doclet" ->
@@ -1338,4 +1338,3 @@ trim_leading_lines([H|T]) when H==$\n; H==$\t; H==$\s ->
     trim_leading_lines(T);
 trim_leading_lines(Str) ->
     Str.
-

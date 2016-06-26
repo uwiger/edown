@@ -3,7 +3,7 @@ to EDoc.
 
 EDoc was written by Richard Carlsson, (c) 2001-2007 Richard Carlsson.
 It is part of Erlang/OTP (http://www.erlang.org) and available
-via the Erlang Public License (EPL).
+via the Apache 2.0 license.
 
 Original idea and implementation for EDown: ulf@wiger.net
 

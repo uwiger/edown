@@ -49,7 +49,7 @@ It is also possible to add the branch information specifically:
 `{top_level_readme, {File, BaseHref, Branch}}`, although this shouldn't be
 necessary as long as edown can derive the branch name from git.
 
-Using Atlassian Stash or Gitlab as target
+Using Atlassian Stash or GitLab as target
 -----------------------------------------
 
 The option `{edown_target, github | stash | gitlab}` can be used to control

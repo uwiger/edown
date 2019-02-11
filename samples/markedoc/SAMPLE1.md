@@ -237,7 +237,7 @@ Be sure to have ./ebin in your Erlang path. Now copy the Hello World source abov
 	$ erlc hello.erl
 	$ erl -pa ../ebin -s hello run -s init stop -noshell
 
-See more sample programms, below.
+See more sample programs, below.
 
 #### Running the Samples
 Sample programs are in ./samples. 

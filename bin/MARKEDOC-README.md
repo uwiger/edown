@@ -79,7 +79,7 @@ And that's it. This could also be part of your Makefile. For the intermediary RE
 
 	@docfile "doc/README.edoc"
 
-By running sed, then edoc, this makes the README.edoc part of the overview page. You could also make the README.md straight into an overview.edoc but the way it is allows allows to embedd it into additional context information that should be useful for a proper html doc.
+By running sed, then edoc, this makes the README.edoc part of the overview page. You could also make the README.md straight into an overview.edoc but the way it is allows allows to embed it into additional context information that should be useful for a proper html doc.
 
 Accordingly, the sample stub overview.edoc used for the samples here, looks like this:
 

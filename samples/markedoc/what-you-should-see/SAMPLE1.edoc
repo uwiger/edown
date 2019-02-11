@@ -294,7 +294,7 @@ first create the database as listed above):
 
 == Links ==
 
-<li> <a href="http://github.com/Eonblast/Emysql">Emysql on Github</a></li>
+<li> <a href="http://github.com/Eonblast/Emysql">Emysql on GitHub</a></li>
 <li> <a href="https://github.com/fredrikt/yxa/tree/master/src/mysql">Original Yxa</a> mysql driver</li>
 <li> <a href="http://svn.process-one.net/ejabberd-modules/mysql/trunk/">ejabberd fork</a></li>
 <li> <a href="http://code.google.com/p/erlang-mysql-driver/">'erlang-mysql-driver'</a></li>

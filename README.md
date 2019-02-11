@@ -35,7 +35,7 @@ Using the option `{top_level_readme, {File, BaseHref}}`, a github-friendly
 `README.md` in the top directory can be generated from the `overview.edoc`.
 This file is the same as the `doc/README.md` file already generated,
 but with relative links corrected (using `BaseHref`) so that they actually
-work. This step is needed since Github doesn't support relative paths in
+work. This step is needed since GitHub doesn't support relative paths in
 Markdown links.
 
 Example:
@@ -62,7 +62,7 @@ Note that at the moment, the
 [Markdown viewer plugin](https://bitbucket.org/atlassianlabs/stash-markdown-viewer-plugin) will be needed in order to render the generated documentation
 as Markdown on Stash.
 
-Github customizations
+GitHub customizations
 =====================
 `pre` tags are converted into github "fenced" code blocks, i.e.
 
@@ -110,7 +110,7 @@ can include URLs as part of a `doc_path` option (see below).
 Links to other EDown-generated docs
 ===================================
 There is a way to configure Edoc/Edown to get URLs right even
-when linking to other Edown-generated docs on Github.
+when linking to other Edown-generated docs on GitHub.
 
 First, you need to specify paths to the `edoc-info` files for
 each repository as part of `edoc_opts` in your rebar.config, e.g.
@@ -129,7 +129,7 @@ output, since "raw" links wouldn't work for the markdown files.
 The next issue is that Edoc uses httpd_client to fetch the
 `edoc-info` files, which requires `inets` to be started. To
 further complicate matters, `ssl` (and thus `crypto`, 'asn1' and
-`public_key`) must also be started, since Github will
+`public_key`) must also be started, since GitHub will
 redirect to https.
 
 One way to solve this is to use the escripts found under

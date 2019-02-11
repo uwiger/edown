@@ -25,5 +25,5 @@
 
   {maintainers, ["Ulf Wiger"]},
   {licenses, ["Apache 2.0"]},
-  {links, [{"Github", "https://github.com/uwiger/edown"}]}
+  {links, [{"GitHub", "https://github.com/uwiger/edown"}]}
  ]}.

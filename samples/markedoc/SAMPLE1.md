@@ -266,7 +266,7 @@ first create the database as listed above):
 
 ## Links
 
-* [Emysql on Github](http://github.com/Eonblast/Emysql)
+* [Emysql on GitHub](http://github.com/Eonblast/Emysql)
 * [Original Yxa](https://github.com/fredrikt/yxa/tree/master/src/mysql) mysql driver
 * [ejabberd fork](http://svn.process-one.net/ejabberd-modules/mysql/trunk/)
 * ['erlang-mysql-driver'](http://code.google.com/p/erlang-mysql-driver/)

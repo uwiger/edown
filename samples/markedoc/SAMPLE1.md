@@ -55,7 +55,7 @@ Open Source Erlang MySQL driver efforts are currently a fractured matter, at lea
 
 [1]: http://github.com/JacobVorreuter/emysql "emysql"  
 [2]: http://github.com/dizzyd/erlang-mysql-driver "erlang-mysql-driver"   
-[3]: http://www.kth.se/ "Royal Institure of Technology"   
+[3]: http://www.kth.se/ "Royal Institute of Technology"   
 [4]: https://github.com/fredrikt/yxa/tree/master/src/mysql "Yxa mysql driver"   
 [5]: http://www.stacken.kth.se/project/yxa/index.html "Yxa Home"   
 [6]: https://github.com/fredrikt/yxa "Yxa repository at github"   

@@ -223,7 +223,7 @@ History
 
 * added doc for Linux use
 * added support for multi-line '[..]: ... "..."' references
-* added footnote signs and sepcial chars:
+* added footnote signs and special chars:
 * dagger, double dagger: (+), (++), stars: (*), (**), (***)
 * superscript 1, 2, 3: (*1), (*2), (*3), copyright (C), (R), (TM),
 * guillemots <<, >> and middle dot ::

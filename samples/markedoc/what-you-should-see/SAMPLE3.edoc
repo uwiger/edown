@@ -246,7 +246,7 @@ H. Diedrich <a href="mailto:hd2010@eonblast.com">hd2010@eonblast.com</a>
 
 <li> added doc for Linux use</li>
 <li> added support for multi-line '[..]: ... "..."' references</li>
-<li> added footnote signs and sepcial chars:</li>
+<li> added footnote signs and special chars:</li>
 <li> dagger, double dagger: &#134;, &#135;, stars: &#42;, &#42;&#42;, &#42;&#42;&#42;  </li>
 <li> superscript 1, 2, 3: &#185;, &#178;, &#179;, copyright &#169;, &#174;, &#153;,  </li>
 <li> guillemots &#171;, &#187; and middle dot &#183;</li>

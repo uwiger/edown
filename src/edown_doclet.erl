@@ -214,7 +214,7 @@ redirect_href(Attrs, Branch, BaseHRef, Options) ->
     end.
 
 href_redirect_parts(github_pages, BaseHRef, Branch) ->
-    {BaseHRef ++ "/blob/" ++ Branch ++ "/", []};
+    {BaseHRef ++ "/blob/" ++ Branch ++ "/", ?DEFAULT_FILE_SUFFIX};
 href_redirect_parts(github, BaseHRef, Branch) ->
     {BaseHRef ++ "/blob/" ++ Branch ++ "/", []};
 href_redirect_parts(stash, BaseHRef, Branch) ->

@@ -198,7 +198,7 @@ redirect_href(Attrs, Branch, BaseHRef, Options) ->
 		{match, _} ->
 		    false;
 		nomatch ->
-            Dir = proplists:get(dir, Options, "dir/"),
+            Dir = proplists:get_value(dir, Options, "dir/"),
                     case Href of
                         [$# | _]	->
                             HRef1 = do_redirect(?INDEX_FILE ++ Href,

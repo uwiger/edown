@@ -169,12 +169,11 @@ target(Options) ->
 %%     make_top_level_README(Data, Dir, F, BaseHRef, Branch).
 
 make_top_level_README(Data, Dir, F, BaseHRef, Branch, Options) ->
-    Target = target(Options),
     Exp = [xmerl_lib:expand_element(D) || D <- Data],
     New = [xmerl_lib:mapxml(
 	     fun(#xmlElement{name = a,
 			     attributes = Attrs} = E) ->
-		     case redirect_href(Attrs, Branch, BaseHRef, Target) of
+		     case redirect_href(Attrs, Branch, BaseHRef, Options) of
 			 {true, Attrs1} ->
 			     E#xmlElement{attributes = Attrs1};
 			 false ->
@@ -186,7 +185,8 @@ make_top_level_README(Data, Dir, F, BaseHRef, Branch, Options) ->
     Text = edown_lib:export(New, Options),
     write_file(Text, Dir, F).
 
-redirect_href(Attrs, Branch, BaseHRef, Target) ->
+redirect_href(Attrs, Branch, BaseHRef, Options) ->
+    Target = target(Options),
     {Prefix, URIArgs} = href_redirect_parts(Target, BaseHRef, Branch),
     case lists:keyfind(href, #xmlAttribute.name, Attrs) of
 	false ->
@@ -198,12 +198,13 @@ redirect_href(Attrs, Branch, BaseHRef, Target) ->
 		{match, _} ->
 		    false;
 		nomatch ->
+            Dir = proplists:get(dir, Options, "dir/"),
                     case Href of
                         [$# | _]	->
                             HRef1 = do_redirect(?INDEX_FILE ++ Href,
-                                                Prefix, URIArgs);
+                                                Prefix, URIArgs, Dir);
                         _Else ->
-                            HRef1 = do_redirect(Href, Prefix, URIArgs)
+                            HRef1 = do_redirect(Href, Prefix, URIArgs, Dir)
                     end,
 		    {true,
 		     lists:keyreplace(
@@ -222,10 +223,10 @@ href_redirect_parts(gitlab, BaseHRef, Branch) ->
     {BaseHRef ++ "/tree/" ++ Branch ++ "/", []}.
 
 
-do_redirect(Href, Prefix, Args) ->
+do_redirect(Href, Prefix, Args, Dir) ->
     case filename:split(Href) of
 	[_] ->
-	    Prefix ++ "doc/" ++ Href ++ Args;
+	    Prefix ++ Dir ++ Href ++ Args;
 	_ ->
 	    Prefix ++ Href ++ Args
     end.

@@ -120,7 +120,7 @@ gen(Sources, App, Modules, Ctxt) ->
     %% CSS = stylesheet(Options),
     {Modules1, Error} = sources(Sources, Dir, Modules, Env, Options),
     Data = overview(Dir, Title, Env, Options)
-        ++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
+        ++ lists:concat([modules_frame(Modules1, Options) || Modules1 =/= []]),
     Text = edown_lib:export(Data, Options),
     write_file(Text, Dir, right_suffix(?INDEX_FILE, Options)),
     write_info_file(App, Modules1, Dir),
@@ -212,6 +212,8 @@ redirect_href(Attrs, Branch, BaseHRef, Target) ->
 	    end
     end.
 
+href_redirect_parts(github_pages, BaseHRef, Branch) ->
+    {BaseHRef ++ "/blob/" ++ Branch ++ "/", []};
 href_redirect_parts(github, BaseHRef, Branch) ->
     {BaseHRef ++ "/blob/" ++ Branch ++ "/", []};
 href_redirect_parts(stash, BaseHRef, Branch) ->
@@ -364,20 +366,26 @@ check_name(M, M0, File) ->
 	    end
     end.
 
-modules_frame(Ms) ->
+modules_frame(Ms, Options) ->
     [{h2, [{class, "indextitle"}], ["Modules"]},
      {table, [{width, "100%"}, {border, 0},
               {summary, "list of modules"}],
       lists:concat(
         [[?NL,
           {tr, [{td, [],
-                 [{a, [{href, module_ref(M)},
+                 [{a, [{href, module_ref(M, Options)},
                        {class, "module"}],
                    [atom_to_list(M)]}]}]}]
          || M <- Ms])}].
 
-module_ref(M) ->
-    atom_to_list(M) ++ ?DEFAULT_FILE_SUFFIX.
+module_ref(M, Options) ->
+    case target(Options) of
+        github_pages ->
+            atom_to_list(M);
+        _ ->
+            atom_to_list(M) ++ ?DEFAULT_FILE_SUFFIX
+    end.
+
 
 
 %% NEW-OPTIONS: overview

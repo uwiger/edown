@@ -109,9 +109,9 @@ run(#doclet_toc{}=Cmd, Ctxt) ->
     toc(Cmd#doclet_toc.paths, Ctxt).
 
 gen(Sources, App, Modules, Ctxt) ->
-    Dir = Ctxt#context.dir,
-    Env = Ctxt#context.env,
-    Options0 = Ctxt#context.opts,
+    Dir = Ctxt#doclet_context.dir,
+    Env = Ctxt#doclet_context.env,
+    Options0 = Ctxt#doclet_context.opts,
     Options = set_app_default([{layout,edown_layout} |
 			       Options0] ++
 				  [{file_suffix,".md"}]),
@@ -249,7 +249,7 @@ get_git_branch() ->
 
 title(App, Options) ->
     proplists:get_value(title, Options,
-			if App == ?NO_APP ->
+			if App == no_app ->
 				"Overview";
 			   true ->
 				io_lib:fwrite("Application: ~s", [App])

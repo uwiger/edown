@@ -29,6 +29,7 @@
 -import(edoc_report, [report/2, warning/2]).
 
 -include_lib("edoc/include/edoc_doclet.hrl").
+-include("edoc_compat.hrl").
 
 -define(EDOC_APP, edoc).
 -define(DEFAULT_FILE_SUFFIX, ".md").
@@ -109,9 +110,9 @@ run(#doclet_toc{}=Cmd, Ctxt) ->
     toc(Cmd#doclet_toc.paths, Ctxt).
 
 gen(Sources, App, Modules, Ctxt) ->
-    Dir = Ctxt#doclet_context.dir,
-    Env = Ctxt#doclet_context.env,
-    Options0 = Ctxt#doclet_context.opts,
+    Dir = Ctxt#?context.dir,
+    Env = Ctxt#?context.env,
+    Options0 = Ctxt#?context.opts,
     Options = set_app_default([{layout,edown_layout} |
 			       Options0] ++
 				  [{file_suffix,".md"}]),
@@ -249,7 +250,7 @@ get_git_branch() ->
 
 title(App, Options) ->
     proplists:get_value(title, Options,
-			if App == no_app ->
+			if App == ?NO_APP ->
 				"Overview";
 			   true ->
 				io_lib:fwrite("Application: ~s", [App])

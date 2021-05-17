@@ -4,6 +4,9 @@
 -ifndef(NO_APP).
 %% OTP 24+ EDoc
 -define(NO_APP, no_app).
+-endif.
+
+-if(?OTP_RELEASE >= 24).
 -define(context, doclet_context).
 -else.
 %% Pre OTP 24 EDoc

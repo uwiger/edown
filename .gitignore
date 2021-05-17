@@ -1,6 +1,7 @@
 .project
 .settings/
 .eunit/
+_build/
 ebin/
 *~
 */*~

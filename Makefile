@@ -1,12 +1,14 @@
+REBAR3=$(shell which rebar3 || echo ./rebar3)
+
 .PHONY: all compile clean doc
 
 all: compile
 
 compile:
-	./rebar compile
+	$(REBAR3) compile
 
 clean:
-	./rebar clean
+	$(REBAR3) clean
 
 doc: compile
 	./make_doc

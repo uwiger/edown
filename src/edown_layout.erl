@@ -418,22 +418,12 @@ functions(Fs, Opts) ->
 
 function(Name, E=#xmlElement{content = Es}, Opts) ->
     FHead = function_header(Name, E, " *"),
+    Defs = function_defs(E, Opts),
     %% (label_anchor(FHead, E)
     (label_anchor("", E)
      ++ [{h3, [lists:flatten(FHead)]},
-	 {p, []},
-	 {p,
-	  case typespec(get_content(typespec, Es), Opts) of
-	      [] ->
-		  signature(get_content(args, Es),
-			    get_attrval(name, E));
-	      Spec -> Spec
-	  end},
 	 {p, []}]
-     ++ case params(get_content(args, Es)) of
-	    [] -> [];
-	    Ps -> [{p, Ps}]
-	end
+     ++ Defs
      ++ case returns(get_content(returns, Es)) of
 	    [] -> [];
 	    Rs -> [{p, Rs}]
@@ -522,6 +512,38 @@ typespec(Es, Opts) ->
     Defs = get_elem(localdef, Es),
     [Type] = get_elem(type, Es),
     format_spec(Name, Type, Defs, Opts) ++ local_defs(Defs, Opts).
+
+function_defs(E=#xmlElement{content = Es}, Opts) ->
+    AllTypespecs = get_elem(typespec, Es),
+    AllArgs = get_elem(args, Es),
+    case function_defs1(E, AllTypespecs, AllArgs, Opts) of
+        %% Work around the behavior of lists:flatten() when we pass it a list
+        %% with a single item: it wants to flatten sub-items in that item.
+        [SingleElem] -> SingleElem;
+        ManyElems    -> lists:flatten(ManyElems)
+    end.
+
+function_defs1(E, [], [#xmlElement{content = ArgsContent}], _Opts) ->
+    %% Signature + one set of args.
+    [{p, signature(ArgsContent, get_attrval(name, E))},
+     {p, []}]
+    ++ case params(ArgsContent) of
+           [] -> [];
+           Ps -> [{p, Ps}]
+       end;
+function_defs1(_E, AllTypespecs, AllArgs, Opts) ->
+    %% Typespec/args combinations.
+    Pairs = lists:zip(AllTypespecs, AllArgs),
+    [begin
+         [{p, typespec(TypespecContent, Opts)},
+          {p, []}]
+         ++ case params(ArgsContent) of
+                [] -> [];
+                Ps -> [{p, Ps}]
+            end
+     end
+    || {#xmlElement{content = TypespecContent},
+        #xmlElement{content = ArgsContent}} <- Pairs].
 
 %% <!ELEMENT typedecl (typedef, description?)>
 %% <!ELEMENT typedef (erlangName, argtypes, type?, localdef*)>

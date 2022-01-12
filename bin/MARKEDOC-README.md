@@ -79,7 +79,7 @@ And that's it. This could also be part of your Makefile. For the intermediary RE
 
 	@docfile "doc/README.edoc"
 
-By running sed, then edoc, this makes the README.edoc part of the overview page. You could also make the README.md straight into an overview.edoc but the way it is allows allows to embedd it into additional context information that should be useful for a proper html doc.
+By running sed, then edoc, this makes the README.edoc part of the overview page. You could also make the README.md straight into an overview.edoc but the way it is allows allows to embed it into additional context information that should be useful for a proper html doc.
 
 Accordingly, the sample stub overview.edoc used for the samples here, looks like this:
 
@@ -111,7 +111,7 @@ Status                                                       <a name=Status></a>
 
  **Pre-Beta**. Quite usable, but still likes to trip up EDoc now and then, which is kind of easy to do.
 
-There are  many ways to create formats that will make the EDoc generator tilt and unfortunately, the errors it throws are sometimes not quite so illuminating to the reader. But why not try an incremental approach and see what works. As you can see from this [source sample][sample], which works alright, it's quite a lot that *does* work and the murky bits can usally be worked out fast. Sometimes an additional line helps, some spaces at the end of a line, general intuitive stuff. Please experiment and push your fixes to me.
+There are  many ways to create formats that will make the EDoc generator tilt and unfortunately, the errors it throws are sometimes not quite so illuminating to the reader. But why not try an incremental approach and see what works. As you can see from this [source sample][sample], which works alright, it's quite a lot that *does* work and the murky bits can usually be worked out fast. Sometimes an additional line helps, some spaces at the end of a line, general intuitive stuff. Please experiment and push your fixes to me.
 
  **Thanks!**
 
@@ -167,7 +167,7 @@ History
 
 * added doc for Linux use
 * added support for multi-line '[..]: ... "..."' references
-* added footnote signs and sepcial chars:
+* added footnote signs and special chars:
 * dagger, double dagger: (+), (++), stars: (\*), (\*\*), (\*\*\*)
 * superscript 1, 2, 3: (\*1), (\*2), (\*3), copyright (C), (R), (TM),
 * guillemots <<, >> and middle dot ::

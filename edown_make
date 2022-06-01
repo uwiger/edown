@@ -1,7 +1,7 @@
 #!/usr/bin/env escript
 %% -*- erlang -*-
 
-%% @spec main() -> no_return()
+
 %% @doc Escript for building edown (or edoc) documentation
 %%
 %% Usage: edown_make ConfigFile
@@ -13,6 +13,9 @@
 %% {@link edoc:application/3}.
 %% @end
 %%
+
+-spec main(Args) -> no_return() when
+    Args :: [string()].
 main(Args) ->
     Config = parse_args(Args),
     edown_make:main([Config]).

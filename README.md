@@ -18,7 +18,7 @@ To generate markdown edoc, run:
 
 ```
 
-edoc:application(App, [{doclet, edown_doclet} | OtherOpts]).
+edoc:application(App, [{edoc_doclet, edown_doclet} | OtherOpts]).
 
 ```
 
@@ -66,9 +66,10 @@ Github customizations
 =====================
 `pre` tags are converted into github "fenced" code blocks, i.e.
 
-```
+
+````
 ```...'''
-```
+````
 
 . If language-specific syntax highlighting is desired,
 this can be achieved by adding a 'lang' attribute, e.g.
@@ -115,7 +116,7 @@ when linking to other Edown-generated docs on Github.
 First, you need to specify paths to the `edoc-info` files for
 each repository as part of `edoc_opts` in your rebar.config, e.g.
 
-```
+```erlang
    {doc_path, ["http://raw.github.com/uwiger/setup/master/doc",
                "http://raw.github.com/uwiger/gproc/master/doc"]}
 ```
@@ -165,4 +166,10 @@ See [bin/MARKEDOC-README.md](http://github.com/uwiger/edown/blob/master/bin/MARK
 **FreeBSD, Mac OS X**`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
 
 **Linux**`$ sed -r -f markedoc.sed <markdown file> > <edoc file>`
+
+ExDoc
+========
+Generating source code documentation by [ExDoc](https://github.com/elixir-lang/ex_doc)
+
+`rebar3 ex_doc --output exdoc -f html`
 

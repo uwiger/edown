@@ -7,3 +7,7 @@ ebin/
 */*~
 #*#
 */#*#
+exdoc
+doc/*.html
+doc/*.png
+.vscode

@@ -1,3 +1,5 @@
+[![Hex version](https://img.shields.io/hexpm/v/edown.svg "Hex version")](https://hex.pm/packages/edown)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?logo=apache&logoColor=red)](https://www.apache.org/licenses/LICENSE-2.0)
 
 
 # Edown - Markdown generated from Edoc #

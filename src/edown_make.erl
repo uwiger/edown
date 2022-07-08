@@ -4,7 +4,7 @@
 -export([from_script/1]).
 -export([main/1]).
 
-%% @spec main(Args::[Config]) -> no_return()
+
 %% @doc Escript entry point for building edown (or edoc) documentation
 %%
 %% Usage: edown_make -config ConfigFile [-pa P] [-pz P]
@@ -27,6 +27,9 @@
 %%
 %% @end
 %%
+
+-spec main(Args :: [Config]) -> no_return() when
+	Config :: [string()].
 main([Config]) ->
     case from_script(Config) of
 	ok ->
@@ -35,7 +38,6 @@ main([Config]) ->
 	    halt(1)
     end.
 
-%% @spec from_script(ConfigFile) -> ok | {error, Reason}
 %% @doc Reads ConfigFile and calls {@link edoc:application/3}
 %%
 %% The ConfigFile will be read using {@link file:script/1}, and should return
@@ -45,6 +47,10 @@ main([Config]) ->
 %% {@link edoc:application/3}.
 %% @end
 %%
+
+-spec from_script(ConfigFile) -> ok | {error, Reason} when
+	ConfigFile :: string(),
+	Reason :: term().
 from_script(Config) ->
     case file:script(Config) of
 	{ok, {App, Dir, Options}} ->

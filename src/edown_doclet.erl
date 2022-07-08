@@ -47,7 +47,6 @@
 %% usually include the data from the edoc-info file in the target
 %% directory, if it exists.)
 
-%% @spec (Command::doclet_gen() | doclet_toc(), edoc_context()) -> ok
 %% @doc Main doclet entry point.
 %%
 %% Also see {@link //edoc/edoc:layout/2} for layout-related options, and
@@ -101,6 +100,9 @@
 %% INHERIT-OPTIONS: copy_stylesheet/2
 %% INHERIT-OPTIONS: stylesheet/1
 
+-spec run(Command, edoc_doclet:edoc_context()) -> Result when
+	Command :: edoc_doclet:doclet_gen() | edoc_doclet:doclet_toc(),
+	Result :: ok.
 run(#doclet_gen{}=Cmd, Ctxt) ->
     gen(Cmd#doclet_gen.sources,
 	Cmd#doclet_gen.app,

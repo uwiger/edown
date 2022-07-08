@@ -7,7 +7,7 @@ export REBAR := rebar3
 export REBAR_LOCATION_LINUX_IF = $(shell which rebar3 | head -1 | grep rebar3)
 export REBAR_URL := https://s3.amazonaws.com/rebar3/rebar3
 
-export REBAR_REQUEST ?= $(ERL) -noshell -s inets -s ssl \
+export REBAR_REQUEST = $(ERL) -noshell -s inets -s ssl \
 		-eval '{ok, saved_to_file} = httpc:request(get, {"$(REBAR_URL)", []}, [{ssl, [{verify,verify_none}]}], [{stream, "$(REBAR3)"}])' \
 		-s init stop && chmod +x $(REBAR3) && echo $(REBAR3)
 	

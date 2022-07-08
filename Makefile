@@ -18,7 +18,7 @@ export REBAR_REQUEST ?= $(ERL) -noshell -s inets -s ssl \
 #  use `which` to get `rebar3` builder from current system.
 # Else `rebar3` is downloaded by URL.
 ### -->>
-export BUILDER := $(shell [ -f $(REBAR3) ] && echo $(REBAR3) && exit || \
+BUILDER := $(shell [ -f $(REBAR3) ] && echo $(REBAR3) && exit || \
 					[ $(OS_NAME) == Linux ] && [ -n $(REBAR_LOCATION_LINUX_IF) ] && which rebar3 && exit || \
 					[ -z $(REBAR_LOCATION_LINUX_IF) ] && $(REBAR_REQUEST))		
 ### <<--	

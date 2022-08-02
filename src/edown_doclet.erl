@@ -142,7 +142,7 @@ right_suffix(File, Options) ->
 set_app_default(Opts) ->
     case lists:keyfind(app_default,1,Opts) of
 	false ->
-	    [{app_default, "http://www.erlang.org/doc/man"}|Opts];
+	    [{app_default, "https://www.erlang.org/doc/man"}|Opts];
 	_ ->
 	    Opts
     end.

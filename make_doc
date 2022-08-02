@@ -7,7 +7,7 @@
 %% to do this with 'rebar doc'.
 %%
 main([]) ->
-    code:add_patha("ebin"),
+    code:add_patha("_build/default/lib/edown/ebin"), % from rebar3
     Default = "uwiger",
     U = case os:getenv("TGT") of
 	    [] -> Default;
@@ -19,12 +19,12 @@ main([]) ->
     R = edoc:application(edown, ".",
 			 [{doclet, edown_doclet},
 			  {source_path, ["src"]},
-			  {app_default,"http://www.erlang.org/doc/man"},
+			  {app_default,"https://www.erlang.org/doc/man"},
 			  {stylesheet, ""},  % don't copy stylesheet.css
 			  {image, ""},       % don't copy erlang.png
                           {edown_target, target()},
 			  {top_level_readme,
-			   {"./README.md", TopURL}}]),
+			   {"./README.md", TopURL, "master"}}]),
     case R of
 	ok ->
 	    halt();

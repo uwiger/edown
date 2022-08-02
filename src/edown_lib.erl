@@ -41,8 +41,16 @@ redirect_uri(#xmlElement{} = E) ->
 redirect_uri(_E) ->
     false.
 
-redirect_uri("http://www.erlang.org" ++ _ = URI, _, E) ->
+redirect_uri("https://www.erlang.org" ++ _ = URI, _, E) ->
     %% abusing the filename API a little - but whatever works...
+    case filename:split(URI) of
+	[_,"www.erlang.org","doc","man",_,"doc",Mod] ->
+	    NewURI = "https://www.erlang.org/doc/man/" ++ Mod,
+	    replace_uri(NewURI, E);
+	_Split ->
+	    false
+    end;
+redirect_uri("http://www.erlang.org" ++ _ = URI, _, E) ->
     case filename:split(URI) of
 	[_,"www.erlang.org","doc","man",_,"doc",Mod] ->
 	    NewURI = "http://www.erlang.org/doc/man/" ++ Mod,
@@ -55,7 +63,7 @@ redirect_uri("/" ++ _  = URI, "//" ++ _, E) ->
 	true ->
 	    case lists:reverse(filename:split(URI)) of
 		[Mod, "doc", _App | _] ->
-		    NewURI = "http://www.erlang.org/doc/man/" ++ Mod,
+		    NewURI = "https://www.erlang.org/doc/man/" ++ Mod,
 		    replace_uri(NewURI, E);
 		_ ->
 		    false

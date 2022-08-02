@@ -9,7 +9,7 @@
 ## Function Index ##
 
 
-<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#from_script-1">from_script/1</a></td><td>Reads ConfigFile and calls <a href="edoc.md#application-3"><code>edoc:application/3</code></a></td></tr><tr><td valign="top"><a href="#main-1">main/1</a></td><td>Escript entry point for building edown (or edoc) documentation.</td></tr></table>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#from_script-1">from_script/1</a></td><td>Reads ConfigFile and calls <a docgen-rel="seemfa" docgen-href="edoc#application/3" href="edoc.md#application-3"><code>edoc:application/3</code></a></td></tr><tr><td valign="top"><a href="#main-1">main/1</a></td><td>Escript entry point for building edown (or edoc) documentation.</td></tr></table>
 
 
 <a name="functions"></a>

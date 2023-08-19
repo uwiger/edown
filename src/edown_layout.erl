@@ -1029,6 +1029,11 @@ get_content(Name, Es) ->
     case get_elem(Name, Es) of
 	[#xmlElement{content = Es1}] ->
 	    Es1;
+	% Workaround a bug in edoc where several returns tags are generated
+	% when there are several specification clauses
+	% See: https://github.com/erlang/otp/issues/7576
+	[#xmlElement{content = Es1}, #xmlElement{} | _] when Name =:= returns ->
+	    Es1;
 	[] -> []
     end.
 

@@ -155,7 +155,7 @@ make_top_level_README(Data, Options) ->
             Dir = filename:dirname(Path),
             Filename = filename:basename(Path),
 	    make_top_level_README(Data, Dir, Filename, BaseHRef,
-                                  get_git_branch(), Options);
+                                  get_branch(Options), Options);
 	{Path, BaseHRef, Branch} ->
             Dir = filename:dirname(Path),
             Filename = filename:basename(Path),
@@ -164,10 +164,6 @@ make_top_level_README(Data, Options) ->
 
 target(Options) ->
     proplists:get_value(edown_target, Options, github).
-
-%% make_top_level_README(Data, Dir, F, BaseHRef) ->
-%%     Branch = get_git_branch(),
-%%     make_top_level_README(Data, Dir, F, BaseHRef, Branch).
 
 make_top_level_README(Data, Dir, F, BaseHRef, Branch, Options) ->
     Target = target(Options),
@@ -227,6 +223,14 @@ do_redirect(Href, Prefix, Args) ->
 	    Prefix ++ "doc/" ++ Href ++ Args;
 	_ ->
 	    Prefix ++ Href ++ Args
+    end.
+
+get_branch(Options) ->
+    case proplists:get_value(branch, Options) of
+	undefined ->
+	    get_git_branch();
+	Branch ->
+	    Branch
     end.
 
 get_git_branch() ->

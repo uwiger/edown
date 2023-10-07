@@ -77,13 +77,12 @@
 %%  </dd>
 %%  <dt>{@type {xml_export, Module::atom()@}}
 %%  </dt>
-%%  <dd>Specifies an {@link //xmerl. `xmerl'} callback module to be
+%%  <dd>Specifies an `xmerl' callback module to be
 %%      used for exporting the documentation. See {@link
 %%      //xmerl/xmerl:export_simple_content/2} for details.
 %%  </dd>
 %% </dl>
 %%
-%% @see edown_doclet:layout/2
 %% @see //edoc/edoc:layout/2
 
 %% NEW-OPTIONS: xml_export, index_columns, stylesheet

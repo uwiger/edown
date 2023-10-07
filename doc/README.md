@@ -2,7 +2,7 @@
 
 # Edown - Markdown generated from Edoc #
 
-Copyright (c) 2014 Ulf Wiger
+Copyright (c) 2014-23 Ulf Wiger
 
 __Authors:__ [`ulf@wiger.net`](mailto:ulf@wiger.net).
 

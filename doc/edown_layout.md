@@ -107,14 +107,14 @@ the source file. The default value is <code>true</code>.
 
 
 
-<dd>Specifies an <a docgen-rel="seeapp" docgen-href="xmerl:index" href="https://www.erlang.org/doc/man/index.html" target="_top"><code>xmerl</code></a> callback module to be
+<dd>Specifies an <code>xmerl</code> callback module to be
 used for exporting the documentation. See <a docgen-rel="seemfa" docgen-href="xmerl:xmerl#export_simple_content/2" href="https://www.erlang.org/doc/man/xmerl.html#export_simple_content-2"><code>//xmerl/xmerl:export_simple_content/2</code></a> for details.
 </dd>
 
 
 
 
-__See also:__ [//edoc/edoc:layout/2](https://www.erlang.org/doc/man/edoc.html#layout-2), [edown_doclet:layout/2](edown_doclet.md#layout-2).
+__See also:__ [//edoc/edoc:layout/2](https://www.erlang.org/doc/man/edoc.html#layout-2).
 
 <a name="overview-2"></a>
 

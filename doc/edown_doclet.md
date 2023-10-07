@@ -28,9 +28,10 @@ __Authors:__ Ulf Wiger ([`ulf@wiger.net`](mailto:ulf@wiger.net)).
 ### run/2 ###
 
 <pre><code>
-run(Command::<a href="#type-doclet_gen">doclet_gen()</a> | <a href="#type-doclet_toc">doclet_toc()</a>, Ctxt::<a href="#type-edoc_context">edoc_context()</a>) -&gt; ok
+run(Command, Ctxt) -&gt; ok
 </code></pre>
-<br />
+
+<ul class="definitions"><li><code>Command = <a href="https://www.erlang.org/doc/man/edoc_doclet.html#type-command">edoc_doclet:command()</a></code></li><li><code>Ctxt = <a href="https://www.erlang.org/doc/man/edoc_doclet.html#type-context">edoc_doclet:context()</a></code></li></ul>
 
 Main doclet entry point.
 

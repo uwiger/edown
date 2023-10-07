@@ -21,9 +21,10 @@
 ### from_script/1 ###
 
 <pre><code>
-from_script(Config::ConfigFile) -&gt; ok | {error, Reason}
+from_script(ConfigFile) -&gt; ok | {error, Reason}
 </code></pre>
-<br />
+
+<ul class="definitions"><li><code>ConfigFile = <a href="https://www.erlang.org/doc/man/file.html#type-filename">file:filename()</a></code></li><li><code>Reason = any()</code></li></ul>
 
 Reads ConfigFile and calls [`edoc:application/3`](edoc.md#application-3)
 
@@ -38,9 +39,10 @@ This function does not manage dependencies. It is simply a wrapper around
 ### main/1 ###
 
 <pre><code>
-main(Args::[Config]) -&gt; no_return()
+main(Args) -&gt; no_return()
 </code></pre>
-<br />
+
+<ul class="definitions"><li><code>Args = <a href="https://www.erlang.org/doc/man/proplists.html#type-proplist">proplists:proplist()</a></code></li></ul>
 
 Escript entry point for building edown (or edoc) documentation
 
@@ -54,10 +56,10 @@ that the edown BEAM files are in the Erlang path (e.g. using $ERL_LIBS).
 The `edown_make` escript also accepts `-pa P` and/or `-pz P` flags as a
 means of locating the edown byte code.
 
-Note, however, that the function `edoc_make:main/1` only expects the
+Note, however, that the function `edown_make:main/1` only expects the
 config file as an input argument, corresponding to
 
-`escript edoc_make.beam ConfigFile`
+`escript edown_make.beam ConfigFile`
 
 (The reason for this is that if the beam file can be passed directly to
 the escript command, setting the path should also be doable that way).

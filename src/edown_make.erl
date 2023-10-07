@@ -4,7 +4,8 @@
 -export([from_script/1]).
 -export([main/1]).
 
-%% @spec main(Args::[Config]) -> no_return()
+-spec main(Args) -> no_return()
+	      when Args :: proplists:proplist().
 %% @doc Escript entry point for building edown (or edoc) documentation
 %%
 %% Usage: edown_make -config ConfigFile [-pa P] [-pz P]
@@ -17,10 +18,10 @@
 %% The `edown_make' escript also accepts `-pa P' and/or `-pz P' flags as a
 %% means of locating the edown byte code.
 %%
-%% Note, however, that the function `edoc_make:main/1' only expects the
+%% Note, however, that the function `edown_make:main/1' only expects the
 %% config file as an input argument, corresponding to
 %%
-%% `escript edoc_make.beam ConfigFile'
+%% `escript edown_make.beam ConfigFile'
 %%
 %% (The reason for this is that if the beam file can be passed directly to
 %% the escript command, setting the path should also be doable that way).
@@ -35,7 +36,9 @@ main([Config]) ->
 	    halt(1)
     end.
 
-%% @spec from_script(ConfigFile) -> ok | {error, Reason}
+-spec from_script(ConfigFile) -> ok | {error, Reason}
+	      when ConfigFile :: file:filename(),
+		   Reason :: any().
 %% @doc Reads ConfigFile and calls {@link edoc:application/3}
 %%
 %% The ConfigFile will be read using {@link file:script/1}, and should return

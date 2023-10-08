@@ -122,7 +122,7 @@ gen(Sources, App, Modules, Ctxt) ->
     %% CSS = stylesheet(Options),
     {Modules1, Error} = sources(Sources, Dir, Modules, Env, Options),
     Data = overview(Dir, Title, Env, Options)
-        ++ lists:concat([modules_frame(Modules1) || Modules1 =/= []]),
+        ++ lists:concat([modules_frame(Modules1, Options) || Modules1 =/= []]),
     Text = edown_lib:export(Data, Options),
     write_file(Text, Dir, right_suffix(?INDEX_FILE, Options)),
     write_info_file(App, Modules1, Dir),
@@ -167,12 +167,11 @@ target(Options) ->
     proplists:get_value(edown_target, Options, github).
 
 make_top_level_README(Data, Dir, F, BaseHRef, Branch, Options) ->
-    Target = target(Options),
     Exp = [xmerl_lib:expand_element(D) || D <- Data],
     New = [xmerl_lib:mapxml(
 	     fun(#xmlElement{name = a,
 			     attributes = Attrs} = E) ->
-		     case redirect_href(Attrs, Branch, BaseHRef, Target) of
+		     case redirect_href(Attrs, Branch, BaseHRef, Options) of
 			 {true, Attrs1} ->
 			     E#xmlElement{attributes = Attrs1};
 			 false ->
@@ -184,7 +183,8 @@ make_top_level_README(Data, Dir, F, BaseHRef, Branch, Options) ->
     Text = edown_lib:export(New, Options),
     write_file(Text, Dir, F).
 
-redirect_href(Attrs, Branch, BaseHRef, Target) ->
+redirect_href(Attrs, Branch, BaseHRef, Options) ->
+    Target = target(Options),
     {Prefix, URIArgs} = href_redirect_parts(Target, BaseHRef, Branch),
     case lists:keyfind(href, #xmlAttribute.name, Attrs) of
 	false ->
@@ -196,12 +196,13 @@ redirect_href(Attrs, Branch, BaseHRef, Target) ->
 		{match, _} ->
 		    false;
 		nomatch ->
+            Dir = proplists:get_value(dir, Options, "dir/"),
                     case Href of
                         [$# | _]	->
                             HRef1 = do_redirect(?INDEX_FILE ++ Href,
-                                                Prefix, URIArgs);
+                                                Prefix, URIArgs, Dir);
                         _Else ->
-                            HRef1 = do_redirect(Href, Prefix, URIArgs)
+                            HRef1 = do_redirect(Href, Prefix, URIArgs, Dir)
                     end,
 		    {true,
 		     lists:keyreplace(
@@ -210,6 +211,8 @@ redirect_href(Attrs, Branch, BaseHRef, Target) ->
 	    end
     end.
 
+href_redirect_parts(github_pages, BaseHRef, Branch) ->
+    {BaseHRef ++ "/blob/" ++ Branch ++ "/", ?DEFAULT_FILE_SUFFIX};
 href_redirect_parts(github, BaseHRef, Branch) ->
     {BaseHRef ++ "/blob/" ++ Branch ++ "/", []};
 href_redirect_parts(stash, BaseHRef, Branch) ->
@@ -218,10 +221,10 @@ href_redirect_parts(gitlab, BaseHRef, Branch) ->
     {BaseHRef ++ "/tree/" ++ Branch ++ "/", []}.
 
 
-do_redirect(Href, Prefix, Args) ->
+do_redirect(Href, Prefix, Args, Dir) ->
     case filename:split(Href) of
 	[_] ->
-	    Prefix ++ "doc/" ++ Href ++ Args;
+	    Prefix ++ Dir ++ Href ++ Args;
 	_ ->
 	    Prefix ++ Href ++ Args
     end.
@@ -370,20 +373,26 @@ check_name(M, M0, File) ->
 	    end
     end.
 
-modules_frame(Ms) ->
+modules_frame(Ms, Options) ->
     [{h2, [{class, "indextitle"}], ["Modules"]},
      {table, [{width, "100%"}, {border, 0},
               {summary, "list of modules"}],
       lists:concat(
         [[?NL,
           {tr, [{td, [],
-                 [{a, [{href, module_ref(M)},
+                 [{a, [{href, module_ref(M, Options)},
                        {class, "module"}],
                    [atom_to_list(M)]}]}]}]
          || M <- Ms])}].
 
-module_ref(M) ->
-    atom_to_list(M) ++ ?DEFAULT_FILE_SUFFIX.
+module_ref(M, Options) ->
+    case target(Options) of
+        github_pages ->
+            atom_to_list(M);
+        _ ->
+            atom_to_list(M) ++ ?DEFAULT_FILE_SUFFIX
+    end.
+
 
 
 %% NEW-OPTIONS: overview

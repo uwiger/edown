@@ -85,7 +85,7 @@
 		s/(\n)	(.*)$/\1 \2/
 		# while: ... yes, then loop
 		t do_collect
-	# normal end of collect: got all indendet lines, plus one too many.
+	# normal end of collect: got all indented lines, plus one too many.
 	# -----------------------------------------------------------------
 	b normal_course
 	#

@@ -56,7 +56,7 @@ Open Source Erlang MySQL driver efforts are currently a fractured matter, at lea
 
 <li class="ref url"> emysql:<a name="1" id="1" href="http://github.com/JacobVorreuter/emysql" target="_parent">http://github.com/JacobVorreuter/emysql</a></li>
 <li class="ref url"> erlang-mysql-driver:<a name="2" id="2" href="http://github.com/dizzyd/erlang-mysql-driver" target="_parent">http://github.com/dizzyd/erlang-mysql-driver</a></li>
-<li class="ref url"> Royal Institure of Technology:<a name="3" id="3" href="http://www.kth.se/" target="_parent">http://www.kth.se/</a></li>
+<li class="ref url"> Royal Institute of Technology:<a name="3" id="3" href="http://www.kth.se/" target="_parent">http://www.kth.se/</a></li>
 <li class="ref url"> Yxa mysql driver:<a name="4" id="4" href="https://github.com/fredrikt/yxa/tree/master/src/mysql" target="_parent">https://github.com/fredrikt/yxa/tree/master/src/mysql</a></li>
 <li class="ref url"> Yxa Home:<a name="5" id="5" href="http://www.stacken.kth.se/project/yxa/index.html" target="_parent">http://www.stacken.kth.se/project/yxa/index.html</a></li>
 <li class="ref url"> Yxa repository at github:<a name="6" id="6" href="https://github.com/fredrikt/yxa" target="_parent">https://github.com/fredrikt/yxa</a></li>
@@ -294,7 +294,7 @@ first create the database as listed above):
 
 == Links ==
 
-<li> <a href="http://github.com/Eonblast/Emysql">Emysql on Github</a></li>
+<li> <a href="http://github.com/Eonblast/Emysql">Emysql on GitHub</a></li>
 <li> <a href="https://github.com/fredrikt/yxa/tree/master/src/mysql">Original Yxa</a> mysql driver</li>
 <li> <a href="http://svn.process-one.net/ejabberd-modules/mysql/trunk/">ejabberd fork</a></li>
 <li> <a href="http://code.google.com/p/erlang-mysql-driver/">'erlang-mysql-driver'</a></li>

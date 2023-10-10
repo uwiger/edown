@@ -126,7 +126,7 @@ Notes                                                         <a name=Notes></a>
 
 [EDoc]: http://www.erlang.org/doc/apps/edoc/chapter.html
 
- **[edown][]** is an EDoc extension for generating Github-flavored Markdown. It uses edoc-style commented Erlang sources to create markdown files from them.
+ **[edown][]** is an EDoc extension for generating GitHub-flavored Markdown. It uses edoc-style commented Erlang sources to create markdown files from them.
 
 [edown]: https://github.com/uwiger/edown
 

@@ -29,8 +29,9 @@
 %% Note: we assume XML data, so all tags are lowercase!
 
 -export(['#root#'/4,
-	 '#element#'/5,
-	 '#text#'/1]).
+         '#element#'/5,
+         '#cdata#'/1,
+         '#text#'/1]).
 
 -import(xmerl_lib, [find_attribute/2]).
 
@@ -98,6 +99,9 @@ brstrip(Str) -> re:replace(Str, "\\s+\\s\$", "", [global, multiline, unicode,
     ["<br />"];
 '#element#'(Tag, Data, Attrs, Parents, E) ->
     elem(Tag, Data, Attrs, Parents, E).
+
+'#cdata#'(Data) ->
+     Data.
 
 %% the alias_for/5 function is used to force HTML rendering of things we
 %% know are likely to cause problems with Markdown.

@@ -31,6 +31,7 @@
 -import(edoc_report, [report/2]).
 
 -include_lib("xmerl/include/xmerl.hrl").
+-include_lib("kernel/include/eep48.hrl").
 
 -define(HTML_EXPORT, edown_xmerl).
 -define(DEFAULT_XML_EXPORT, ?HTML_EXPORT).
@@ -169,11 +170,13 @@ init_opts(Element, Options) ->
 layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
     Args = module_params(get_content(args, Es)),
     Name = get_attrval(name, E),
+    Doc = get_doc(list_to_atom(Name)),
     Title = case get_elem(args, Es) of
 		[] -> ["Module ", Name];
 		_ -> ["Abstract module ", Name, " [", {Args}, "]"]
 	    end,
-    Desc = get_content(description, Es),
+    %% Desc = get_content(description, Es),
+    Desc = get_description(module, Es, Doc),
     FullDesc = get_content(fullDescription, Desc),
     {ShortDesc, RestDesc} = get_first_sentence(FullDesc),
     Functions = [{function_name(Ex), Ex} || Ex <- get_content(functions, Es)],
@@ -201,8 +204,8 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
 			   | RestDesc]
 	       end
 	    ++ types(lists:sort(Types), Opts)
-	    ++ function_index(SortedFs, Opts#opts.index_columns)
-	    ++ functions(SortedFs, Opts)),
+	    ++ function_index(SortedFs, Opts#opts.index_columns, Doc)
+	    ++ functions(SortedFs, Doc, Opts)),
 	    %% ++ navigation("bottom")
 	    %% ++ timestamp()),
     %% if Name == "edown_doclet" ->
@@ -215,6 +218,12 @@ layout_module(#xmlElement{name = module, content = Es}=E, Opts) ->
     %% end,
     %% xhtml(Title, stylesheet(Opts), Body).
     to_simple(markdown(Title, stylesheet(Opts), Body)).
+
+get_doc(Module) when is_atom(Module) ->
+    case code:get_doc(Module) of
+        {ok, #docs_v1{} = Docs} -> Docs;
+        {error, non_existing}   -> none
+    end.
 
 %% This function is a workaround for a bug in xmerl_lib:expand_content/1 that
 %% causes it to lose track of the parents if #xmlElement{} records are
@@ -345,8 +354,8 @@ doc_index_rows(FullDesc, Functions, Types) ->
 		    {?FUNCTIONS_TITLE, ?FUNCTIONS_LABEL}]
 	end).
 
-function_index(Fs, Cols) ->
-    case function_index_rows(Fs, Cols, []) of
+function_index(Fs, Cols, Doc) ->
+    case function_index_rows(Fs, Cols, Doc, []) of
 	[] -> [];
 	Rows ->
 	    [
@@ -358,25 +367,25 @@ function_index(Fs, Cols) ->
 	      Rows}]
     end.
 
-function_index_rows(Fs, Cols, Title) ->
+function_index_rows(Fs, Cols, Doc, Title) ->
     Rows = (length(Fs) + (Cols - 1)) div Cols,
     (if Title == [] -> [];
 	true -> [{tr, [{th, [{colspan, Cols * 2}, {align, left}],
 			[Title]}]}]
      end
-     ++ lists:flatmap(fun index_row/1,
+     ++ lists:flatmap(fun(Fs1) -> index_row(Fs1, Doc) end,
 		      edoc_lib:transpose(edoc_lib:segment(Fs, Rows)))).
 
-index_row(Fs) ->
-    [{tr, lists:flatmap(fun index_col/1, Fs)}].
+index_row(Fs, Doc) ->
+    [{tr, lists:flatmap(fun(C) -> index_col(C, Doc) end, Fs)}].
 
-index_col({Name, F=#xmlElement{content = Es}}) ->
+index_col({Name, F=#xmlElement{content = Es}}, Doc) ->
     [{td, [{valign, "top"}],
       label_href(function_header(Name, F, "*"), F)},
-     {td, index_desc(Es)}].
+     {td, index_desc(Name, Es, Doc)}].
 
-index_desc(Es) ->
-    Desc = get_content(description, Es),
+index_desc(Name, Es, Doc) ->
+    Desc = get_description({function, Name}, Es, Doc),
     (case get_content(deprecated, Es) of
  	 [] -> [];
  	 _ -> ["(", {em, ["Deprecated"]}, ".) "]
@@ -405,8 +414,8 @@ label_href(Content, F) ->
 %% <!ELEMENT equiv (expr, see?)>
 %% <!ELEMENT expr (#PCDATA)>
 
-functions(Fs, Opts) ->
-    Es = lists:flatmap(fun ({Name, E}) -> function(Name, E, Opts) end, Fs),
+functions(Fs, Doc, Opts) ->
+    Es = lists:flatmap(fun ({Name, E}) -> function(Name, E, Doc, Opts) end, Fs),
     if Es == [] -> [];
        true ->
             [?NL,
@@ -415,9 +424,10 @@ functions(Fs, Opts) ->
              ?NL | Es]
     end.
 
-function(Name, E=#xmlElement{content = Es}, Opts) ->
+function(Name, E=#xmlElement{content = Es}, Doc, Opts) ->
     FHead = function_header(Name, E, " *"),
     Defs = function_defs(E, Opts),
+    Descr = get_description({function, Name}, Es, Doc),
     %% (label_anchor(FHead, E)
     (label_anchor("", E)
      ++ [{h3, [lists:flatten(FHead)]},
@@ -430,7 +440,7 @@ function(Name, E=#xmlElement{content = Es}, Opts) ->
      ++ throws(Es, Opts)
      ++ equiv_p(Es)
      ++ deprecated(Es, "function")
-     ++ fulldesc(Es)
+     ++ fulldesc(descr(Descr))
      ++ since(Es)
      ++ sees(Es)
      ++ todos(Es)).
@@ -688,6 +698,10 @@ app_fix(L, I) -> % a bit slow
         {done, {ok,[{atom,_,Atom}|_],_}, _} -> {atom_to_list(Atom), L2};
         _ -> app_fix(L, I+1)
     end.
+
+%% As a workaround, we sometimes create a 'description' wrapper
+descr(Es) ->
+    [#xmlElement{name = description, content = Es}].
 
 fulldesc(Es) ->
     case get_content(fullDescription, get_content(description, Es)) of
@@ -1024,6 +1038,47 @@ get_attrval(Name, #xmlElement{attributes = As}) ->
 	[] -> ""
     end.
 
+get_description(_Ctxt, Es, none) ->
+    get_content(description, Es);
+get_description(Ctxt, Es, #docs_v1{module_doc = MD, docs = Ds}) ->
+    MDoc = case Ctxt of
+               module -> MD;
+               {function, Name} when is_list(Ds) ->
+                   case string:lexemes(Name, [$/]) of
+                       [Fname, Arity] ->
+                           FKey = {function, list_to_atom(Fname), list_to_integer(Arity)},
+                           case lists:keyfind(FKey, 1, Ds) of
+                               {_Name, _Anno, _Sig, FD, _Meta} ->
+                                   FD;
+                               _ ->
+                                   none
+                           end;
+                       _ ->
+                           none
+                   end;
+               _ ->
+                   none
+           end,
+    get_description(Es, MDoc).
+
+get_description(Es, #{<<"en">> := MDocTxt}) ->
+    case get_content(description, Es) of
+        [] ->
+            [FirstLine|_] = string:lexemes(MDocTxt, [$\n]),
+            [#xmlElement{name = briefDescription,
+                         content = [#xmlText{value = u2l(FirstLine), type = cdata}]},
+             #xmlElement{name = fullDescription,
+                         content = [#xmlText{value = u2l(MDocTxt), type = cdata}]}];
+        Desc ->
+            Desc
+    end;
+get_description(Es, none) ->
+    get_content(description, Es).
+
+
+u2l(Str) ->
+    unicode:characters_to_list(Str).
+
 get_content(Name, Es) ->
     case get_elem(Name, Es) of
 	[#xmlElement{content = Es1}] ->
@@ -1054,6 +1109,8 @@ markdown(_Title, _CSS, Body) ->
 
 collapse_ps([{p,[]},Next|T]) when element(1,Next) == p ->
     collapse_ps([Next|T]);
+collapse_ps([#xmlText{} = E|T]) ->
+    [E | collapse_ps(T)];
 collapse_ps([{Tag,Content}|T]) ->
     [{Tag, collapse_ps(Content)} | collapse_ps(T)];
 collapse_ps([{Tag,As,Content}|T]) ->

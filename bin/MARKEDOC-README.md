@@ -173,9 +173,9 @@ History
 * guillemots <<, >> and middle dot ::
 * added test batches etc/test-bsd.sh and etc/test-linux.sh
 * added css sample in samples/markedoc/what-you-could-see/
-* added classes for ``< li >'' list item tags for '[..]:...'-references
+* added classes for ``< li >`` list item tags for `[..]:...`-references
 * fixed italic and bold merker interference bullet points
-* eliminated [..]: part of '[..]:...'-references, flipping "..." to lead
+* eliminated [..]: part of `[..]:...`-references, flipping "..." to lead
 * dev: sample creation batch make_samples.sh added
 
 02/02/11 - 0.2 - **basics complete** - FreeBSD / Mac OS X

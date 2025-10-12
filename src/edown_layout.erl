@@ -72,7 +72,7 @@
 %%  <dt>{@type {sort_functions, boolean()@}}
 %%  </dt>
 %%  <dd>If `true', the detailed function descriptions are listed by
-%%      name, otherwise they are listed in the order of occurrence in
+%%      name; otherwise, they are listed in the order of occurrence in
 %%      the source file. The default value is `true'.
 %%  </dd>
 %%  <dt>{@type {xml_export, Module::atom()@}}

@@ -1,15 +1,15 @@
 # markedoc 0.3.2 - 02/18/11 H. Diedrich <hd2010@eonblast.com>
 # ----------------------------------------------------------
 # sed command file to convert markdown format to edoc format
-# Linux, FreeBSD and Mac OS X. Windows must install sed.
+# Linux, FreeBSD and macOS. Windows must install sed.
 # ----------------------------------------------------------
 # Use it to make a markdown readme file part of an edoc file:
 # FrBSD: sed -E -f <this file> <markdown file> > <edoc file>
-# MacOS: sed -E -f <this file> <markdown file> > <edoc file>
+# macOS: sed -E -f <this file> <markdown file> > <edoc file>
 # Linux: sed -r -f <this file> <markdown file> > <edoc file>
 # As only difference, Linux uses -r where the others use -E.
 # ----------------------------------------------------------
-# SAMPLE USE (FreeBSD / Mac OS X):
+# SAMPLE USE (FreeBSD / macOS):
 # sed -E -f markedoc.sed README.markdown > overview.edoc
 # SAMPLE USE (Linux):
 # sed -r -f markedoc.sed README.markdown > overview.edoc
@@ -19,7 +19,7 @@
 # SAMPLE RESULTS:
 # samples/what-you-should-see/ & samples/what-you-could-see/
 # ----------------------------------------------------------
-# SAMPLE WORKFLOW (change -r to -E for FreeBSD / Mac OS X):
+# SAMPLE WORKFLOW (change -r to -E for FreeBSD / macOS):
 # sed -r -f markedoc.sed README.md > doc/README.edoc
 # erl -noshell -run edoc_run application "'myapp'" '"."' '[]'
 # ----------------------------------------------------------
@@ -46,7 +46,7 @@
 # **********************************************************
 # SCRIPT
 # **********************************************************
-# Ach, da kommt der Meister! Herr, die Not ist groﬂ!   ~~~
+# Ach, da kommt der Meister! Herr, die Not ist gro√ü!   ~~~
 #   ~~~  Die ich rief, die Geister, Werd ich nun nicht los.
 # ----------------------------------------------------------
 # This is a sed script for use with -E/-r regexes & NOT -n.
@@ -114,7 +114,7 @@
 	s/([ 	\"\'\`]+@)/\1@/g
 	# send result to stdout
 	p
-	# Now make sure that that last line is not lost:
+	# Now make sure that the last line is not lost:
 	# ----------------------------------------------
 	# get stored back
 	g

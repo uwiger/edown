@@ -5,7 +5,7 @@ edown markedoc 0.3.2
 
 This is the opposite direction from what **edown** otherwise does.
 
-markedoc translates [Markdown][] formatted texts into [Erlang][] [EDoc][] format, for inclusion into [EDoc][] generated html docs. It is for use on Linux, FreeBSD and Mac OS X and any system that you can install  **[sed][Requirements]** on.
+markedoc translates [Markdown][] formatted texts into [Erlang][] [EDoc][] format, for inclusion into [EDoc][] generated html docs. It is for use on Linux, FreeBSD and macOS and any system that you can install  **[sed][Requirements]** on.
 
 Status: [pre-beta][Status]. Quite stable and usable. See [Status][].
 
@@ -17,13 +17,13 @@ Use                                                           <a name=Use></a>
 ---
 At the command line for
 
-**FreeBSD, Mac OS X**
+**FreeBSD, macOS**
 	$ sed -E -f markedoc.sed <markdown file> > <edoc file>
 
 **Linux**
 	$ sed -r -f markedoc.sed <markdown file> > <edoc file>
 
-Usage for Linux and FreeBSD and Mac OS X is completely the same, except for the -r instead of the -E parameter. Both mean the same but happen to have a different name. In the examples below, replace -E with -r where necessary.
+Usage for Linux and FreeBSD and macOS is completely the same, except for the -r instead of the -E parameter. Both mean the same but happen to have a different name. In the examples below, replace -E with -r where necessary.
 
 Requirements                                          <a name=Requirements></a>
 ------------
@@ -34,7 +34,7 @@ Requirements                                          <a name=Requirements></a>
 Test                                                          <a name=Test></a>
 ----
 
- **FreeBSD, Mac OS X**
+ **FreeBSD, macOS**
 	$ samples/markedoc/test-bsd.sh
 
  **Linux**
@@ -47,7 +47,7 @@ Sample                                                      <a name=Sample></a>
 
 From edown project root, try out:
 
- **FreeBSD, Mac OS X**
+ **FreeBSD, macOS**
 	$ sed -E -f bin/markedoc.sed samples/markedoc/SAMPLE1.md > samples/markedoc/doc/SAMPLE.edoc
 	$ erl -noshell -run edoc_run application "'myapp'" '"samples/markedoc"' '[]'
 
@@ -67,7 +67,7 @@ This illustrates the motivation for the markedoc as it is now: to have all code 
 
 For your own projects you'd copy markedoc.sed in the right place and do something like:
 
- **FreeBSD, Mac OS X**
+ **FreeBSD, macOS**
 	$ sed -E -f bin/markedoc.sed README.md > doc/README.edoc
 	$ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'
 
@@ -79,7 +79,7 @@ And that's it. This could also be part of your Makefile. For the intermediary RE
 
 	@docfile "doc/README.edoc"
 
-By running sed, then edoc, this makes the README.edoc part of the overview page. You could also make the README.md straight into an overview.edoc but the way it is allows allows to embed it into additional context information that should be useful for a proper html doc.
+By running sed, then edoc, this makes the README.edoc part of the overview page. You could also make the README.md straight into an overview.edoc but the way it is allows to embed it into additional context information that should be useful for a proper html doc.
 
 Accordingly, the sample stub overview.edoc used for the samples here, looks like this:
 
@@ -102,7 +102,7 @@ both worlds:
 
 
 This makes a tag `[example][]' into a direct jump to the headline 'Example', in both markdown and edoc.
-Markdown actually uses the `[sample]: #sample' reference. EDoc, however, automatically inserts an anchor for 'Example' being a headline, and of the same name. (The links are not case sensitive.)
+Markdown actually uses the `[sample]: #sample' reference. EDoc, however, automatically inserts an anchor for 'Example' being a headline, and of the same name. (The links are not case-sensitive.)
 If you get the reference wrong or forget to make it, the link tag will be displayed in the open, as actual `[example][]'.
 
 
@@ -156,14 +156,14 @@ History
 
 * integrated into edown
 
-02/05/11 - 0.3.1 - **more polish** - Linux, FreeBSD, Mac OS X
+02/05/11 - 0.3.1 - **more polish** - Linux, FreeBSD, macOS
 
 * added weeding out of markdown anchor references (an md workaround)
 * added protection for & (but edoc still only accepts number codes)
 * fixed trip up by trailing spaces in underline headline format
 * checked commented out alternate code for code blocks and references.
 
-02/03/11 - 0.3 - **rough edges polished** - Linux, FreeBSD, Mac OS X
+02/03/11 - 0.3 - **rough edges polished** - Linux, FreeBSD, macOS
 
 * added doc for Linux use
 * added support for multi-line '[..]: ... "..."' references
@@ -173,12 +173,12 @@ History
 * guillemots <<, >> and middle dot ::
 * added test batches etc/test-bsd.sh and etc/test-linux.sh
 * added css sample in samples/markedoc/what-you-could-see/
-* added classes for ``< li >'' list item tags for '[..]:...'-references
-* fixed italic and bold merker interference bullet points
-* eliminated [..]: part of '[..]:...'-references, flipping "..." to lead
+* added classes for ``< li >`` list item tags for `[..]:...`-references
+* fixed italic and bold marker interference bullet points
+* eliminated [..]: part of `[..]:...`-references, flipping "..." to lead
 * dev: sample creation batch make_samples.sh added
 
-02/02/11 - 0.2 - **basics complete** - FreeBSD / Mac OS X
+02/02/11 - 0.2 - **basics complete** - FreeBSD / macOS
 
 * added support for === and --- headline format
 * fixed cutting off of last lines
@@ -188,7 +188,7 @@ History
 * eliminated need for echoing '@doc' first into edoc output file
 * added javascript title tag setting for '[..]:...'-style references.
 
-01/31/11 - 0.1 - **first release:** FreeBSD / Mac OS X
+01/31/11 - 0.1 - **first release:** FreeBSD / macOS
 
 [Requirements]: #Requirements
 [Status]: #Status

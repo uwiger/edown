@@ -1,6 +1,6 @@
 %% -*- erlang -*-
 %%
-%% This helper script checks if doc is being built, otherwise removes edoc dep.
+%% This helper script checks if doc is being built; otherwise, removes edoc dep.
 %% To build docs, call `rebar get-deps doc`
 %% Assumes that the rebar config is bound to CONFIG
 

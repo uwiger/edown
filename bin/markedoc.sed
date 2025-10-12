@@ -46,7 +46,7 @@
 # **********************************************************
 # SCRIPT
 # **********************************************************
-# Ach, da kommt der Meister! Herr, die Not ist groﬂ!   ~~~
+# Ach, da kommt der Meister! Herr, die Not ist gro√ü!   ~~~
 #   ~~~  Die ich rief, die Geister, Werd ich nun nicht los.
 # ----------------------------------------------------------
 # This is a sed script for use with -E/-r regexes & NOT -n.

@@ -253,7 +253,7 @@ H. Diedrich <a href="mailto:hd2010@eonblast.com">hd2010@eonblast.com</a>
 <li> added test batches etc/test-bsd.sh and etc/test-linux.sh</li>
 <li> added css sample in samples/what-you-could-see/ </li>
 <li> added classes for `<li>' list item tags for '[..]:...'-references</li>
-<li> fixed italic and bold merker interference bullet points</li>
+<li> fixed italic and bold marker interference bullet points</li>
 <li> eliminated [..]: part of '[..]:...'-references, flipping "..." to lead</li>
 <li> dev: sample creation batch make_samples.sh added</li>
 ```

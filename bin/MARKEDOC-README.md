@@ -174,7 +174,7 @@ History
 * added test batches etc/test-bsd.sh and etc/test-linux.sh
 * added css sample in samples/markedoc/what-you-could-see/
 * added classes for ``< li >`` list item tags for `[..]:...`-references
-* fixed italic and bold merker interference bullet points
+* fixed italic and bold marker interference bullet points
 * eliminated [..]: part of `[..]:...`-references, flipping "..." to lead
 * dev: sample creation batch make_samples.sh added
 

@@ -114,7 +114,7 @@
 	s/([ 	\"\'\`]+@)/\1@/g
 	# send result to stdout
 	p
-	# Now make sure that that last line is not lost:
+	# Now make sure that the last line is not lost:
 	# ----------------------------------------------
 	# get stored back
 	g

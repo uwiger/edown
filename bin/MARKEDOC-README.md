@@ -102,7 +102,7 @@ both worlds:
 
 
 This makes a tag `[example][]' into a direct jump to the headline 'Example', in both markdown and edoc.
-Markdown actually uses the `[sample]: #sample' reference. EDoc, however, automatically inserts an anchor for 'Example' being a headline, and of the same name. (The links are not case sensitive.)
+Markdown actually uses the `[sample]: #sample' reference. EDoc, however, automatically inserts an anchor for 'Example' being a headline, and of the same name. (The links are not case-sensitive.)
 If you get the reference wrong or forget to make it, the link tag will be displayed in the open, as actual `[example][]'.
 
 

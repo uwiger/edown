@@ -94,7 +94,7 @@ specified, no stylesheet reference will be generated.
 
 
 <dd>If <code>true</code>, the detailed function descriptions are listed by
-name, otherwise they are listed in the order of occurrence in
+name; otherwise, they are listed in the order of occurrence in
 the source file. The default value is <code>true</code>.
 </dd>
 

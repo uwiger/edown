@@ -162,7 +162,7 @@ your `README.md` to an `EDoc` file.
 
 See [bin/MARKEDOC-README.md](http://github.com/uwiger/edown/blob/master/bin/MARKEDOC-README.md).
 
-**FreeBSD, Mac OS X**`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
+**FreeBSD, macOS**`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
 
 **Linux**`$ sed -r -f markedoc.sed <markdown file> > <edoc file>`
 

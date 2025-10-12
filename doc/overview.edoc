@@ -148,7 +148,7 @@ your `README.md' to an `EDoc' file.
 
 See <a href="bin/MARKEDOC-README.md">bin/MARKEDOC-README.md</a>.
 
-**FreeBSD, Mac OS X**
+**FreeBSD, macOS**
 	`$ sed -E -f markedoc.sed <markdown file> > <edoc file>'
 
 **Linux**

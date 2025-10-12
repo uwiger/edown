@@ -20,7 +20,7 @@
 
  <p><b>markedoc helps you keep your project's README.md in sync with your overview.edoc.</b></p>
 
-<p>It is for use on Linux, FreeBSD and Mac OS X and any system that you can install  <b><a href="javascript:goto('Requirements')" onMouseOver="this.title=url('Requirements')">sed</a></b> on.</p>
+<p>It is for use on Linux, FreeBSD and macOS and any system that you can install  <b><a href="javascript:goto('Requirements')" onMouseOver="this.title=url('Requirements')">sed</a></b> on.</p>
 
 <p>Status: <a href="javascript:goto('Status')" onMouseOver="this.title=url('Status')">pre-beta</a>. Quite stable and usable. See <a href="javascript:goto('Status')" onMouseOver="this.title=url('Status')">Status</a>.</p>
 
@@ -37,13 +37,13 @@
 <h4><a name="Use">Use</a></h4><p>
 At the command line for</p>
 
-<b>FreeBSD, Mac OS X</b>
+<b>FreeBSD, macOS</b>
 <pre> $ sed -E -f markedoc.sed &lt;markdown file&gt; &gt; &lt;edoc file&gt;</pre>
 
 <b>Linux</b>
 <pre> $ sed -r -f markedoc.sed &lt;markdown file&gt; &gt; &lt;edoc file&gt;</pre>
 
-<p>Usage for Linux and FreeBSD and Mac OS X is completely the same, except for the -r instead of the -E parameter. Both mean the same but happen to have a different name. In the examples below, replace -E with -r where necessary.</p>
+<p>Usage for Linux and FreeBSD and macOS is completely the same, except for the -r instead of the -E parameter. Both mean the same but happen to have a different name. In the examples below, replace -E with -r where necessary.</p>
 
 <h4><a name="Requirements">Requirements</a></h4><p>
 <li> <b><a href="javascript:goto('sed')" onMouseOver="this.title=url('sed')">sed</a></b>: is part of any Linux, FreeBSD and Mac OSX distribution, also see <a href="javascript:goto('Notes')" onMouseOver="this.title=url('Notes')">Notes</a>.</li></p>
@@ -52,7 +52,7 @@ At the command line for</p>
 
 <h4><a name="Test">Test</a></h4>
 
- <b>FreeBSD, Mac OS X</b>
+ <b>FreeBSD, macOS</b>
 <pre> $ etc/test-bsd.sh</pre>
 
  <b>Linux</b>
@@ -64,7 +64,7 @@ At the command line for</p>
 
 <p>From project root (were the README.md file is), try out:</p>
 
- <b>FreeBSD, Mac OS X</b>
+ <b>FreeBSD, macOS</b>
 <pre> $ sed -E -f bin/markedoc.sed samples/SAMPLE1.md &gt; samples/doc/SAMPLE.edoc
  $ erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'</pre>
 
@@ -84,7 +84,7 @@ At the command line for</p>
 
 <p>For your own projects you'd copy markedoc.sed in the right place and do something like:</p>
 
- <b>FreeBSD, Mac OS X</b>
+ <b>FreeBSD, macOS</b>
 <pre> $ sed -E -f bin/markedoc.sed README.md &gt; doc/README.edoc
  $ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'</pre>
 
@@ -215,7 +215,7 @@ H. Diedrich <a href="mailto:hd2010@eonblast.com">hd2010@eonblast.com</a></p>
 
 <h4><a name="History">History</a></h4>
 <pre></pre><p>
-02/03/11 - 0.3 - <b>rough edges polished:</b> Linux, FreeBSD, Mac OS X</p>
+02/03/11 - 0.3 - <b>rough edges polished:</b> Linux, FreeBSD, macOS</p>
 
 <li> added doc for Linux use</li>
 <li> added support for multi-line '[..]: ... "..."' references</li>
@@ -230,7 +230,7 @@ H. Diedrich <a href="mailto:hd2010@eonblast.com">hd2010@eonblast.com</a></p>
 <li> eliminated [..]: part of '[..]:...'-references, flipping "..." to lead</li>
 <li> dev: sample creation batch make_samples.sh added</li>
 <pre></pre><p>
-02/02/11 - 0.2 - <b>basics complete:</b> FreeBSD / Mac OS X</p>
+02/02/11 - 0.2 - <b>basics complete:</b> FreeBSD / macOS</p>
 
 <li> added support for === and --- headline format</li>
 <li> fixed cutting off of last lines </li>
@@ -240,7 +240,7 @@ H. Diedrich <a href="mailto:hd2010@eonblast.com">hd2010@eonblast.com</a></p>
 <li> eliminated need for echoing '@doc' first into edoc output file</li>
 <li> added javascript title tag setting for '[..]:...'-style references.</li>
 <pre></pre>
-01/31/11 - 0.1 - <b>first release:</b> FreeBSD / Mac OS X
+01/31/11 - 0.1 - <b>first release:</b> FreeBSD / macOS
 <pre></pre>
 <script>
 // Jump directly to a referenced url given in trailing '[]:...'-notation

@@ -11,7 +11,7 @@ SAMPLE 3: markedoc 0.3 README of Feb 2011
 
  **markedoc helps you keep your project's README.md in sync with your overview.edoc.**
 
-It is for use on Linux, FreeBSD and Mac OS X and any system that you can install  **[sed][Requirements]** on.
+It is for use on Linux, FreeBSD and macOS and any system that you can install  **[sed][Requirements]** on.
 
 Status: [pre-beta][Status]. Quite stable and usable. See [Status][].
 
@@ -29,13 +29,13 @@ Use
 ---
 At the command line for
 
-**FreeBSD, Mac OS X**
+**FreeBSD, macOS**
 	$ sed -E -f markedoc.sed <markdown file> > <edoc file>
 
 **Linux**
 	$ sed -r -f markedoc.sed <markdown file> > <edoc file>
 
-Usage for Linux and FreeBSD and Mac OS X is completely the same, except for the -r instead of the -E parameter. Both mean the same but happen to have a different name. In the examples below, replace -E with -r where necessary.
+Usage for Linux and FreeBSD and macOS is completely the same, except for the -r instead of the -E parameter. Both mean the same but happen to have a different name. In the examples below, replace -E with -r where necessary.
 
 Requirements
 ------------
@@ -46,7 +46,7 @@ Requirements
 Test
 ----
 
- **FreeBSD, Mac OS X**
+ **FreeBSD, macOS**
 	$ etc/test-bsd.sh
 
  **Linux**
@@ -59,7 +59,7 @@ Sample
 
 From project root (were the README.md file is), try out:
 
- **FreeBSD, Mac OS X**
+ **FreeBSD, macOS**
 	$ sed -E -f bin/markedoc.sed samples/SAMPLE1.md > samples/doc/SAMPLE.edoc
 	$ erl -noshell -run edoc_run application "'myapp'" '"samples"' '[]'
 
@@ -79,7 +79,7 @@ This illustrates the motivation for the markedoc as it is now: to have all code 
 
 For your own projects you'd copy markedoc.sed in the right place and do something like:
 
- **FreeBSD, Mac OS X**
+ **FreeBSD, macOS**
 	$ sed -E -f bin/markedoc.sed README.md > doc/README.edoc
 	$ erl -noshell -run edoc_run application "'myapp'" '"."' '[]'
 
@@ -219,7 +219,7 @@ H. Diedrich <hd2010@eonblast.com>
 History
 -------
 
-02/03/11 - 0.3 - **rough edges polished:** Linux, FreeBSD, Mac OS X
+02/03/11 - 0.3 - **rough edges polished:** Linux, FreeBSD, macOS
 
 * added doc for Linux use
 * added support for multi-line '[..]: ... "..."' references
@@ -234,7 +234,7 @@ History
 * eliminated [..]: part of '[..]:...'-references, flipping "..." to lead
 * dev: sample creation batch make_samples.sh added
 
-02/02/11 - 0.2 - **basics complete:** FreeBSD / Mac OS X
+02/02/11 - 0.2 - **basics complete:** FreeBSD / macOS
 
 * added support for === and --- headline format
 * fixed cutting off of last lines
@@ -244,4 +244,4 @@ History
 * eliminated need for echoing '@doc' first into edoc output file
 * added javascript title tag setting for '[..]:...'-style references.
 
-01/31/11 - 0.1 - **first release:** FreeBSD / Mac OS X
+01/31/11 - 0.1 - **first release:** FreeBSD / macOS

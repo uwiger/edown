@@ -1,4 +1,4 @@
-echo -n "testing markedoc - FreeBSD / Mac OS X:  "
+echo -n "testing markedoc - FreeBSD / macOS:  "
 
 echo -n "1 ... "
 sed -E -f bin/markedoc.sed samples/markedoc/SAMPLE1.md > samples/markedoc/doc/SAMPLE.edoc
